@@ -21,4 +21,8 @@
     <ProjectReference Include="..\VaatcoBMS.Domain\VaatcoBMS.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistence\" />
+  </ItemGroup>
+
 </Project>

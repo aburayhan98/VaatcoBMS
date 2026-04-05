@@ -12,5 +12,5 @@ public class InvoiceItem
 	public decimal UnitPrice { get; set; }
 	public decimal Total => Quantity * UnitPrice;
 	public Invoice Invoice { get; set; } = null!;
+	public Product Product { get; set; } = null!;
 }
-	//public Product Product { get; set; } = null!; }
