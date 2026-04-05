@@ -18,6 +18,6 @@ public class AppDbContext : DbContext
 	{
 		base.OnModelCreating(modelBuilder);
 		modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
-		// Configure entity relationships, constraints, etc. here
+
 	}
 }
