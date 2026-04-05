@@ -3,3 +3,8 @@
 ################################################################################
 
 /.vs/VaatcoBMS
+# Visual Studio cache/options directory
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
