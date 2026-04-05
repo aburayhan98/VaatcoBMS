@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VaatcoBMS.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e502fa864db02921a65e2b62d54de75c20d7601b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aa8c41e14c1ee523d8e266913db3e2b4314a1a9f")]
 [assembly: System.Reflection.AssemblyProductAttribute("VaatcoBMS.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VaatcoBMS.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

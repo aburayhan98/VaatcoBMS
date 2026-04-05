@@ -1,5 +1,7 @@
 ﻿
 
+using VaatcoBMS.Domain.Enums;
+
 namespace VaatcoBMS.Domain.Entities;
 
 public class Invoice
