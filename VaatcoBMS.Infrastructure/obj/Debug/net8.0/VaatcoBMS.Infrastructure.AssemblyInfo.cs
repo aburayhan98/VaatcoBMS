@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VaatcoBMS.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ac4feb63f8c7d426da7a6831961799cc79e6bcbb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d0d122d85deefe74924e67ef9ea9ea40346c4be0")]
 [assembly: System.Reflection.AssemblyProductAttribute("VaatcoBMS.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VaatcoBMS.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
