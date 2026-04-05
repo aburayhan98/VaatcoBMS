@@ -1,7 +1,68 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "H:\\VaatcoBMS\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EC509ED3-E04D-4AC2-9183-61571FF8A853}|VaatcoBMS.Infrastructure\\VaatcoBMS.Infrastructure.csproj|h:\\vaatcobms\\vaatcobms.infrastructure\\persistence\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC509ED3-E04D-4AC2-9183-61571FF8A853}|VaatcoBMS.Infrastructure\\VaatcoBMS.Infrastructure.csproj|solutionrelative:vaatcobms.infrastructure\\persistence\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|h:\\vaatcobms\\vaatcobms.domain\\entities\\invoiceitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|solutionrelative:vaatcobms.domain\\entities\\invoiceitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|h:\\vaatcobms\\vaatcobms.domain\\interfaces\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|solutionrelative:vaatcobms.domain\\interfaces\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|h:\\vaatcobms\\vaatcobms.domain\\interfaces\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|solutionrelative:vaatcobms.domain\\interfaces\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|h:\\vaatcobms\\vaatcobms.domain\\entities\\invoice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|solutionrelative:vaatcobms.domain\\entities\\invoice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|h:\\vaatcobms\\vaatcobms.domain\\interfaces\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|solutionrelative:vaatcobms.domain\\interfaces\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|h:\\vaatcobms\\vaatcobms.domain\\interfaces\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|solutionrelative:vaatcobms.domain\\interfaces\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|h:\\vaatcobms\\vaatcobms.domain\\interfaces\\iinvoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|solutionrelative:vaatcobms.domain\\interfaces\\iinvoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|h:\\vaatcobms\\vaatcobms.domain\\interfaces\\icustomerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|solutionrelative:vaatcobms.domain\\interfaces\\icustomerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|h:\\vaatcobms\\vaatcobms.domain\\enums\\invoicestatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|solutionrelative:vaatcobms.domain\\enums\\invoicestatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|h:\\vaatcobms\\vaatcobms.domain\\entities\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|solutionrelative:vaatcobms.domain\\entities\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|h:\\vaatcobms\\vaatcobms.domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|solutionrelative:vaatcobms.domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|h:\\vaatcobms\\vaatcobms.domain\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|solutionrelative:vaatcobms.domain\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|h:\\vaatcobms\\vaatcobms.domain\\enums\\userrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|solutionrelative:vaatcobms.domain\\enums\\userrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|h:\\vaatcobms\\vaatcobms.domain\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5FB66018-6E6C-49A6-8657-B5A5A2AD5F71}|VaatcoBMS.Domain\\VaatcoBMS.Domain.csproj|solutionrelative:vaatcobms.domain\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +70,206 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "H:\\VaatcoBMS\\VaatcoBMS.Infrastructure\\Persistence\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "VaatcoBMS.Infrastructure\\Persistence\\AppDbContext.cs",
+              "ToolTip": "H:\\VaatcoBMS\\VaatcoBMS.Infrastructure\\Persistence\\AppDbContext.cs",
+              "RelativeToolTip": "VaatcoBMS.Infrastructure\\Persistence\\AppDbContext.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA8AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T17:05:47.1Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Interfaces\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "VaatcoBMS.Domain\\Interfaces\\IUserRepository.cs",
+              "ToolTip": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Interfaces\\IUserRepository.cs",
+              "RelativeToolTip": "VaatcoBMS.Domain\\Interfaces\\IUserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T16:56:11.324Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IProductRepository.cs",
+              "DocumentMoniker": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Interfaces\\IProductRepository.cs",
+              "RelativeDocumentMoniker": "VaatcoBMS.Domain\\Interfaces\\IProductRepository.cs",
+              "ToolTip": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Interfaces\\IProductRepository.cs",
+              "RelativeToolTip": "VaatcoBMS.Domain\\Interfaces\\IProductRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T16:36:12.307Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ICustomerRepository.cs",
+              "DocumentMoniker": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Interfaces\\ICustomerRepository.cs",
+              "RelativeDocumentMoniker": "VaatcoBMS.Domain\\Interfaces\\ICustomerRepository.cs",
+              "ToolTip": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Interfaces\\ICustomerRepository.cs",
+              "RelativeToolTip": "VaatcoBMS.Domain\\Interfaces\\ICustomerRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T15:50:23.137Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IInvoiceRepository.cs",
+              "DocumentMoniker": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Interfaces\\IInvoiceRepository.cs",
+              "RelativeDocumentMoniker": "VaatcoBMS.Domain\\Interfaces\\IInvoiceRepository.cs",
+              "ToolTip": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Interfaces\\IInvoiceRepository.cs",
+              "RelativeToolTip": "VaatcoBMS.Domain\\Interfaces\\IInvoiceRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T15:47:35.025Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IUnitOfWork.cs",
+              "DocumentMoniker": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Interfaces\\IUnitOfWork.cs",
+              "RelativeDocumentMoniker": "VaatcoBMS.Domain\\Interfaces\\IUnitOfWork.cs",
+              "ToolTip": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Interfaces\\IUnitOfWork.cs",
+              "RelativeToolTip": "VaatcoBMS.Domain\\Interfaces\\IUnitOfWork.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAcAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T15:44:13.037Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IRepository.cs",
+              "DocumentMoniker": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Interfaces\\IRepository.cs",
+              "RelativeDocumentMoniker": "VaatcoBMS.Domain\\Interfaces\\IRepository.cs",
+              "ToolTip": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Interfaces\\IRepository.cs",
+              "RelativeToolTip": "VaatcoBMS.Domain\\Interfaces\\IRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T14:03:36.678Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Customer.cs",
+              "DocumentMoniker": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Entities\\Customer.cs",
+              "RelativeDocumentMoniker": "VaatcoBMS.Domain\\Entities\\Customer.cs",
+              "ToolTip": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Entities\\Customer.cs",
+              "RelativeToolTip": "VaatcoBMS.Domain\\Entities\\Customer.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAsAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T14:00:11.688Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Product.cs",
+              "DocumentMoniker": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Entities\\Product.cs",
+              "RelativeDocumentMoniker": "VaatcoBMS.Domain\\Entities\\Product.cs",
+              "ToolTip": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Entities\\Product.cs",
+              "RelativeToolTip": "VaatcoBMS.Domain\\Entities\\Product.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T13:55:55.039Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "InvoiceStatus.cs",
+              "DocumentMoniker": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Enums\\InvoiceStatus.cs",
+              "RelativeDocumentMoniker": "VaatcoBMS.Domain\\Enums\\InvoiceStatus.cs",
+              "ToolTip": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Enums\\InvoiceStatus.cs",
+              "RelativeToolTip": "VaatcoBMS.Domain\\Enums\\InvoiceStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T13:28:59.999Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "UserRole.cs",
+              "DocumentMoniker": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Enums\\UserRole.cs",
+              "RelativeDocumentMoniker": "VaatcoBMS.Domain\\Enums\\UserRole.cs",
+              "ToolTip": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Enums\\UserRole.cs",
+              "RelativeToolTip": "VaatcoBMS.Domain\\Enums\\UserRole.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T13:28:20.369Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Invoice.cs",
+              "DocumentMoniker": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Entities\\Invoice.cs",
+              "RelativeDocumentMoniker": "VaatcoBMS.Domain\\Entities\\Invoice.cs",
+              "ToolTip": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Entities\\Invoice.cs",
+              "RelativeToolTip": "VaatcoBMS.Domain\\Entities\\Invoice.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAywBAAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T13:25:40.439Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "User.cs",
+              "DocumentMoniker": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "VaatcoBMS.Domain\\Entities\\User.cs",
+              "ToolTip": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Entities\\User.cs",
+              "RelativeToolTip": "VaatcoBMS.Domain\\Entities\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T13:23:56.449Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "InvoiceItem.cs",
+              "DocumentMoniker": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Entities\\InvoiceItem.cs",
+              "RelativeDocumentMoniker": "VaatcoBMS.Domain\\Entities\\InvoiceItem.cs",
+              "ToolTip": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Entities\\InvoiceItem.cs",
+              "RelativeToolTip": "VaatcoBMS.Domain\\Entities\\InvoiceItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T13:26:25.886Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Class1.cs",
+              "RelativeDocumentMoniker": "VaatcoBMS.Domain\\Class1.cs",
+              "ToolTip": "H:\\VaatcoBMS\\VaatcoBMS.Domain\\Class1.cs",
+              "RelativeToolTip": "VaatcoBMS.Domain\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-05T13:19:21.536Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
