@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using VaatcoBMS.Domain.Entities;
 using VaatcoBMS.Domain.Enums;
 using VaatcoBMS.Domain.Interfaces;
