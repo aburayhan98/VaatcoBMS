@@ -29,7 +29,7 @@ public class InvoiceRepository(AppDbContext ctx) : Repository<Invoice>(ctx), IIn
 		return await _set.Where(i => i.CustomerId == customerId).ToListAsync();
 	}
 
-	public async Task<IEnumerable<Invoice>> GetByUserAsync(Guid userId)
+	public async Task<IEnumerable<Invoice>> GetByUserAsync(int userId)
 	{
 		return await _set.Where(i => i.CreatedByUserId == userId).ToListAsync();
 	}
