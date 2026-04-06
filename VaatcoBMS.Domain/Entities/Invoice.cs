@@ -4,9 +4,11 @@ namespace VaatcoBMS.Domain.Entities;
 
 public class Invoice : BaseEntityWithAudit
 {
-	public string InvoiceNumber { get; set; } = string.Empty; 
+	public string InvoiceNumber { get; set; } = string.Empty;
 	public int CustomerId { get; set; }
-	public Guid CreatedByUserId { get; set; }
+
+	// FIXED: Changed Guid to int to match User.Id
+	public int CreatedByUserId { get; set; }
 	public DateTime InvoiceDate { get; set; }
 	public decimal Subtotal { get; set; }
 	public decimal Discount { get; set; }
