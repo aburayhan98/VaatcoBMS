@@ -1,10 +1,9 @@
 ﻿
 namespace VaatcoBMS.Domain.Entities;
 
-public class Customer
+public class Customer : BaseEntity
 {
-	public int Id { get; set; }
-
+	
 	// Business name
 	public string Name { get; set; } = string.Empty;
 

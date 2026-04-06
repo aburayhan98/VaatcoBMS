@@ -5,7 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using VaatcoBMS.Application;
-using VaatcoBMS.Application.Seetings;
+using VaatcoBMS.Application.Settings;
 using VaatcoBMS.Domain.Entities;
 
 namespace VaatcoBMS.Infrastructure.Utility;

@@ -2,9 +2,8 @@
 
 namespace VaatcoBMS.Domain.Entities;
 
-public class InvoiceItem
+public class InvoiceItem : BaseEntityWithAudit
 {
-	public int Id { get; set; }
 	public int InvoiceId { get; set; }
 	public int ProductId { get; set; }
 	public int Quantity { get; set; }

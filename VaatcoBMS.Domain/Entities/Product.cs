@@ -4,11 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VaatcoBMS.Domain.Entities;
 
-public class Product
+public class Product : BaseEntity
 {
-	[Key]
-	public int Id { get; set; }
-
 	[Required]
 	[MaxLength(30)]
 	public string Code { get; set; } = string.Empty; // e.g. V104 — unique, enforced at DB/schema level

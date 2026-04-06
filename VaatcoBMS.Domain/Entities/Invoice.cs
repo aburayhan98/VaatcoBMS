@@ -1,12 +1,9 @@
-﻿
-
-using VaatcoBMS.Domain.Enums;
+﻿using VaatcoBMS.Domain.Enums;
 
 namespace VaatcoBMS.Domain.Entities;
 
-public class Invoice
+public class Invoice : BaseEntityWithAudit
 {
-	public int Id { get; set; }
 	public string InvoiceNumber { get; set; } = string.Empty; 
 	public int CustomerId { get; set; }
 	public Guid CreatedByUserId { get; set; }
@@ -17,9 +14,7 @@ public class Invoice
 	public decimal TotalAmount { get; set; }
 	public InvoiceStatus Status { get; set; } = InvoiceStatus.Draft; 
 	public string? Notes { get; set; }
-	public DateTime CreatedAt { get; set; } = DateTime.UtcNow; 
-	public DateTime? UpdatedAt { get; set; }
 	public Customer Customer { get; set; } = null!; 
 	public User CreatedBy { get; set; } = null!; 
 	public ICollection<InvoiceItem> Items { get; set; } = new List<InvoiceItem>();
-}// Navigation properties public Customer Customer { get; set; } = null!; public User CreatedBy { get; set; } = null!; public ICollection<InvoiceItem> Items { get; set; } = new List<InvoiceItem>();
+}
