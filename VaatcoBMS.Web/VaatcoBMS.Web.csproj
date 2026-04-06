@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>de71252c-2ae7-488b-9f69-96e787a7538a</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VaatcoBMS.Application\VaatcoBMS.Application.csproj" />
+    <ProjectReference Include="..\VaatcoBMS.Infrastructure\VaatcoBMS.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
