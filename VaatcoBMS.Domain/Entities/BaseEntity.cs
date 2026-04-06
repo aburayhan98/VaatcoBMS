@@ -10,13 +10,23 @@ public class BaseEntity
 
 public class BaseEntityWithAudit : BaseEntity
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	public int UpdatedBy { get; set; }
+    /// <summary>
+    /// User ID of the creator
+    /// </summary>
+    public int CreatedBy { get; set; }
 
-	/// <summary>
-	/// 
-	/// </summary>
-	public DateTime UpdatedAt { get; set; }
+    /// <summary>
+    /// Time of creation
+    /// </summary>
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    /// <summary>
+    /// User ID of the last updater
+    /// </summary>
+    public int? UpdatedBy { get; set; }
+
+    /// <summary>
+    /// Time of last update
+    /// </summary>
+    public DateTime? UpdatedAt { get; set; }
 }
