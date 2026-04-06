@@ -26,6 +26,10 @@ public class UnitOfWork : IUnitOfWork
 	{
 		await _ctx.SaveChangesAsync();
 	}
+	public async Task<int> SaveChangesAsync()
+	{
+		return await _ctx.SaveChangesAsync();
+	}
 	public void Dispose()
 	{
 		_ctx.Dispose();

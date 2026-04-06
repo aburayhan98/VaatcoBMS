@@ -31,7 +31,7 @@ public class InvoiceRepository(AppDbContext ctx) : Repository<Invoice>(ctx), IIn
 
 	public async Task<IEnumerable<Invoice>> GetByUserAsync(int userId)
 	{
-		return await _set.Where(i => i.CreatedByUserId == userId).ToListAsync();
+		return await _set.Where(i => i.CreatorUser.Id == userId).ToListAsync();
 	}
 
 	public async Task<string> GetNextInvoiceNumberAsync()
