@@ -31,7 +31,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 // 4. Register Services & Utilities
 builder.Services.AddScoped<IEmailService, EmailService>();
 // Assuming these match the interfaces and classes you created based on your open files
- //builder.Services.AddScoped<IJWTService>, JWTService>();
+ //builder.Services.AddScoped<IJwtService, JWTService>();
  builder.Services.AddScoped<ItokenBuilder, TokenBuilder>();
  builder.Services.AddScoped<HashService>();
 
