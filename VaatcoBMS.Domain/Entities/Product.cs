@@ -1,6 +1,6 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using VaatcoBMS.Domain.Enums;
 
 namespace VaatcoBMS.Domain.Entities;
 
@@ -23,18 +23,54 @@ public class Product : BaseEntity
 	public decimal Price { get; set; }
 
 	/// <summary>
-	/// Current stock. Defaults to 0.
+	/// Threshold for low stock warning. Defaults to 5.
 	/// </summary>
-	public int StockQuantity { get; set; } = 0;
+	public int LowStockThreshold { get; set; } = 5;
+
+	private int _stockQuantity = 0;
 
 	/// <summary>
-	/// Soft delete flag. Defaults to true.
+	/// Current stock. Setting this automatically updates the StockStatus.
 	/// </summary>
+	public int StockQuantity 
+	{ 
+		get => _stockQuantity; 
+		set 
+		{
+			_stockQuantity = value;
+			UpdateStockStatus();
+		}
+	}
+
+	/// <summary>
+	/// Strongly typed domain status.
+	/// </summary>
+	public StockStatus StockStatus { get; private set; } = StockStatus.OutOfStock;
+
+	/// <summary>
+	/// Computed representation specifically for satisfying the UI / ProductDto string formatting.
+	/// </summary>
+
 	public bool IsActive { get; set; } = true;
 
-	/// <summary>
-	/// Row timestamp / created at. Populated when entity is created.
-	/// </summary>
 	[Required]
 	public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+	public void Discontinue()
+	{
+		StockStatus = StockStatus.Discontinued;
+	}
+
+	private void UpdateStockStatus()
+	{
+		if (StockStatus == StockStatus.Discontinued) 
+			return;
+
+		if (_stockQuantity <= 0)
+			StockStatus = StockStatus.OutOfStock;
+		else if (_stockQuantity <= LowStockThreshold)
+			StockStatus = StockStatus.LowStock;
+		else
+			StockStatus = StockStatus.InStock;
+	}
 }
