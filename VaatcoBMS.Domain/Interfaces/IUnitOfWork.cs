@@ -6,6 +6,7 @@ public interface IUnitOfWork : IDisposable
     ICustomerRepository Customers { get; } 
     IProductRepository Products { get; } 
     IUserRepository Users { get; } 
-    
-    Task<int> SaveChangesAsync(); 
+    IInvoiceItemRepository InvoiceItems { get; }
+
+	Task<int> SaveChangesAsync(); 
 }

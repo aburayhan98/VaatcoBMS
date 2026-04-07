@@ -9,5 +9,7 @@ public interface ICustomerRepository : IRepository<Customer>
 	Task<Customer?> GetByCustomerAsync(string ContactPerson, CancellationToken cancellationToken = default);
 	Task<bool> IsEmailUniqueAsync(string email, CancellationToken cancellationToken = default);
 	Task<IEnumerable<Customer>> SearchAsync(string searchTerm, CancellationToken cancellationToken = default);
+	//GetByCodeAsync
+	 
 }
 
