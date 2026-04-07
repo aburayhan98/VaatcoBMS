@@ -12,7 +12,7 @@ public class InvoiceItem : BaseEntityWithAudit
 	public int Quantity { get; set; }
 	public int BonusQuantity { get; set; } = 0;
 	public decimal UnitPrice { get; set; }
-	public decimal Total => Quantity * UnitPrice;
+	public decimal Total { get; set; }
 	public Invoice Invoice { get; set; } = null!;
 	public Product Product { get; set; } = null!;
 }
