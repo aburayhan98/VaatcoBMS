@@ -1,4 +1,6 @@
-﻿namespace VaatcoBMS.Application.DTOs;
+﻿using VaatcoBMS.Application.DTOs.InvoiceItem;
+
+namespace VaatcoBMS.Application.DTOs.Invoice;
 
 public class InvoiceDto
 {

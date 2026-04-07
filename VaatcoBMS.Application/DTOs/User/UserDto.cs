@@ -1,6 +1,6 @@
 using VaatcoBMS.Domain.Enums;
 
-namespace VaatcoBMS.Application.DTOs;
+namespace VaatcoBMS.Application.DTOs.User;
 
 public class UserDto
 {
