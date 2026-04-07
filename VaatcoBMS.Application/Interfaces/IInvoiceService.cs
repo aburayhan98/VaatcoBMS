@@ -1,5 +1,4 @@
-﻿
-using VaatcoBMS.Application.DTOs;
+﻿using VaatcoBMS.Application.DTOs.Invoice;
 using VaatcoBMS.Domain.Enums;
 
 namespace VaatcoBMS.Application.Interfaces;
