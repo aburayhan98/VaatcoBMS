@@ -2,6 +2,7 @@
 
 public class InvoiceItemDto
 {
+	public int InvoiceId { get; set; }
 	public int ProductId { get; set; }
 	public string ProductName { get; set; } = string.Empty;
 	public string ProductCode { get; set; } = string.Empty;
