@@ -1,8 +1,10 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using VaatcoBMS.Application.Interfaces;
+using VaatcoBMS.Application.Services;
 using VaatcoBMS.Application.Settings;
 using VaatcoBMS.Domain.Interfaces;
 using VaatcoBMS.Infrastructure.Persistence;
@@ -28,11 +30,23 @@ builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+
+// ── Application Services ──────────────────────────────────
+ builder.Services.AddScoped<ICustomerService, CustomerService>(); builder.Services.AddScoped<IProductService, ProductService>();
+ builder.Services.AddScoped<IInvoiceItemService, InvoiceItemService>(); builder.Services.AddScoped<IUserService, UserService>();
+ builder.Services.AddScoped<IProductService, ProductService>();
+ builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+ builder.Services.AddScoped<IUserService, UserService>();
+
+
+
 // 4. Register Services & Utilities
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
 // Assuming these match the interfaces and classes you created based on your open files
- //builder.Services.AddScoped<IJwtService, JWTService>();
- builder.Services.AddScoped<ItokenBuilder, TokenBuilder>();
+//builder.Services.AddScoped<IJwtService, JWTService>();
+builder.Services.AddScoped<ITokenBuilder, TokenBuilder>();
  builder.Services.AddScoped<HashService>();
 
 // 5. Configure JWT Authentication
