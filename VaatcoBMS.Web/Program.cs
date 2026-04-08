@@ -1,11 +1,18 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using VaatcoBMS.Application.DTOs.Customer;
+using VaatcoBMS.Application.DTOs.Invoice;
+using VaatcoBMS.Application.DTOs.InvoiceItem;
+using VaatcoBMS.Application.DTOs.Product;
+using VaatcoBMS.Application.DTOs.User;
 using VaatcoBMS.Application.Interfaces;
 using VaatcoBMS.Application.Services;
 using VaatcoBMS.Application.Settings;
+using VaatcoBMS.Domain.Entities;
 using VaatcoBMS.Domain.Interfaces;
 using VaatcoBMS.Infrastructure.Persistence;
 using VaatcoBMS.Infrastructure.Repositories;
@@ -27,27 +34,43 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+builder.Services.AddScoped<IInvoiceItemRepository, InvoiceItemRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 // ── Application Services ──────────────────────────────────
- builder.Services.AddScoped<ICustomerService, CustomerService>(); builder.Services.AddScoped<IProductService, ProductService>();
- builder.Services.AddScoped<IInvoiceItemService, InvoiceItemService>(); builder.Services.AddScoped<IUserService, UserService>();
- builder.Services.AddScoped<IProductService, ProductService>();
- builder.Services.AddScoped<IInvoiceService, InvoiceService>();
- builder.Services.AddScoped<IUserService, UserService>();
-
+builder.Services.AddScoped<ICustomerService, CustomerService>(); builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IInvoiceItemService, InvoiceItemService>(); builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 
 // 4. Register Services & Utilities
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 // Assuming these match the interfaces and classes you created based on your open files
 //builder.Services.AddScoped<IJwtService, JWTService>();
 builder.Services.AddScoped<ITokenBuilder, TokenBuilder>();
- builder.Services.AddScoped<HashService>();
+builder.Services.AddScoped<HashService>();
+
+
+// Register all validators 
+builder.Services.AddScoped<IValidator<CreateCustomerDto>, CreateCustomerDtoValidator>();
+builder.Services.AddScoped<IValidator<UpdateCustomerDto>, UpdateCustomerDtoValidator>(); builder.Services.AddScoped<IValidator<CreateProductDto>, CreateProductDtoValidator>(); 
+builder.Services.AddScoped<IValidator<UpdateProductDto>, UpdateProductDtoValidator>();
+ builder.Services.AddScoped<IValidator<CreateInvoiceDto>, CreateInvoiceDtoValidator>();
+builder.Services.AddScoped<IValidator<UpdateInvoiceDto>, UpdateInvoiceDtoValidator>();
+
+builder.Services.AddScoped<IValidator<CreateInvoiceItemDto>, CreateInvoiceItemDtoValidator>();
+builder.Services.AddScoped<IValidator<UpdateInvoiceItemDto>, UpdateInvoiceItemDtoValidator>();
+builder.Services.AddScoped<IValidator<UserDto>, UserDtoValidator>();
+
+builder.Services.AddScoped<IValidator<ChangePasswordDto>, ChangePasswordDtoValidator>();
+
 
 // 5. Configure JWT Authentication
 builder.Services.AddAuthentication(options =>
