@@ -7,4 +7,5 @@ public interface IAuthService
 {
     Task<string> LoginAsync(LoginModel model);
     Task<UserDto> RegisterAsync(Register model);
+    Task<bool> VerifyEmailAsync(string token); // NEW
 }
