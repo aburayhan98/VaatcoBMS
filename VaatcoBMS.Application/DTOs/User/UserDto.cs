@@ -10,5 +10,5 @@ public class UserDto
     public UserRole Role { get; set; }
     public bool IsApproved { get; set; }
     public bool EmailConfirmed { get; set; }
-    public DateTime CreatedAt { get; set; }
+	public DateTime CreatedAt { get; set; }
 }

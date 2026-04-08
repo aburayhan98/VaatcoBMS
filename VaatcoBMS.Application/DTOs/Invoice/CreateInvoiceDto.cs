@@ -15,8 +15,9 @@ public class CreateInvoiceDto
     public string? Notes { get; set; }
     
     public decimal? Discount { get; set; }
-    
-    public decimal? TaxRate { get; set; }
+	  public decimal TotalAmount { get; set; }
+
+	public decimal? TaxRate { get; set; }
 
     public List<CreateInvoiceItemDto> Items { get; set; } = [];
 }
