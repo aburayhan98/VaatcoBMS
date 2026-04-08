@@ -1,8 +1,8 @@
-﻿
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using VaatcoBMS.Application;
 using VaatcoBMS.Application.Settings;
@@ -12,15 +12,10 @@ namespace VaatcoBMS.Infrastructure.Utility;
 /// <summary>
 /// Token builder for encoding and decoding JWT tokens
 /// </summary>
-public class TokenBuilder : ItokenBuilder
+public class TokenBuilder(IOptions<JwtSettings>
+		jwtSettings) : ITokenBuilder
 {
-	private JwtSettings _jwtSeetings;
-
-	public TokenBuilder(IOptions<JwtSettings>
-		jwtSeetings)
-	{
-		_jwtSeetings = jwtSeetings.Value;
-	}
+	private readonly JwtSettings _jwtSettings = jwtSettings.Value;
 
 	/// <summary>
 	/// Generate token to validate user email
@@ -30,22 +25,22 @@ public class TokenBuilder : ItokenBuilder
 
 	public AuthToken BuildEmailToken(User user, string sub)
 	{
-		var expirationTime = DateTime.UtcNow.AddDays(_jwtSeetings.EmailValidationTokenExpiration);
+		var expirationTime = DateTime.UtcNow.AddDays(_jwtSettings.EmailValidationTokenExpiration);
 
 		var claims = new List<Claim>
 		{
-		new Claim(JwtRegisteredClaimNames.Sub, sub),
-								new Claim(ClaimTypes.Role, user.Role.ToString()), // FIXED: .ToString() to get string value
-								new Claim(JwtRegisteredClaimNames.Email, user.Email),
-								new Claim(JwtRegisteredClaimNames.Aud, _jwtSeetings.Audience),
-								new Claim(JwtRegisteredClaimNames.Iss, _jwtSeetings.Issuer),
-								new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
-								new Claim(JwtRegisteredClaimNames.Exp, expirationTime.ToString()),
-								new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+		new(JwtRegisteredClaimNames.Sub, sub),
+								new(ClaimTypes.Role, user.Role.ToString()), // FIXED: .ToString() to get string value
+								new(JwtRegisteredClaimNames.Email, user.Email),
+								new(JwtRegisteredClaimNames.Aud, _jwtSettings.Audience),
+								new(JwtRegisteredClaimNames.Iss, _jwtSettings.Issuer),
+								new(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
+								new(JwtRegisteredClaimNames.Exp, expirationTime.ToString()),
+								new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
 		};
 
 		var jwtTokenHandler = new JwtSecurityTokenHandler();
-		var key = Encoding.ASCII.GetBytes(_jwtSeetings.Secret);
+		var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
 
 		var tokenDescriptor = new SecurityTokenDescriptor
 		{
@@ -64,20 +59,20 @@ public class TokenBuilder : ItokenBuilder
 
 	public AuthToken BuildToken(User user)
 	{
-		var expirationTime = DateTime.UtcNow.AddDays(_jwtSeetings.DefaultExpiration);
+		var expirationTime = DateTime.UtcNow.AddDays(_jwtSettings.DefaultExpiration);
 		var claims = new List<Claim>
 		{
-								new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-								new Claim(ClaimTypes.Role, user.Role.ToString()), // FIXED: .ToString() to get string value
-								new Claim(JwtRegisteredClaimNames.Email, user.Email),
-								new Claim(JwtRegisteredClaimNames.Aud, _jwtSeetings.Audience),
-								new Claim(JwtRegisteredClaimNames.Iss, _jwtSeetings.Issuer),
-								new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
-								new Claim(JwtRegisteredClaimNames.Exp, expirationTime.ToString()),
-								new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+								new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+								new(ClaimTypes.Role, user.Role.ToString()), // FIXED: .ToString() to get string value
+								new(JwtRegisteredClaimNames.Email, user.Email),
+								new(JwtRegisteredClaimNames.Aud, _jwtSettings.Audience),
+								new(JwtRegisteredClaimNames.Iss, _jwtSettings.Issuer),
+								new(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
+								new(JwtRegisteredClaimNames.Exp, expirationTime.ToString()),
+								new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
 		};
 		var jwtTokenHandler = new JwtSecurityTokenHandler();
-		var key = Encoding.ASCII.GetBytes(_jwtSeetings.Secret);
+		var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
 		var tokenDescriptor = new SecurityTokenDescriptor
 		{
 			Subject = new ClaimsIdentity(claims),
@@ -97,7 +92,7 @@ public class TokenBuilder : ItokenBuilder
 	public bool IsJwtValid(string token)
 	{
 		var tokenHandler = new JwtSecurityTokenHandler();
-		var key = Encoding.ASCII.GetBytes(_jwtSeetings.Secret);
+		var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
 		try
 		{
 			tokenHandler.ValidateToken(token, new TokenValidationParameters
@@ -107,8 +102,8 @@ public class TokenBuilder : ItokenBuilder
 				ValidateIssuer = true,
 				ValidateAudience = true,
 				ValidateLifetime = true,
-				ValidIssuer = _jwtSeetings.Issuer,
-				ValidAudience = _jwtSeetings.Audience,
+				ValidIssuer = _jwtSettings.Issuer,
+				ValidAudience = _jwtSettings.Audience,
 				ClockSkew = TimeSpan.Zero
 			}, out SecurityToken validatedToken);
 			var jwtToken = (JwtSecurityToken)validatedToken;
@@ -136,8 +131,8 @@ public class TokenBuilder : ItokenBuilder
 			tokenHandler.ValidateToken(token, new TokenValidationParameters
 			{
 				ValidateLifetime = true,
-				ValidIssuer = _jwtSeetings.Issuer,
-				ValidAudience = _jwtSeetings.Audience,
+				ValidIssuer = _jwtSettings.Issuer,
+				ValidAudience = _jwtSettings.Audience,
 				// set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
 				ClockSkew = TimeSpan.Zero
 			}, out SecurityToken validatedToken);
@@ -156,7 +151,7 @@ public class TokenBuilder : ItokenBuilder
 	public dynamic Verify(string token)
 	{
 		var tokenHandler = new JwtSecurityTokenHandler();
-		var key = Encoding.ASCII.GetBytes(_jwtSeetings.Secret);
+		var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
 		try
 		{
 			tokenHandler.ValidateToken(token, new TokenValidationParameters
@@ -166,8 +161,8 @@ public class TokenBuilder : ItokenBuilder
 				ValidateIssuer = true,
 				ValidateAudience = true,
 				ValidateLifetime = true,
-				ValidIssuer = _jwtSeetings.Issuer,
-				ValidAudience = _jwtSeetings.Audience,
+				ValidIssuer = _jwtSettings.Issuer,
+				ValidAudience = _jwtSettings.Audience,
 				ClockSkew = TimeSpan.Zero
 			}, out SecurityToken validatedToken);
 			var jwtToken = (JwtSecurityToken)validatedToken;
@@ -190,7 +185,7 @@ public class TokenBuilder : ItokenBuilder
 	public bool VerifyPasswordResetToken(User user, string token)
 	{
 		var tokenHandler = new JwtSecurityTokenHandler();
-		var key = Encoding.ASCII.GetBytes(_jwtSeetings.Secret);
+		var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
 		try
 		{
 			tokenHandler.ValidateToken(token, new TokenValidationParameters
@@ -200,8 +195,8 @@ public class TokenBuilder : ItokenBuilder
 				ValidateIssuer = true,
 				ValidateAudience = true,
 				ValidateLifetime = true,
-				ValidIssuer = _jwtSeetings.Issuer,
-				ValidAudience = _jwtSeetings.Audience,
+				ValidIssuer = _jwtSettings.Issuer,
+				ValidAudience = _jwtSettings.Audience,
 				ClockSkew = TimeSpan.Zero
 			}, out SecurityToken validatedToken);
 			var jwtToken = (JwtSecurityToken)validatedToken;
@@ -222,9 +217,8 @@ public class TokenBuilder : ItokenBuilder
 	public IEnumerable<Claim> GetClaims(string token)
 	{
 		var handler = new JwtSecurityTokenHandler();
-		JwtSecurityToken securityToken = handler.ReadToken(token) as JwtSecurityToken;
 
-		if(securityToken == null)
+		if (handler.ReadToken(token) is not JwtSecurityToken securityToken)
 		{
 			throw new Exception("Invalid Security token");
 		}
@@ -235,4 +229,47 @@ public class TokenBuilder : ItokenBuilder
 	{
 		return GetClaims(token);
 	}
+
+	public string BuildToken(string email, int userId, string role)
+	{
+		var claims = new List<Claim>
+				{
+						new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+						new Claim(ClaimTypes.Email, email),
+						new Claim(ClaimTypes.Role, role)
+				};
+
+		var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret ?? string.Empty));
+		var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+		var token = new JwtSecurityToken(
+				issuer: _jwtSettings.Issuer,
+				audience: _jwtSettings.Audience,
+				claims: claims,
+				expires: DateTime.UtcNow.AddDays(_jwtSettings.DefaultExpiration),
+				signingCredentials: creds
+		);
+
+		return new JwtSecurityTokenHandler().WriteToken(token);
+	}
+
+
+	// 2. Email Verification Token (Secure Random String)
+	// This is much safer and shorter for appending to Email URLs than a massive JWT.
+	public string BuildEmailToken()
+	{
+		// Generates a URL-safe secure random token (e.g., for "Click here to verify email")
+		var randomBytes = new byte[32];
+		using (var rng = RandomNumberGenerator.Create())
+		{
+			rng.GetBytes(randomBytes);
+		}
+
+		// Convert to Base64 and make it URL-safe
+		return Convert.ToBase64String(randomBytes)
+			.Replace("+", "-")
+			.Replace("/", "_")
+			.Replace("=", "");
+	}
 }
+
