@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using MapsterMapper;
 using Microsoft.Extensions.Logging;
 using System.IdentityModel.Tokens.Jwt;
 using VaatcoBMS.Application;
