@@ -1,14 +1,16 @@
 ﻿using System.Security.Claims;
+using VaatcoBMS.Application;
 using VaatcoBMS.Domain.Entities;
 
 namespace VaatcoBMS.Infrastructure.Utility;
 
 public interface ITokenBuilder
 {
-    // For JWT Login Tokens
-    string BuildToken(string email, int userId, string role);
+    // Now returns a TokenResponse (Access + Refresh tokens)
+    TokenResponse BuildTokens(string email, int userId, string name, string role);
+    TokenResponse RefreshTokens(string refreshToken);
     
-    // Your existing email token method
+    // Email token logic we added
     string BuildEmailToken(User user, string purpose);
     bool IsJwtValid(string token);
     IEnumerable<Claim> GetClaims(string token);

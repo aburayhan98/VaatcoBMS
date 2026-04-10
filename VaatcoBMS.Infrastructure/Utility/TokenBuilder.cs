@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using VaatcoBMS.Application;
 using VaatcoBMS.Application.Settings;
 using VaatcoBMS.Domain.Entities;
 
@@ -10,21 +11,96 @@ namespace VaatcoBMS.Infrastructure.Utility;
 
 public class TokenBuilder(IOptions<JwtSettings> jwtSettings) : ITokenBuilder
 {
+	private const string RefreshTokenClaimType = "r:id";
 	private readonly JwtSettings _jwtSettings = jwtSettings.Value;
 
-	public string BuildToken(string email, int userId, string role)
+	public TokenResponse BuildTokens(string email, int userId, string name, string role)
 	{
+		var handler = new JwtSecurityTokenHandler();
+		var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret ?? string.Empty));
+		var expires = DateTime.UtcNow.AddDays(_jwtSettings.DefaultExpiration);
+
+		// 1. Create Access Token
 		var claims = new List<Claim>
 		{
 			new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+			new Claim(ClaimTypes.Name, name),
 			new Claim(ClaimTypes.Email, email),
 			new Claim(ClaimTypes.Role, role)
 		};
 
-		return GenerateJwtWithClaims(claims, _jwtSettings.DefaultExpiration);
+		var tokenDescriptor = new SecurityTokenDescriptor
+		{
+			Subject = new ClaimsIdentity(claims),
+			Expires = expires,
+			Issuer = _jwtSettings.Issuer,
+			Audience = _jwtSettings.Audience,
+			SigningCredentials = new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+		};
+		var accessToken = handler.CreateToken(tokenDescriptor);
+
+		// 2. Create Refresh Token (typically lives longer, e.g., 7 days)
+		var refreshClaims = new List<Claim>
+		{
+			new Claim(RefreshTokenClaimType, userId.ToString()),
+			new Claim(ClaimTypes.Name, name),
+			new Claim(ClaimTypes.Email, email),
+			new Claim(ClaimTypes.Role, role)
+		};
+		
+		var refreshTokenDescriptor = new SecurityTokenDescriptor
+		{
+			Subject = new ClaimsIdentity(refreshClaims),
+			Expires = DateTime.UtcNow.AddDays(7), 
+			Issuer = _jwtSettings.Issuer,
+			Audience = _jwtSettings.Audience,
+			SigningCredentials = new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+		};
+		var refreshToken = handler.CreateToken(refreshTokenDescriptor);
+
+		return new TokenResponse
+		{
+			AccessToken = handler.WriteToken(accessToken),
+			ExpiresAtUtc = expires,
+			RefreshToken = handler.WriteToken(refreshToken)
+		};
 	}
 
-	public string BuildEmailToken(User user, string purpose)
+	public TokenResponse RefreshTokens(string refreshToken)
+	{
+		try
+		{
+			var handler = new JwtSecurityTokenHandler();
+			var result = handler.ValidateToken(refreshToken, new TokenValidationParameters
+			{
+				ValidateAudience = true,
+				ValidateIssuer = true,
+				ValidateLifetime = true, // Ensure the refresh token isn't expired
+				ValidateIssuerSigningKey = true,
+				ValidAudience = _jwtSettings.Audience,
+				ValidIssuer = _jwtSettings.Issuer,
+				IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret ?? string.Empty))
+			}, out _);
+
+			// Extract claims from the valid refresh token to generate a new pair
+			var userIdVal = result.Claims.FirstOrDefault(c => c.Type == RefreshTokenClaimType)?.Value;
+			var userName = result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+			var userEmail = result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+			var userRole = result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+			if (userIdVal == null || userName == null || userEmail == null || userRole == null) 
+                return null;
+
+			// Generate a fresh set of tokens!
+			return BuildTokens(userEmail, int.Parse(userIdVal), userName, userRole);
+		}
+		catch
+		{
+			return null; // Invalid or expired refresh token
+		}
+	}
+    
+    public string BuildEmailToken(User user, string purpose)
 	{
 		var claims = new List<Claim>
 		{
