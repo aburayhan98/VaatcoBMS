@@ -104,5 +104,73 @@ public class AuthService(
 
 		return true;
 	}
+
+	public async Task ForgotPasswordAsync(string email)
+	{
+		var users = await _uow.Users.GetAllAsync();
+		var user = users.FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+
+		// For security reasons, if the user isn't found, we silently return
+		// so attackers can't verify which emails exist in the database.
+		if (user == null)
+		{
+			_logger.LogInformation("Password reset requested for non-existent email: {Email}", email);
+			return;
+		}
+
+		try
+		{
+			// Generate a token explicitly marked for password resets
+			var resetToken = _tokenBuilder.BuildEmailToken(user, "password_reset");
+			
+			// Replace with your actual frontend domain/URL
+			var resetLink = $"https://yourdomain.com/ResetPassword?token={resetToken}";
+			
+			var emailBody = $"<p>Hi {user.Name},</p><p>You requested a password reset. Click the link below to set a new password:</p><p><a href='{resetLink}'>Reset Password</a></p>";
+			
+			await _emailService.SendEmailAsync(user.Email, "Reset Your Password", emailBody);
+			_logger.LogInformation("Password reset email sent to {Email}", user.Email);
+		}
+		catch (Exception ex)
+		{
+			_logger.LogError(ex, "Failed to send password reset email to {Email}", user.Email);
+		}
+	}
+
+	public async Task ResetPasswordAsync(ResetPasswordModel model)
+	{
+		// 1. Verify the token is valid and not expired
+		if (!_tokenBuilder.IsJwtValid(model.Token))
+		{
+			throw new InvalidOperationException("Invalid or expired password reset token.");
+		}
+
+		// 2. Extract claims to ensure it's a reset token and get the email
+		var claims = _tokenBuilder.GetClaims(model.Token);
+		var purposeClaim = claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub)?.Value;
+		var emailClaim = claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Email)?.Value;
+
+		if (purposeClaim != "password_reset" || string.IsNullOrEmpty(emailClaim))
+		{
+			throw new InvalidOperationException("Invalid token type.");
+		}
+
+		// 3. Find the user
+		var users = await _uow.Users.GetAllAsync();
+		var user = users.FirstOrDefault(u => u.Email.Equals(emailClaim, StringComparison.OrdinalIgnoreCase));
+
+		if (user == null)
+		{
+			throw new InvalidOperationException("User associated with this token no longer exists.");
+		}
+
+		// 4. Update the password
+		user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password);
+		
+		_uow.Users.Update(user);
+		await _uow.SaveChangesAsync();
+		
+		_logger.LogInformation("Password successfully reset for {Email}", user.Email);
+	}
 }
 
