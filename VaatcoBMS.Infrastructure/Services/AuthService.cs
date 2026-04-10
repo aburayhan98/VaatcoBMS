@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
 using System.IdentityModel.Tokens.Jwt;
+using VaatcoBMS.Application;
 using VaatcoBMS.Application.DTOs.User;
 using VaatcoBMS.Application.Interfaces;
 using VaatcoBMS.Application.Model.Auth;
@@ -23,7 +24,7 @@ public class AuthService(
 	private readonly IEmailService _emailService = emailService;
 	private readonly ILogger<AuthService> _logger = logger;
 
-	public async Task<string> LoginAsync(LoginModel model)
+	public async Task<TokenResponse> LoginAsync(LoginModel model)
 	{
 		var users = await _uow.Users.GetAllAsync();
 		var user = users.FirstOrDefault(u => u.Email.Equals(model.Email, StringComparison.OrdinalIgnoreCase));
@@ -41,7 +42,14 @@ public class AuthService(
 		}
 
 		_logger.LogInformation("Successful login for user: {Email}", user.Email);
-		return _tokenBuilder.BuildToken(user.Email, user.Id, user.Role.ToString());
+		// Automatically returns both Access and Refresh token
+		return _tokenBuilder.BuildTokens(user.Email, user.Id, user.Name, user.Role.ToString());
+	}
+
+	public TokenResponse RefreshLogin(string refreshToken)
+	{
+		var newTokens = _tokenBuilder.RefreshTokens(refreshToken);
+		return newTokens ?? throw new UnauthorizedAccessException("Invalid refresh token.");
 	}
 
 	public async Task<UserDto> RegisterAsync(Register model)
