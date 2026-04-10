@@ -1,0 +1,117 @@
+@model VaatcoBMS.Application.Model.Auth.Register
+@using VaatcoBMS.Domain.Enums
+
+@{
+    ViewData["Title"] = "Create Account";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+<div class="auth-card">
+    <div class="text-center">
+        <img src="~/images/vaatco_logo.jpeg" alt="Vaatco Logo" class="vaatco-logo img-fluid" />
+        <p class="auth-sub mb-4">Create your account to continue.</p>
+    </div>
+
+    <form asp-action="Register" method="post" id="registerForm" novalidate>
+        @Html.AntiForgeryToken()
+        
+        <div asp-validation-summary="ModelOnly" class="validation-message mb-3"></div>
+
+        <div class="row">
+            <!-- Row 1: Name and Role -->
+            <div class="col-md-6 mb-3 pb-1">
+                <input asp-for="Name" class="material-input" placeholder="Full Name" autocomplete="name" />
+                <span asp-validation-for="Name" class="validation-message"></span>
+            </div>
+
+            <div class="col-md-6 mb-3 pb-1 border-bottom border-light">
+                <select asp-for="Role" class="material-input" style="border-bottom:none;" asp-items="Html.GetEnumSelectList<UserRole>()">
+                    <option value="" disabled selected>Select Role</option>
+                </select>
+                <span asp-validation-for="Role" class="validation-message"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Row 2: Email and Password -->
+            <div class="col-md-6 mb-3 pb-1">
+                <input asp-for="Email" class="material-input" placeholder="Email Address" autocomplete="email" />
+                <span asp-validation-for="Email" class="validation-message"></span>
+            </div>
+
+            <div class="col-md-6 mb-3 pb-1 password-box">
+                <div class="position-relative">
+                    <input asp-for="Password" type="password" class="material-input pe-5" placeholder="Password" id="regPassword" autocomplete="new-password" />
+                    <button type="button" class="password-toggle" id="toggleReg" tabindex="-1">
+                        <i class="bi bi-eye" id="regEye"></i>
+                    </button>
+                </div>
+                <span asp-validation-for="Password" class="validation-message"></span>
+                <!-- Password Strength Bar -->
+                <div class="password-strength mt-2 px-1" id="strengthBar"></div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-2">
+            <div class="col-md-8 text-center">
+                <button type="submit" class="btn w-100 btn-auth" id="regBtn">
+                    <span class="btn-text">Create Account</span>
+                    <span class="btn-spinner spinner-border spinner-border-sm d-none ms-2"></span>
+                </button>
+
+                <div class="mt-4">
+                    <a asp-controller="Auth" asp-action="Login" class="forgot-link">Already have an account? Sign in</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function() {
+            $("#toggleReg").on("click", function() {
+                const inp = $("#regPassword");
+                const icon = $("#regEye");
+                if (inp.attr("type") === "password") {
+                    inp.attr("type", "text");
+                    icon.removeClass("bi-eye").addClass("bi-eye-slash");
+                } else {
+                    inp.attr("type", "password");
+                    icon.removeClass("bi-eye-slash").addClass("bi-eye");
+                }
+            });
+
+            $("#regPassword").on("input", function() {
+                const val = $(this).val();
+                const bar = $("#strengthBar");
+                if (!val) { bar.html(""); return; }
+
+                let score = 0;
+                if (val.length >= 6) score++;
+                if (/[A-Z]/.test(val)) score++;
+                if (/[0-9]/.test(val)) score++;
+                if (/[^a-zA-Z0-9]/.test(val)) score++;
+
+                const labels = ["", "Weak", "Fair", "Good", "Strong"];
+                const colors = ["", "danger", "warning", "info", "success"];
+
+                bar.html(
+                    `<div class="progress rounded-pill bg-light" style="height:6px;">
+                        <div class="progress-bar bg-${colors[score]}" style="width:${score * 25}%"></div>
+                     </div>
+                     <div class="text-end mt-1"><small class="text-${colors[score]} fw-semibold" style="font-size:0.75rem;">${labels[score]}</small></div>`
+                );
+            });
+
+            $("#registerForm").on("submit", function() {
+                if ($(this).valid()) {
+                    $("#regBtn .btn-text").text("Creating Account...");
+                    $("#regBtn .btn-spinner").removeClass("d-none");
+                    $("#regBtn").prop("disabled", true);
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,50 @@
+﻿@{
+    var successMessage = TempData["Success"] as string;
+    var errorMessage = TempData["Error"] as string ?? TempData["error"] as string;
+    var infoMessage = TempData["Info"] as string;
+    var warningMessage = TempData["Warning"] as string;
+}
+
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof showToast === 'function') {
+                showToast('@Html.Raw(successMessage.Replace("'", "\\'").Replace("\n", " "))', 'success');
+            }
+        });
+    </script>
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof showToast === 'function') {
+                showToast('@Html.Raw(errorMessage.Replace("'", "\\'").Replace("\n", " "))', 'danger');
+            }
+        });
+    </script>
+}
+
+@if (!string.IsNullOrEmpty(infoMessage))
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof showToast === 'function') {
+                showToast('@Html.Raw(infoMessage.Replace("'", "\\'").Replace("\n", " "))', 'info');
+            }
+        });
+    </script>
+}
+
+@if (!string.IsNullOrEmpty(warningMessage))
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof showToast === 'function') {
+                showToast('@Html.Raw(warningMessage.Replace("'", "\\'").Replace("\n", " "))', 'warning');
+            }
+        });
+    </script>
+}

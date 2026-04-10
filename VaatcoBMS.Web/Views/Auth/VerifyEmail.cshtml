@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Verify Email";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+<div class="auth-card text-center">
+    @if (ViewBag.Success == true)
+    {
+        <div class="verify-icon text-success mb-3">
+            <i class="bi bi-check-circle-fill" style="font-size:3rem"></i>
+        </div>
+        <h4 class="auth-title text-success">Email Verified!</h4>
+        <p class="auth-sub">Your account is pending admin approval.</p>
+        <p class="text-muted small">
+            You will receive an email once approved.
+        </p>
+        <a asp-action="Login" class="btn btn-primary btn-auth mt-2">
+            <i class="bi bi-box-arrow-in-right"></i> Go to Login
+        </a>
+    }
+    else
+    {
+        <div class="verify-icon text-danger mb-3">
+            <i class="bi bi-x-circle-fill" style="font-size:3rem"></i>
+        </div>
+        <h4 class="auth-title text-danger">Verification Failed</h4>
+        <p class="auth-sub">The link is invalid or has expired.</p>
+        <a asp-action="Register" class="btn btn-outline-primary mt-2">
+            <i class="bi bi-arrow-repeat"></i> Register again
+        </a>
+    }
+</div>

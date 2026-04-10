@@ -1,0 +1,73 @@
+﻿@using VaatcoBMS.Domain.Enums
+@using System.Security.Claims
+
+@{
+  var userRoleString = User?.FindFirst(ClaimTypes.Role)?.Value ?? "Guest";
+  Enum.TryParse<UserRole>(userRoleString, out var userRole);
+}
+
+<div class="app-sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-mark">VB</div>
+    <div>
+      <div class="sidebar-brand">VaatcoBMS</div>
+      <div class="sidebar-sub">v1.0</div>
+    </div>
+  </div>
+
+  <div class="sidebar-nav">
+    <div class="sidebar-section">MAIN</div>
+
+    <a asp-controller="Dashboard" asp-action="Index" class="sidebar-link">
+      <i class="bi bi-speedometer2"></i>
+      <span>Dashboard</span>
+    </a>
+
+    @if (userRole == UserRole.Admin || userRole == UserRole.MarketingOfficer)
+    {
+      <div class="sidebar-section">MANAGEMENT</div>
+
+      <a asp-controller="Customers" asp-action="Index" class="sidebar-link">
+        <i class="bi bi-people"></i>
+        <span>Customers</span>
+      </a>
+
+      <a asp-controller="Products" asp-action="Index" class="sidebar-link">
+        <i class="bi bi-box"></i>
+        <span>Products</span>
+      </a>
+
+      <a asp-controller="Invoices" asp-action="Index" class="sidebar-link">
+        <i class="bi bi-receipt"></i>
+        <span>Invoices</span>
+      </a>
+    }
+
+    @if (userRole == UserRole.Admin)
+    {
+      <div class="sidebar-section">ADMIN</div>
+
+      <a asp-controller="Users" asp-action="Index" class="sidebar-link">
+        <i class="bi bi-person-badge"></i>
+        <span>User Management</span>
+      </a>
+
+      <a asp-controller="Settings" asp-action="Index" class="sidebar-link">
+        <i class="bi bi-gear"></i>
+        <span>Settings</span>
+      </a>
+    }
+
+    <div class="sidebar-section">ACCOUNT</div>
+
+    <a asp-controller="Profile" asp-action="Index" class="sidebar-link">
+      <i class="bi bi-person-circle"></i>
+      <span>My Profile</span>
+    </a>
+
+    <a asp-controller="Auth" asp-action="Logout" class="sidebar-link" onclick="return confirm('Are you sure you want to logout?');">
+      <i class="bi bi-box-arrow-right"></i>
+      <span>Logout</span>
+    </a>
+  </div>
+</div>

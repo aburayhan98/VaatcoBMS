@@ -1,0 +1,163 @@
+﻿@model VaatcoBMS.Application.DTOs.User.UserDto
+
+@{
+    ViewData["Title"] = "My Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row g-3">
+    @* --- Profile info card --- *@
+    <div class="col-md-5">
+        <div class="card h-100">
+            <div class="card-body text-center p-4">
+                <div class="profile-avatar mx-auto mb-3">
+                    @Model.Name.Substring(0, 1).ToUpper()@(Model.Name.Length > 1 ? Model.Name.Split(" ").Last().Substring(0, 1).ToUpper() : "")
+                </div>
+                <h5 class="mb-0">@Model.Name</h5>
+                <p class="text-muted small mb-2">@Model.Email</p>
+                <span class="badge bg-primary">@Model.Role</span>
+                @if (Model.IsApproved)
+                {
+                    <span class="badge bg-success ms-1">Approved</span>
+                }
+                <hr />
+                <p class="text-muted small">
+                    Member since @Model.CreatedAt.ToString("dd MMM yyyy")
+                </p>
+            </div>
+        </div>
+    </div>
+
+    @* --- Edit profile form --- *@
+    <div class="col-md-7">
+        <div class="card mb-3">
+            <div class="card-header fw-500">Update Profile</div>
+            <div class="card-body">
+                <form id="profileForm" novalidate>
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="userId" value="@Model.Id" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="profileName" value="@Model.Name" required maxlength="100" />
+                        <div class="invalid-feedback">Name is required.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="profileEmail" value="@Model.Email" required />
+                        <div class="invalid-feedback">Valid email required.</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="saveProfileBtn">
+                        Save Changes
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        @* --- Change password form --- *@
+        <div class="card">
+            <div class="card-header fw-500">Change Password</div>
+            <div class="card-body">
+                <form id="passwordForm" novalidate>
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        <label class="form-label">Current Password</label>
+                        <input type="password" class="form-control" id="currentPass" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">New Password</label>
+                        <input type="password" class="form-control" id="newPassPro" required minlength="6" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Confirm New Password</label>
+                        <input type="password" class="form-control" id="confirmPassPro" required />
+                        <div id="proMatchMsg" class="small mt-1"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-warning" id="changePassBtn">
+                        Update Password
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // ── Update Profile via AJAX ────────────────────────────────
+        $("#profileForm").on("submit", function(e) {
+            e.preventDefault();
+            const btn = $("#saveProfileBtn");
+            btn.prop("disabled", true).text("Saving...");
+
+            $.ajax({
+                url: "/api/users/" + $("#userId").val() + "/profile",
+                method: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    name: $("#profileName").val(),
+                    email: $("#profileEmail").val()
+                }),
+                success: function(res) {
+                    showToast("Profile updated successfully!", "success");
+                },
+                error: function(xhr) {
+                    const msg = xhr.responseJSON?.message ?? "Update failed.";
+                    showToast(msg, "danger");
+                },
+                complete: function() {
+                    btn.prop("disabled", false).text("Save Changes");
+                }
+            });
+        });
+
+        // ── Change Password via AJAX ──────────────────────────────
+        $("#confirmPassPro, #newPassPro").on("input", function() {
+            const match = $("#newPassPro").val() === $("#confirmPassPro").val();
+            $("#proMatchMsg").html(
+                $("#confirmPassPro").val().length === 0 ? "" :
+                match ? '<span class="text-success"><i class="bi bi-check-circle-fill"></i> Match</span>' :
+                        '<span class="text-danger"><i class="bi bi-x-circle-fill"></i> No match</span>'
+            );
+        });
+
+        $("#passwordForm").on("submit", function(e) {
+            e.preventDefault();
+            
+            if ($("#newPassPro").val() !== $("#confirmPassPro").val()) {
+                showToast("Passwords do not match.", "danger");
+                return;
+            }
+
+            const btn = $("#changePassBtn");
+            btn.prop("disabled", true).text("Updating...");
+
+            $.ajax({
+                url: "/api/users/" + $("#userId").val() + "/change-password",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    currentPassword: $("#currentPass").val(),
+                    newPassword: $("#newPassPro").val(),
+                    confirmPassword: $("#confirmPassPro").val()
+                }),
+                success: function() {
+                    showToast("Password changed! Please log in again.", "success");
+                    setTimeout(() => window.location.href = "/Auth/Logout", 2000);
+                },
+                error: function(xhr) {
+                    showToast(xhr.responseJSON?.message ?? "Failed.", "danger");
+                },
+                complete: function() {
+                    btn.prop("disabled", false).text("Update Password");
+                }
+            });
+        });
+    </script>
+}
