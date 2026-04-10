@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using MapsterMapper;
 using Microsoft.Extensions.Logging;
 using VaatcoBMS.Application.DTOs.User;
 using VaatcoBMS.Application.Interfaces;
