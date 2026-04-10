@@ -5,7 +5,8 @@ namespace VaatcoBMS.Application.Interfaces;
 
 public interface IAuthService
 {
-    Task<string> LoginAsync(LoginModel model);
-    Task<UserDto> RegisterAsync(Register model);
-    Task<bool> VerifyEmailAsync(string token); // NEW
+	Task<TokenResponse> LoginAsync(LoginModel model);
+	TokenResponse RefreshLogin(string refreshToken);
+	Task<UserDto> RegisterAsync(Register model);
+	Task<bool> VerifyEmailAsync(string token); // NEW
 }
