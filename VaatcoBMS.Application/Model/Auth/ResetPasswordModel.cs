@@ -23,5 +23,10 @@ public class ResetPasswordModel
 	/// </summary>
 	[Required]
 	[MinLength(6)]
+	[Compare("Password", ErrorMessage = "Passwords do not match.")]
 	public string ConfirmPassword { get; set; }
+
+	[Required]
+	public string Token { get; set; }
+
 }
