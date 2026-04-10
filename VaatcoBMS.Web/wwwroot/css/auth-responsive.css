@@ -1,0 +1,63 @@
+﻿/* =====================================================
+   AUTHENTICATION RESPONSIVE STYLES
+   ===================================================== */
+
+/* Tablet Devices */
+/*@media (min-width: 768px) and (max-width: 1024px) {
+  .auth-container {
+    max-width: 500px;
+  }
+
+  .auth-card {
+    padding: 2.5rem;
+  }
+}*/
+
+/* Mobile Landscape */
+/*@media (max-width: 768px) {
+  .auth-body {
+    padding: 0.5rem;
+  }
+
+  .auth-container {
+    max-width: 100%;
+  }
+}*/
+
+/* Small Mobile */
+/*@media (max-width: 480px) {
+  .auth-card {
+    border-radius: 15px;
+  }
+
+  .btn-auth {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .form-control,
+  .form-select {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.875rem;
+  }
+
+  .input-group-text {
+    font-size: 0.875rem;
+  }
+}*/
+
+/* Height-based adjustments for small screens */
+/*@media (max-height: 600px) {
+  .auth-body {
+    align-items: flex-start;
+    padding-top: 2rem;
+  }
+
+  .auth-brand {
+    margin-bottom: 1rem;
+  }
+
+  .auth-card {
+    padding: 1.25rem;
+  }
+}*/

@@ -1,0 +1,127 @@
+﻿/* =====================================================
+   AUTHENTICATION UTILITY CLASSES
+   ===================================================== */
+
+/* Text Utilities - Fixed */
+/*.text-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #667eea;*/ /* Fallback for older browsers */
+/*}*/
+
+/* Alternative using color instead of background-clip for better compatibility */
+/*.text-gradient-safe {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}*/
+
+/* Shadow Utilities */
+/*.shadow-hover {
+  transition: box-shadow 0.3s ease;
+}
+
+  .shadow-hover:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }*/
+
+/* Animation Utilities */
+/*.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.5s ease-out;
+}*/
+
+/* Loading States */
+/*.btn-loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+  .btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    right: 12px;
+    margin-top: -8px;
+    border: 2px solid white;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spinner 0.6s linear infinite;
+  }
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}*/
+
+/* Field Validation States */
+/*.form-control.is-valid {
+  border-color: #48bb78;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2348bb78' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+.form-control.is-invalid {
+  border-color: #e53e3e;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23e53e3e'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linecap='round' d='M6 3.5v3'/%3e%3ccircle cx='6' cy='9' r='0.5'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}*/
+
+/* Toast Notifications */
+/*.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1050;
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.toast {
+  margin-bottom: 10px;
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}*/
+
+/* Accessibility */
+/*@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}*/
+
+/* Focus Visible for Keyboard Navigation */
+/*:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}*/
