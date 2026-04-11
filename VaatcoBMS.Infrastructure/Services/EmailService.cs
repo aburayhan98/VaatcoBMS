@@ -3,121 +3,79 @@ using MailKit.Security;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using MimeKit.Text;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using VaatcoBMS.Application.Interfaces;
 using VaatcoBMS.Application.Settings;
 
 namespace VaatcoBMS.Infrastructure.Services;
 
-public class EmailService(IOptions<SmtpSettings> settings, ILogger<EmailService> logger) : IEmailService
+public class EmailService : IEmailService
 {
-	private readonly SmtpSettings _settings = settings.Value;
-	private readonly ILogger<EmailService> _logger = logger;
+	private readonly SmtpSettings _smtp;
+	private readonly ILogger<EmailService> _logger;
 
-	public async Task SendEmailAsync(string toEmail, string subject, string htmlMessage)
+	public EmailService(IOptions<SmtpSettings> smtpOptions, ILogger<EmailService> logger)
 	{
-		// Validate inputs
-		ValidateEmailInputs(toEmail, subject, htmlMessage);
+		_smtp = smtpOptions.Value;
+		_logger = logger;
+	}
 
-		var email = CreateEmailMessage(toEmail, subject, htmlMessage);
+	// Implementation that matches the IEmailService interface
+	public Task SendEmailAsync(string toEmail, string subject, string htmlMessage)
+	{
+		// Delegate to the overload that supports cancellation (use default CancellationToken)
+		return SendEmailAsync(toEmail, subject, htmlMessage, CancellationToken.None);
+	}
+
+	// Existing implementation with optional CancellationToken
+	public async Task SendEmailAsync(string to, string subject, string htmlBody, CancellationToken cancellationToken = default)
+	{
+		var message = new MimeMessage();
+		message.From.Add(MailboxAddress.Parse(_smtp.SenderEmail));
+		message.To.Add(MailboxAddress.Parse(to));
+		message.Subject = subject;
+
+		var bodyBuilder = new BodyBuilder { HtmlBody = htmlBody };
+		message.Body = bodyBuilder.ToMessageBody();
+
+		using var client = new SmtpClient();
 
 		try
 		{
-			using var smtp = new SmtpClient();
+			// Choose correct SecureSocketOptions for common SMTP ports
+			SecureSocketOptions socketOptions;
+			if (_smtp.Port == 465)
+				socketOptions = SecureSocketOptions.SslOnConnect;       // implicit SSL
+			else if (_smtp.Port == 587)
+				socketOptions = SecureSocketOptions.StartTls;          // STARTTLS on 587
+			else
+				socketOptions = _smtp.UseSsl ? SecureSocketOptions.StartTls : SecureSocketOptions.Auto;
 
-			await ConnectAndAuthenticateAsync(smtp);
-			await SendEmailAsync(smtp, email, toEmail, subject);
+			_logger.LogDebug("Connecting to SMTP {Server}:{Port} using {SocketOptions}", _smtp.Server, _smtp.Port, socketOptions);
 
-			_logger.LogInformation("Email sent successfully to {ToEmail}", toEmail);
+			// Connect
+			await client.ConnectAsync(_smtp.Server, _smtp.Port, socketOptions, cancellationToken);
+
+			// Authenticate if credentials provided
+			if (!string.IsNullOrEmpty(_smtp.Username))
+			{
+				await client.AuthenticateAsync(_smtp.Username, _smtp.Password, cancellationToken);
+			}
+
+			await client.SendAsync(message, cancellationToken);
+
+			_logger.LogInformation("Email sent to {To}", to);
 		}
 		catch (Exception ex)
 		{
-			HandleEmailException(ex, toEmail, subject);
-			throw;
+			_logger.LogError(ex, "Failed to send email to {To}", to);
+			throw; // Let caller handle/log as appropriate
 		}
 		finally
 		{
-			email.Dispose();
-		}
-	}
-
-	private void ValidateEmailInputs(string toEmail, string subject, string htmlMessage)
-	{
-		if (string.IsNullOrWhiteSpace(toEmail))
-		{
-			_logger.LogWarning("Attempted to send email with null or empty recipient");
-			throw new ArgumentException("Recipient email address cannot be empty.", nameof(toEmail));
-		}
-
-		if (string.IsNullOrWhiteSpace(subject))
-		{
-			_logger.LogWarning("Attempted to send email to {ToEmail} with empty subject", toEmail);
-			throw new ArgumentException("Email subject cannot be empty.", nameof(subject));
-		}
-
-		if (string.IsNullOrWhiteSpace(htmlMessage))
-		{
-			_logger.LogWarning("Attempted to send email to {ToEmail} with empty body", toEmail);
-			throw new ArgumentException("Email body cannot be empty.", nameof(htmlMessage));
-		}
-	}
-
-	private MimeMessage CreateEmailMessage(string toEmail, string subject, string htmlMessage)
-	{
-		var email = new MimeMessage();
-		email.From.Add(new MailboxAddress(_settings.SenderName, _settings.SenderEmail));
-		email.To.Add(MailboxAddress.Parse(toEmail));
-		email.Subject = subject;
-		email.Body = new TextPart(TextFormat.Html) { Text = htmlMessage };
-
-		return email;
-	}
-
-	private async Task ConnectAndAuthenticateAsync(SmtpClient smtp)
-	{
-		var secureOption = _settings.UseSsl
-				? SecureSocketOptions.SslOnConnect
-				: SecureSocketOptions.StartTls;
-
-		_logger.LogInformation("Connecting to SMTP server {Server}:{Port}", _settings.Server, _settings.Port);
-
-		await smtp.ConnectAsync(_settings.Server, _settings.Port, secureOption);
-		await smtp.AuthenticateAsync(_settings.Username, _settings.Password);
-
-		_logger.LogDebug("Authenticated as {Username}", _settings.Username);
-	}
-
-	private async Task SendEmailAsync(SmtpClient smtp, MimeMessage email, string toEmail, string subject)
-	{
-		_logger.LogInformation("Sending email to {ToEmail}: {Subject}", toEmail, subject);
-		await smtp.SendAsync(email);
-		await smtp.DisconnectAsync(true);
-	}
-
-	private void HandleEmailException(Exception ex, string toEmail, string subject)
-	{
-		switch (ex)
-		{
-			case SmtpCommandException smtpEx:
-				_logger.LogError(smtpEx, "SMTP error sending to {ToEmail}. Status: {StatusCode}",
-						toEmail, smtpEx.StatusCode);
-				throw new ApplicationException($"SMTP error: {smtpEx.Message}", smtpEx);
-
-			case SmtpProtocolException protocolEx:
-				_logger.LogError(protocolEx, "SMTP protocol error sending to {ToEmail}", toEmail);
-				throw new ApplicationException($"SMTP protocol error: {protocolEx.Message}", protocolEx);
-
-			case AuthenticationException authEx:
-				_logger.LogError(authEx, "Authentication failed for {Username}", _settings.Username);
-				throw new ApplicationException("Email server authentication failed. Check your credentials.", authEx);
-
-			case OperationCanceledException cancelEx:
-				_logger.LogError(cancelEx, "Email sending cancelled for {ToEmail}", toEmail);
-				throw new ApplicationException("Email sending was cancelled.", cancelEx);
-
-			default:
-				_logger.LogError(ex, "Unexpected error sending email to {ToEmail}: {Subject}", toEmail, subject);
-				throw new ApplicationException($"Failed to send email to {toEmail}.", ex);
+			try { await client.DisconnectAsync(true, cancellationToken); } catch { /* ignore */ }
 		}
 	}
 }

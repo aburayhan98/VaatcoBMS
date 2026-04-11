@@ -1,4 +1,6 @@
 ﻿using MapsterMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.IdentityModel.Tokens.Jwt;
 using VaatcoBMS.Application;
@@ -17,13 +19,31 @@ public class AuthService(
 		IMapper mapper,
 		ITokenBuilder tokenBuilder,
 		IEmailService emailService,
-		ILogger<AuthService> logger) : IAuthService
+		ILogger<AuthService> logger,
+		IConfiguration configuration,
+		IHttpContextAccessor httpContextAccessor) : IAuthService // INJECTED IHttpContextAccessor HERE!
 {
 	private readonly IUnitOfWork _uow = uow;
 	private readonly IMapper _mapper = mapper;
 	private readonly ITokenBuilder _tokenBuilder = tokenBuilder;
 	private readonly IEmailService _emailService = emailService;
 	private readonly ILogger<AuthService> _logger = logger;
+	private readonly IConfiguration _configuration = configuration;
+	private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
+
+	// Helper to ALWAYS get the correct running URL dynamically
+	private string GetBaseUrl()
+	{
+		var request = _httpContextAccessor.HttpContext?.Request;
+		if (request != null)
+		{
+			// This perfectly builds "https://localhost:7169" (or whatever port you are actually using)
+			return $"{request.Scheme}://{request.Host.Value}";
+		}
+		
+		// Fallback for background tasks where HTTP context is lost
+		return _configuration["AppSettings:BaseUrl"] ?? "https://localhost:7169";
+	}
 
 	// ── LOGIN ────────────────────────────────────────────────────────
 	public async Task<TokenResponse> LoginAsync(LoginModel model)
@@ -59,44 +79,69 @@ public class AuthService(
 	}
 
 	// ── SELF-REGISTER (public) ────────────────────────────────────────
-	public async Task<UserDto> RegisterAsync(Register model)
+	public async Task<string> RegisterAsync(Register model)
 	{
-		// Block self-registration as Admin or SuperAdmin
 		if (model.Role == UserRole.Admin || model.Role == UserRole.SuperAdmin)
 		{
 			throw new InvalidOperationException("Admin and SuperAdmin accounts cannot be self-registered.");
 		}
 
 		var users = await _uow.Users.GetAllAsync();
+		var existingUser = users.FirstOrDefault(u => u.Email.Equals(model.Email, StringComparison.OrdinalIgnoreCase));
 
-		if (users.Any(u => u.Email.Equals(model.Email, StringComparison.OrdinalIgnoreCase)))
+		User userToMap;
+
+		if (existingUser != null)
 		{
-			throw new InvalidOperationException("Email is already registered.");
+			// If the user already exists and successfully verified their email, block them.
+			if (existingUser.EmailConfirmed)
+			{
+				throw new InvalidOperationException("Email is already registered.");
+			}
+
+			// If they exist but are UNVERIFIED, let them "re-register".
+			// Update their details in case they made a typo in their password or name previously.
+			existingUser.Name = model.Name;
+			existingUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password);
+			existingUser.CreatedAt = DateTime.UtcNow; // Reset their timer
+			
+			_uow.Users.Update(existingUser);
+			userToMap = existingUser;
+		}
+		else
+		{
+			// Brand new user
+			userToMap = _mapper.Map<User>(model);
+			userToMap.PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password);
+			userToMap.IsApproved = false;
+			userToMap.EmailConfirmed = false;
+			userToMap.CreatedAt = DateTime.UtcNow;
+
+			await _uow.Users.AddAsync(userToMap);
 		}
 
-		var user = _mapper.Map<User>(model);
-		user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password);
-		user.IsApproved = false;
-		user.CreatedAt = DateTime.UtcNow;
-
-		await _uow.Users.AddAsync(user);
+		// ALWAYS save to DB first to ensure we have an ID and updated state
 		await _uow.SaveChangesAsync();
+
+		// Email verification token generation
+		var token = _tokenBuilder.BuildEmailToken(userToMap, "email_verification");
 
 		try
 		{
-			var token = _tokenBuilder.BuildEmailToken(user, "email_verification");
-			var link = $"https://yourdomain.com/auth/verify-email?token={token}";
-			var body = $"<p>Hi {user.Name},</p>" +
-								 $"<p>Verify your email: <a href='{link}'>Click Here</a></p>";
+			var baseUrl = GetBaseUrl(); 
+			var link = $"{baseUrl}/auth/verify-email?token={Uri.EscapeDataString(token)}";
+			var body = $"<p>Hi {userToMap.Name},</p>" +
+					   $"<p>Verify your email: <a href='{link}'>Click Here</a></p>";
 
-			await _emailService.SendEmailAsync(user.Email, "Verify Your Account", body);
+			await _emailService.SendEmailAsync(userToMap.Email, "Verify Your Account", body);
 		}
 		catch (Exception ex)
 		{
-			_logger.LogError(ex, "Failed to send verification email to {Email}", user.Email);
+			_logger.LogError(ex, "Failed to send verification email to {Email}", userToMap.Email);
+			throw new InvalidOperationException("Registration details saved, but failed to send verification email. Please try registering again to resend the link.");
 		}
 
-		return _mapper.Map<UserDto>(user);
+		return token;
 	}
 
 	// ── ADMIN-CREATED ACCOUNT (bypasses email verify & approval) ─────
@@ -181,7 +226,8 @@ public class AuthService(
 		try
 		{
 			var token = _tokenBuilder.BuildEmailToken(user, "password_reset");
-			var link = $"https://yourdomain.com/auth/reset-password?token={token}";
+			var baseUrl = GetBaseUrl(); // Call the dynamic URL helper!
+			var link = $"{baseUrl}/auth/reset-password?token={Uri.EscapeDataString(token)}";
 			var body = $"<p>Hi {user.Name},</p>" +
 								 $"<p>Reset your password: <a href='{link}'>Click Here</a></p>";
 
