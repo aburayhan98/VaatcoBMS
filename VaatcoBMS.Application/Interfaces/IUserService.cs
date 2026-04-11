@@ -11,7 +11,8 @@ public interface IUserService
 	Task<UserDto?> GetByEmailAsync(string email);
 	Task<UserDto> UpdateProfileAsync(int id, UpdateProfileDto dto);
 	Task ChangeRoleAsync(int id, UserRole newRole);
-	Task ApproveUserAsync(int id);
+	// UPDATED: now requires approverUserId to enforce SuperAdmin gate
+	Task ApproveUserAsync(int targetId, int approverUserId);
 	Task RejectUserAsync(int id);
 	Task ChangePasswordAsync(int id, ChangePasswordDto dto);
 	Task DeactivateAsync(int id);

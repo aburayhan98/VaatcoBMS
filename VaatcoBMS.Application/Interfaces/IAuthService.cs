@@ -11,4 +11,7 @@ public interface IAuthService
 	Task<bool> VerifyEmailAsync(string token);
 	Task ForgotPasswordAsync(string email);
 	Task ResetPasswordAsync(ResetPasswordModel model);
+
+	// NEW: Admin manually creates an account (skips email verify + approval)
+	Task<UserDto> CreateUserByAdminAsync(Register model, int createdByUserId);
 }
