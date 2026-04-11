@@ -12,6 +12,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaatcoBMS.Web", "VaatcoBMS.Web\VaatcoBMS.Web.csproj", "{E489F9B5-6915-4F86-882F-4D344481EB7D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		SuperAdmin.sql = SuperAdmin.sql
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Executables", "Executables", "{F826FC69-5B4A-4E62-9F9B-83958EB9118D}"
 EndProject
