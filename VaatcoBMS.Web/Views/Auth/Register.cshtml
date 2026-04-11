@@ -4,6 +4,11 @@
 @{
     ViewData["Title"] = "Create Account";
     Layout = "~/Views/Shared/_AuthLayout.cshtml";
+
+  // Build allowed roles — exclude Admin and SuperAdmin from public registration
+   var allowedRoles = Enum.GetValues<UserRole>() 
+   .Where(r => r != UserRole.Admin && r != UserRole.SuperAdmin) 
+   .Select(r => new SelectListItem(r.ToString(), ((int)r).ToString()));
 }
 
 <div class="auth-card">
@@ -23,13 +28,16 @@
                 <input asp-for="Name" class="material-input" placeholder="Full Name" autocomplete="name" />
                 <span asp-validation-for="Name" class="validation-message"></span>
             </div>
-
-            <div class="col-md-6 mb-3 pb-1 border-bottom border-light">
-                <select asp-for="Role" class="material-input" style="border-bottom:none;" asp-items="Html.GetEnumSelectList<UserRole>()">
-                    <option value="" disabled selected>Select Role</option>
-                </select>
-                <span asp-validation-for="Role" class="validation-message"></span>
-            </div>
+      <!-- Replace existing Role select with this: -->
+      <div class="col-md-6 mb-3 pb-1 border-bottom border-light">
+        <select asp-for="Role"
+                class="material-input"
+                style="border-bottom: none;"
+                asp-items="allowedRoles">
+          <option value="" disabled selected>Select Role</option>
+        </select>
+        <span asp-validation-for="Role" class="validation-message"></span>
+      </div>
         </div>
 
         <div class="row">
