@@ -1,15 +1,46 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using VaatcoBMS.Application.Interfaces;
 using VaatcoBMS.Application.Model.Auth;
 
-namespace VaatcoBMS.Web.Controllers.Api;
+namespace VaatcoBMS.Web.Controllers.Auth;
 
 [ApiController]
 [Route("api/auth")]
 public class AuthApiController(IAuthService authService) : ControllerBase
 {
+
+	/// <summary>
+	/// Admin or SuperAdmin creates a new user account directly.
+	/// Bypasses email verification and approval workflow.
+	/// </summary>
+	[HttpPost("admin-create")]
+	[Authorize(Roles = "Admin,SuperAdmin")]
+	[ProducesResponseType(StatusCodes.Status200OK)]
+	[ProducesResponseType(StatusCodes.Status400BadRequest)]
+	[ProducesResponseType(StatusCodes.Status403Forbidden)]
+	public async Task<IActionResult> AdminCreateUser([FromBody] Register model)
+	{
+		try
+		{
+			var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+			if (!int.TryParse(userIdClaim, out int callerId))
+				return Unauthorized(new { success = false, message = "Cannot identify caller." });
+
+			var user = await authService.CreateUserByAdminAsync(model, callerId);
+			return Ok(new { success = true, data = user, message = "User created successfully." });
+		}
+		catch (UnauthorizedAccessException ex)
+		{
+			return StatusCode(403, new { success = false, message = ex.Message });
+		}
+		catch (InvalidOperationException ex)
+		{
+			return BadRequest(new { success = false, message = ex.Message });
+		}
+	}
 	/// <summary>
 	/// Authenticates a user and returns JWT tokens.
 	/// </summary>
