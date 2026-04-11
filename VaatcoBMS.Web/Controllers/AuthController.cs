@@ -2,14 +2,17 @@
 using Microsoft.AspNetCore.Mvc;
 using VaatcoBMS.Application.Interfaces;
 using VaatcoBMS.Application.Model.Auth;
+using VaatcoBMS.Infrastructure.Services;
 
 namespace VaatcoBMS.Web.Controllers;
 
 [Route("auth")]
-public class AuthController(IAuthService authService, IUserService userService) : Controller
+public class AuthController(
+	IAuthService authService,
+	IEmailService emailService) : Controller
 {
 	private readonly IAuthService _authService = authService;
-	private readonly IUserService _userService = userService;
+	private readonly IEmailService _emailService = emailService; // Initialize the email service
 
 	// GET /auth/login
 	[HttpGet("login")]
@@ -112,17 +115,44 @@ public class AuthController(IAuthService authService, IUserService userService) 
 	{
 		if (!ModelState.IsValid)
 			return View(model);
+
 		try
 		{
-			await _authService.RegisterAsync(model);
-			TempData["Success"] = "Registration successful! Please log in.";
-			return RedirectToAction("Login");
+			var token = await _authService.RegisterAsync(model); // now returns token
+			var link = Url.Action("VerifyEmail", "Auth", new { token }, Request.Scheme, Request.Host.Value);
+			var body = $"<p>Hi {model.Name},</p><p>Verify your email: <a href='{link}'>Click here</a></p>";
+
+			await _emailService.SendEmailAsync(model.Email, "Verify Your Account", body);
+
+			TempData["Success"] = "Account created. Check email to verify before logging in.";
+			return RedirectToAction("Index", "Home"); // as you requested: go to Index after registration
 		}
-		catch (Exception ex)
+		catch (InvalidOperationException ex)
 		{
-			ModelState.AddModelError(string.Empty, ex.Message);
+			ModelState.AddModelError("Email", ex.Message);
 			return View(model);
 		}
+		catch (Exception)
+		{
+			ModelState.AddModelError(string.Empty, "An unexpected error occurred. Please try again.");
+			return View(model);
+		}
+	}
+
+	// GET /auth/logout
+	[HttpGet("logout")]
+	[AllowAnonymous]
+	public IActionResult Logout()
+	{
+		// 1. Delete the secure authentication cookies
+		Response.Cookies.Delete("access_token");
+		Response.Cookies.Delete("refresh_token");
+
+		// 2. Set a nice logout message
+		TempData["Success"] = "You have been successfully logged out.";
+
+		// 3. Redirect back to the auth/login page
+		return RedirectToAction("Login");
 	}
 
 	// Default fallback action
@@ -130,6 +160,39 @@ public class AuthController(IAuthService authService, IUserService userService) 
 	public IActionResult Index()
 	{
 		return View();
+	}
+
+	// GET /auth/verify-email
+	[HttpGet("VerifyEmail")]
+	[AllowAnonymous]
+	public async Task<IActionResult> VerifyEmail(string token)
+	{
+		if (string.IsNullOrEmpty(token))
+		{
+			TempData["Error"] = "Verification token is missing or invalid.";
+			return RedirectToAction("Login");
+		}
+
+		try
+		{
+			// Call your existing service method to validate the token and update the database
+			var isSuccess = await _authService.VerifyEmailAsync(token);
+
+			if (isSuccess)
+			{
+				TempData["Success"] = "Your email has been successfully verified! You can now log in.";
+			}
+			else
+			{
+				TempData["Error"] = "Email verification failed or token has expired. Please try registering again.";
+			}
+		}
+		catch (Exception)
+		{
+			TempData["Error"] = "An unexpected error occurred during email verification. Please try again.";
+		}
+
+		return RedirectToAction("Login");
 	}
 }
 

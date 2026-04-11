@@ -14299,3 +14299,337 @@ System.InvalidOperationException: Templates can be used only with field access, 
 2026-04-11 15:04:37.085 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
 2026-04-11 15:04:37.098 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
 2026-04-11 15:04:37.132 +06:00 [INF] GET /.well-known/appspecific/com.chrome.devtools.json => 404 in 3ms
+2026-04-11 16:29:59.346 +06:00 [INF] GET / => 302 in 84ms
+2026-04-11 16:30:01.102 +06:00 [INF] GET /auth/login => 200 in 1455ms
+2026-04-11 16:30:01.466 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 8ms
+2026-04-11 16:30:01.482 +06:00 [INF] GET /css/auth.css => 304 in 5ms
+2026-04-11 16:30:01.482 +06:00 [INF] GET /css/site.css => 304 in 5ms
+2026-04-11 16:30:01.482 +06:00 [INF] GET /lib/jquery/dist/jquery.min.js => 304 in 5ms
+2026-04-11 16:30:02.227 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 16:30:02.400 +06:00 [INF] GET /lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js => 304 in 0ms
+2026-04-11 16:30:02.400 +06:00 [INF] GET /lib/jquery-validation/dist/jquery.validate.min.js => 304 in 0ms
+2026-04-11 16:30:13.040 +06:00 [INF] GET /auth/register => 200 in 106ms
+2026-04-11 16:30:13.050 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-11 16:30:13.051 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-04-11 16:30:25.979 +06:00 [INF] GET /auth/login => 200 in 32ms
+2026-04-11 16:30:25.992 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 0ms
+2026-04-11 16:30:25.992 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-04-11 16:30:42.842 +06:00 [INF] GET /auth/register => 200 in 4ms
+2026-04-11 16:30:42.884 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 0ms
+2026-04-11 16:30:42.887 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 16:40:58.981 +06:00 [INF] GET /auth/register => 200 in 70ms
+2026-04-11 16:40:59.051 +06:00 [INF] GET /js/site.js => 304 in 0ms
+2026-04-11 16:40:59.052 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 2ms
+2026-04-11 16:40:59.052 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 16:40:59.614 +06:00 [INF] GET /favicon.ico => 304 in 0ms
+2026-04-11 16:41:00.239 +06:00 [INF] GET /auth/login => 200 in 8ms
+2026-04-11 16:43:49.400 +06:00 [INF] GET / => 302 in 217ms
+2026-04-11 16:45:56.971 +06:00 [INF] GET /auth/login => 200 in 127485ms
+2026-04-11 16:45:56.999 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 15ms
+2026-04-11 16:45:57.116 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 6ms
+2026-04-11 16:45:59.062 +06:00 [INF] GET /js/site.js => 200 in 788ms
+2026-04-11 16:45:59.621 +06:00 [INF] GET /images/vaatco_logo.jpeg => 200 in 2511ms
+2026-04-11 16:45:59.677 +06:00 [INF] GET /css/site.css => 200 in 2694ms
+2026-04-11 16:45:59.725 +06:00 [INF] GET /css/auth.css => 200 in 2622ms
+2026-04-11 16:46:21.169 +06:00 [INF] GET /lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js => 200 in 22894ms
+2026-04-11 16:46:21.176 +06:00 [INF] GET /lib/jquery-validation/dist/jquery.validate.min.js => 200 in 22901ms
+2026-04-11 16:46:22.574 +06:00 [INF] GET /lib/jquery/dist/jquery.min.js => 200 in 25466ms
+2026-04-11 16:46:22.685 +06:00 [INF] GET /favicon.ico => 200 in 8ms
+2026-04-11 16:49:24.512 +06:00 [WRN] Failed login for: aburayhan00457@gmail.com
+2026-04-11 16:49:25.545 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 5ms
+2026-04-11 16:49:33.889 +06:00 [INF] POST /auth/login => 200 in 124516ms
+2026-04-11 16:49:25.545 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 5ms
+2026-04-11 16:56:28.427 +06:00 [INF] Successfully repaired corrupted SuperAdmin password hash.
+2026-04-11 16:56:33.010 +06:00 [INF] Login: aburayhan00457@gmail.com
+2026-04-11 16:57:10.483 +06:00 [INF] POST /auth/login => 302 in 58599ms
+2026-04-11 16:57:13.436 +06:00 [INF] GET / => 200 in 70ms
+2026-04-11 16:57:13.502 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 9ms
+2026-04-11 16:57:13.503 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 9ms
+2026-04-11 16:57:25.494 +06:00 [INF] GET /Dashboard => 404 in 0ms
+2026-04-11 16:59:22.326 +06:00 [INF] GET / => 302 in 79ms
+2026-04-11 16:59:24.480 +06:00 [INF] GET /auth/login => 200 in 2059ms
+2026-04-11 16:59:24.545 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 8ms
+2026-04-11 16:59:24.667 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 16:59:42.750 +06:00 [INF] Login: aburayhan00457@gmail.com
+2026-04-11 16:59:42.829 +06:00 [INF] POST /auth/login => 302 in 1436ms
+2026-04-11 16:59:42.895 +06:00 [INF] GET / => 200 in 51ms
+2026-04-11 16:59:42.913 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-11 16:59:42.913 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 16:59:48.922 +06:00 [INF] GET /Auth/Logout => 404 in 0ms
+2026-04-11 16:59:52.856 +06:00 [INF] GET /Auth/Logout => 404 in 0ms
+2026-04-11 17:01:33.387 +06:00 [INF] GET / => 200 in 718ms
+2026-04-11 17:01:33.425 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 14ms
+2026-04-11 17:01:33.425 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 14ms
+2026-04-11 17:01:45.426 +06:00 [INF] GET /Auth/Logout => 404 in 6ms
+2026-04-11 17:01:55.254 +06:00 [INF] GET /login => 404 in 0ms
+2026-04-11 17:02:07.566 +06:00 [INF] GET /Auth/login => 302 in 3893ms
+2026-04-11 17:02:07.589 +06:00 [INF] GET / => 200 in 7ms
+2026-04-11 17:02:07.609 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 2ms
+2026-04-11 17:02:07.615 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 4ms
+2026-04-11 17:02:10.617 +06:00 [INF] GET /Auth/Logout => 404 in 0ms
+2026-04-11 17:02:26.585 +06:00 [INF] GET /Auth/login => 302 in 9836ms
+2026-04-11 17:02:26.635 +06:00 [INF] GET / => 200 in 35ms
+2026-04-11 17:02:26.653 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 17:02:26.659 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 8ms
+2026-04-11 17:02:38.050 +06:00 [INF] GET /Auth/Logout => 404 in 0ms
+2026-04-11 17:02:39.554 +06:00 [INF] GET /Auth/Logout => 404 in 0ms
+2026-04-11 17:06:40.338 +06:00 [INF] GET / => 200 in 961ms
+2026-04-11 17:06:40.413 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 59ms
+2026-04-11 17:06:40.428 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 36ms
+2026-04-11 17:07:15.315 +06:00 [INF] GET /Auth/Logout => 302 in 30582ms
+2026-04-11 17:07:18.669 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-11 17:07:18.683 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 5ms
+2026-04-11 17:07:18.712 +06:00 [INF] GET /auth/login => 200 in 3380ms
+2026-04-11 17:07:25.897 +06:00 [INF] Login: aburayhan00457@gmail.com
+2026-04-11 17:07:25.928 +06:00 [INF] POST /auth/login => 302 in 3815ms
+2026-04-11 17:07:25.947 +06:00 [INF] GET / => 200 in 3ms
+2026-04-11 17:07:25.970 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 2ms
+2026-04-11 17:07:25.970 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 3ms
+2026-04-11 17:07:31.503 +06:00 [INF] GET /auth/logout => 302 in 1994ms
+2026-04-11 17:07:32.602 +06:00 [INF] GET /auth/login => 200 in 1084ms
+2026-04-11 17:07:32.623 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 2ms
+2026-04-11 17:07:32.625 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 3ms
+2026-04-11 17:07:37.287 +06:00 [INF] GET /auth/register => 200 in 34ms
+2026-04-11 17:07:37.308 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 17:07:37.308 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 2ms
+2026-04-11 17:09:00.916 +06:00 [INF] GET / => 302 in 221ms
+2026-04-11 17:09:06.199 +06:00 [INF] GET /auth/login => 200 in 5177ms
+2026-04-11 17:09:06.236 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 10ms
+2026-04-11 17:09:06.305 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-04-11 17:09:09.761 +06:00 [INF] GET /auth/register => 200 in 99ms
+2026-04-11 17:09:09.778 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-11 17:09:09.780 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 2ms
+2026-04-11 17:10:08.379 +06:00 [INF] Connecting to SMTP server smtp-relay.brevo.com:587
+2026-04-11 17:10:09.013 +06:00 [ERR] Unexpected error sending email to aburayhan011260@gmail.com: Verify Your Account
+MailKit.Security.SslHandshakeException: An error occurred while attempting to establish an SSL or TLS connection.
+
+When connecting to an SMTP service, port 587 is typically reserved for plain-text connections. If
+you intended to connect to SMTP on the SSL port, try connecting to port 465 instead. Otherwise,
+if you intended to use STARTTLS, make sure to use the following code:
+
+client.Connect ("smtp-relay.brevo.com", 587, SecureSocketOptions.StartTls);
+
+ ---> System.Security.Authentication.AuthenticationException: Cannot determine the frame size or a corrupted frame was received.
+   at System.Net.Security.SslStream.GetFrameSize(ReadOnlySpan`1 buffer)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at MailKit.Net.Smtp.SmtpClient.SslHandshakeAsync(SslStream ssl, String host, CancellationToken cancellationToken)
+   at MailKit.Net.Smtp.SmtpClient.ConnectAsync(String host, Int32 port, SecureSocketOptions options, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at MailKit.Net.Smtp.SmtpClient.ConnectAsync(String host, Int32 port, SecureSocketOptions options, CancellationToken cancellationToken)
+   at VaatcoBMS.Infrastructure.Services.EmailService.ConnectAndAuthenticateAsync(SmtpClient smtp) in H:\VaatcoBMS\VaatcoBMS.Infrastructure\Services\EmailService.cs:line 84
+   at VaatcoBMS.Infrastructure.Services.EmailService.SendEmailAsync(String toEmail, String subject, String htmlMessage) in H:\VaatcoBMS\VaatcoBMS.Infrastructure\Services\EmailService.cs:line 28
+2026-04-11 17:12:59.019 +06:00 [ERR] Failed to send verification email to aburayhan011260@gmail.com
+System.ApplicationException: Failed to send email to aburayhan011260@gmail.com.
+ ---> MailKit.Security.SslHandshakeException: An error occurred while attempting to establish an SSL or TLS connection.
+
+When connecting to an SMTP service, port 587 is typically reserved for plain-text connections. If
+you intended to connect to SMTP on the SSL port, try connecting to port 465 instead. Otherwise,
+if you intended to use STARTTLS, make sure to use the following code:
+
+client.Connect ("smtp-relay.brevo.com", 587, SecureSocketOptions.StartTls);
+
+ ---> System.Security.Authentication.AuthenticationException: Cannot determine the frame size or a corrupted frame was received.
+   at System.Net.Security.SslStream.GetFrameSize(ReadOnlySpan`1 buffer)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at MailKit.Net.Smtp.SmtpClient.SslHandshakeAsync(SslStream ssl, String host, CancellationToken cancellationToken)
+   at MailKit.Net.Smtp.SmtpClient.ConnectAsync(String host, Int32 port, SecureSocketOptions options, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at MailKit.Net.Smtp.SmtpClient.ConnectAsync(String host, Int32 port, SecureSocketOptions options, CancellationToken cancellationToken)
+   at VaatcoBMS.Infrastructure.Services.EmailService.ConnectAndAuthenticateAsync(SmtpClient smtp) in H:\VaatcoBMS\VaatcoBMS.Infrastructure\Services\EmailService.cs:line 84
+   at VaatcoBMS.Infrastructure.Services.EmailService.SendEmailAsync(String toEmail, String subject, String htmlMessage) in H:\VaatcoBMS\VaatcoBMS.Infrastructure\Services\EmailService.cs:line 28
+   --- End of inner exception stack trace ---
+   at VaatcoBMS.Infrastructure.Services.EmailService.HandleEmailException(Exception ex, String toEmail, String subject) in H:\VaatcoBMS\VaatcoBMS.Infrastructure\Services\EmailService.cs:line 120
+   at VaatcoBMS.Infrastructure.Services.EmailService.SendEmailAsync(String toEmail, String subject, String htmlMessage) in H:\VaatcoBMS\VaatcoBMS.Infrastructure\Services\EmailService.cs:line 35
+   at VaatcoBMS.Infrastructure.Services.AuthService.RegisterAsync(Register model) in H:\VaatcoBMS\VaatcoBMS.Infrastructure\Services\AuthService.cs:line 129
+2026-04-11 17:12:59.183 +06:00 [INF] POST /auth/register => 302 in 212346ms
+2026-04-11 17:13:01.610 +06:00 [INF] GET /auth/login => 200 in 2386ms
+2026-04-11 17:13:01.645 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-11 17:13:01.645 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 17:13:08.980 +06:00 [INF] GET /auth/register => 200 in 11ms
+2026-04-11 17:13:08.999 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 0ms
+2026-04-11 17:13:09.001 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 17:13:43.383 +06:00 [INF] POST /auth/register => 200 in 6652ms
+2026-04-11 17:13:46.039 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 5ms
+2026-04-11 17:13:43.431 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 3ms
+2026-04-11 17:13:53.807 +06:00 [INF] GET /auth/login => 200 in 1648ms
+2026-04-11 17:13:53.830 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 2ms
+2026-04-11 17:13:53.832 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 5ms
+2026-04-11 17:27:11.681 +06:00 [INF] GET / => 302 in 206ms
+2026-04-11 17:27:17.592 +06:00 [INF] GET /auth/login => 200 in 5788ms
+2026-04-11 17:27:17.654 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 13ms
+2026-04-11 17:27:17.715 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 17:27:20.463 +06:00 [INF] GET /auth/register => 200 in 144ms
+2026-04-11 17:27:20.483 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-11 17:27:20.485 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 17:33:20.892 +06:00 [INF] GET /auth/register => 200 in 46ms
+2026-04-11 17:33:20.952 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 24ms
+2026-04-11 17:33:20.949 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 6ms
+2026-04-11 17:34:47.741 +06:00 [INF] GET / => 302 in 367ms
+2026-04-11 17:34:55.215 +06:00 [INF] GET /auth/login => 200 in 7288ms
+2026-04-11 17:34:55.420 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 6ms
+2026-04-11 17:34:55.450 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-04-11 17:34:58.511 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-11 17:34:58.516 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 2ms
+2026-04-11 17:34:58.549 +06:00 [INF] GET /auth/register => 200 in 259ms
+2026-04-11 17:37:54.973 +06:00 [INF] Connecting to SMTP server smtp-relay.brevo.com:587
+2026-04-11 17:38:11.604 +06:00 [ERR] Unexpected error sending email to b0kh3oigq4@wnbaldwy.com: Verify Your Account
+MailKit.Security.SslHandshakeException: An error occurred while attempting to establish an SSL or TLS connection.
+
+When connecting to an SMTP service, port 587 is typically reserved for plain-text connections. If
+you intended to connect to SMTP on the SSL port, try connecting to port 465 instead. Otherwise,
+if you intended to use STARTTLS, make sure to use the following code:
+
+client.Connect ("smtp-relay.brevo.com", 587, SecureSocketOptions.StartTls);
+
+ ---> System.Security.Authentication.AuthenticationException: Cannot determine the frame size or a corrupted frame was received.
+   at System.Net.Security.SslStream.GetFrameSize(ReadOnlySpan`1 buffer)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at MailKit.Net.Smtp.SmtpClient.SslHandshakeAsync(SslStream ssl, String host, CancellationToken cancellationToken)
+   at MailKit.Net.Smtp.SmtpClient.ConnectAsync(String host, Int32 port, SecureSocketOptions options, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at MailKit.Net.Smtp.SmtpClient.ConnectAsync(String host, Int32 port, SecureSocketOptions options, CancellationToken cancellationToken)
+   at VaatcoBMS.Infrastructure.Services.EmailService.ConnectAndAuthenticateAsync(SmtpClient smtp) in H:\VaatcoBMS\VaatcoBMS.Infrastructure\Services\EmailService.cs:line 84
+   at VaatcoBMS.Infrastructure.Services.EmailService.SendEmailAsync(String toEmail, String subject, String htmlMessage) in H:\VaatcoBMS\VaatcoBMS.Infrastructure\Services\EmailService.cs:line 28
+2026-04-11 17:38:11.789 +06:00 [ERR] Failed to send verification email to b0kh3oigq4@wnbaldwy.com
+System.ApplicationException: Failed to send email to b0kh3oigq4@wnbaldwy.com.
+ ---> MailKit.Security.SslHandshakeException: An error occurred while attempting to establish an SSL or TLS connection.
+
+When connecting to an SMTP service, port 587 is typically reserved for plain-text connections. If
+you intended to connect to SMTP on the SSL port, try connecting to port 465 instead. Otherwise,
+if you intended to use STARTTLS, make sure to use the following code:
+
+client.Connect ("smtp-relay.brevo.com", 587, SecureSocketOptions.StartTls);
+
+ ---> System.Security.Authentication.AuthenticationException: Cannot determine the frame size or a corrupted frame was received.
+   at System.Net.Security.SslStream.GetFrameSize(ReadOnlySpan`1 buffer)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReceiveHandshakeFrameAsync[TIOAdapter](CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at System.Net.Security.SslStream.ProcessAuthenticationWithTelemetryAsync(Boolean isAsync, CancellationToken cancellationToken)
+   at MailKit.Net.Smtp.SmtpClient.SslHandshakeAsync(SslStream ssl, String host, CancellationToken cancellationToken)
+   at MailKit.Net.Smtp.SmtpClient.ConnectAsync(String host, Int32 port, SecureSocketOptions options, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at MailKit.Net.Smtp.SmtpClient.ConnectAsync(String host, Int32 port, SecureSocketOptions options, CancellationToken cancellationToken)
+   at VaatcoBMS.Infrastructure.Services.EmailService.ConnectAndAuthenticateAsync(SmtpClient smtp) in H:\VaatcoBMS\VaatcoBMS.Infrastructure\Services\EmailService.cs:line 84
+   at VaatcoBMS.Infrastructure.Services.EmailService.SendEmailAsync(String toEmail, String subject, String htmlMessage) in H:\VaatcoBMS\VaatcoBMS.Infrastructure\Services\EmailService.cs:line 28
+   --- End of inner exception stack trace ---
+   at VaatcoBMS.Infrastructure.Services.EmailService.HandleEmailException(Exception ex, String toEmail, String subject) in H:\VaatcoBMS\VaatcoBMS.Infrastructure\Services\EmailService.cs:line 120
+   at VaatcoBMS.Infrastructure.Services.EmailService.SendEmailAsync(String toEmail, String subject, String htmlMessage) in H:\VaatcoBMS\VaatcoBMS.Infrastructure\Services\EmailService.cs:line 35
+   at VaatcoBMS.Infrastructure.Services.AuthService.RegisterAsync(Register model) in H:\VaatcoBMS\VaatcoBMS.Infrastructure\Services\AuthService.cs:line 129
+2026-04-11 17:38:11.833 +06:00 [INF] POST /auth/register => 302 in 164807ms
+2026-04-11 17:38:14.691 +06:00 [INF] GET /auth/login => 200 in 2830ms
+2026-04-11 17:38:14.714 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-11 17:38:14.715 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 17:59:00.222 +06:00 [INF] GET / => 302 in 3483ms
+2026-04-11 17:59:08.844 +06:00 [INF] GET /auth/login => 200 in 8544ms
+2026-04-11 17:59:08.950 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 6ms
+2026-04-11 17:59:09.052 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 17:59:18.504 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-11 17:59:18.504 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 17:59:18.554 +06:00 [INF] GET /auth/register => 200 in 175ms
+2026-04-11 18:01:37.866 +06:00 [INF] Email sent to rayhan@ozsaip.com
+2026-04-11 22:07:55.814 +06:00 [INF] GET / => 302 in 253ms
+2026-04-11 22:08:27.774 +06:00 [INF] GET /auth/login => 200 in 31791ms
+2026-04-11 22:08:27.841 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 9ms
+2026-04-11 22:08:27.842 +06:00 [INF] GET /css/site.css => 304 in 9ms
+2026-04-11 22:08:27.842 +06:00 [INF] GET /css/auth.css => 304 in 9ms
+2026-04-11 22:08:27.932 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-04-11 22:08:27.944 +06:00 [INF] GET /js/site.js => 304 in 0ms
+2026-04-11 22:08:31.643 +06:00 [INF] GET /auth/register => 200 in 147ms
+2026-04-11 22:08:31.664 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-11 22:08:31.669 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 4ms
+2026-04-11 22:10:11.440 +06:00 [INF] Email sent to rayhan@ozsaip.com
+2026-04-11 22:31:09.917 +06:00 [INF] GET / => 302 in 213ms
+2026-04-11 22:31:36.710 +06:00 [INF] GET /auth/login => 200 in 26666ms
+2026-04-11 22:31:36.813 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 10ms
+2026-04-11 22:31:36.844 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 22:31:43.641 +06:00 [INF] GET /auth/register => 200 in 111ms
+2026-04-11 22:31:43.660 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-11 22:31:43.662 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 22:35:21.141 +06:00 [INF] Email sent to rayhan@ozsaip.com
+2026-04-11 23:01:21.097 +06:00 [INF] GET / => 302 in 264ms
+2026-04-11 23:01:34.527 +06:00 [INF] GET /auth/login => 200 in 13299ms
+2026-04-11 23:01:34.601 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 14ms
+2026-04-11 23:01:34.653 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 23:01:42.880 +06:00 [INF] GET /auth/register => 200 in 245ms
+2026-04-11 23:01:42.902 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-11 23:01:42.903 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 23:03:13.713 +06:00 [INF] Email sent to rayhan@ozsaip.com
+2026-04-11 23:03:59.404 +06:00 [INF] Email sent to rayhan@ozsaip.com
+2026-04-11 23:05:19.699 +06:00 [INF] GET /auth/verify-email?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlbWFpbF92ZXJpZmljYXRpb24iLCJlbWFpbCI6InJheWhhbkBvenNhaXAuY29tIiwiZXhwIjoxNzc2MDExNjg4LCJpc3MiOiJWYWF0Y29CTVNfQVBJIiwiYXVkIjoiVmFhdGNvQk1TX0NsaWVudCJ9.tPaW3UWu4uYBjIx9Cbdnq2TxVYfL0KDo7z6_Cvj7kTA => 404 in 0ms
+2026-04-11 23:05:19.703 +06:00 [INF] POST /auth/register => 302 in 203441ms
+2026-04-11 23:05:22.047 +06:00 [INF] GET / => 302 in 2290ms
+2026-04-11 23:05:24.123 +06:00 [INF] GET /auth/login => 200 in 2062ms
+2026-04-11 23:05:24.140 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-11 23:05:24.142 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 23:05:31.222 +06:00 [INF] GET /auth/register => 200 in 7ms
+2026-04-11 23:05:31.241 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 2ms
+2026-04-11 23:05:31.241 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 23:07:04.116 +06:00 [INF] GET /Auth/VerifyEmail?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlbWFpbF92ZXJpZmljYXRpb24iLCJlbWFpbCI6InJheWhhbkBvenNhaXAuY29tIiwiZXhwIjoxNzc2MDEzMzU3LCJpc3MiOiJWYWF0Y29CTVNfQVBJIiwiYXVkIjoiVmFhdGNvQk1TX0NsaWVudCJ9.W6cxb3ct_oa6JN2--YziSyCETA3VBE2NCOtmRFTw4Sg => 404 in 16ms
+2026-04-11 23:07:04.139 +06:00 [INF] GET /Auth/VerifyEmail?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlbWFpbF92ZXJpZmljYXRpb24iLCJlbWFpbCI6InJheWhhbkBvenNhaXAuY29tIiwiZXhwIjoxNzc2MDEzMzU3LCJpc3MiOiJWYWF0Y29CTVNfQVBJIiwiYXVkIjoiVmFhdGNvQk1TX0NsaWVudCJ9.W6cxb3ct_oa6JN2--YziSyCETA3VBE2NCOtmRFTw4Sg => 404 in 0ms
+2026-04-11 23:07:04.728 +06:00 [INF] Email sent to rayhan@ozsaip.com
+2026-04-11 23:08:36.693 +06:00 [INF] GET /Auth/VerifyEmail?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlbWFpbF92ZXJpZmljYXRpb24iLCJlbWFpbCI6InJheWhhbkBvenNhaXAuY29tIiwiZXhwIjoxNzc2MDEzMzU3LCJpc3MiOiJWYWF0Y29CTVNfQVBJIiwiYXVkIjoiVmFhdGNvQk1TX0NsaWVudCJ9.W6cxb3ct_oa6JN2--YziSyCETA3VBE2NCOtmRFTw4Sg => 404 in 0ms
+2026-04-11 23:08:36.727 +06:00 [INF] GET /Auth/VerifyEmail?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlbWFpbF92ZXJpZmljYXRpb24iLCJlbWFpbCI6InJheWhhbkBvenNhaXAuY29tIiwiZXhwIjoxNzc2MDEzMzU3LCJpc3MiOiJWYWF0Y29CTVNfQVBJIiwiYXVkIjoiVmFhdGNvQk1TX0NsaWVudCJ9.W6cxb3ct_oa6JN2--YziSyCETA3VBE2NCOtmRFTw4Sg => 404 in 0ms
+2026-04-11 23:08:36.727 +06:00 [INF] GET /Auth/VerifyEmail?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlbWFpbF92ZXJpZmljYXRpb24iLCJlbWFpbCI6InJheWhhbkBvenNhaXAuY29tIiwiZXhwIjoxNzc2MDEzMzU3LCJpc3MiOiJWYWF0Y29CTVNfQVBJIiwiYXVkIjoiVmFhdGNvQk1TX0NsaWVudCJ9.W6cxb3ct_oa6JN2--YziSyCETA3VBE2NCOtmRFTw4Sg => 404 in 13ms
+2026-04-11 23:08:36.727 +06:00 [INF] GET /Auth/VerifyEmail?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlbWFpbF92ZXJpZmljYXRpb24iLCJlbWFpbCI6InJheWhhbkBvenNhaXAuY29tIiwiZXhwIjoxNzc2MDEzMzU3LCJpc3MiOiJWYWF0Y29CTVNfQVBJIiwiYXVkIjoiVmFhdGNvQk1TX0NsaWVudCJ9.W6cxb3ct_oa6JN2--YziSyCETA3VBE2NCOtmRFTw4Sg => 404 in 0ms
+2026-04-11 23:08:36.725 +06:00 [INF] GET /Auth/VerifyEmail?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlbWFpbF92ZXJpZmljYXRpb24iLCJlbWFpbCI6InJheWhhbkBvenNhaXAuY29tIiwiZXhwIjoxNzc2MDEzMzU3LCJpc3MiOiJWYWF0Y29CTVNfQVBJIiwiYXVkIjoiVmFhdGNvQk1TX0NsaWVudCJ9.W6cxb3ct_oa6JN2--YziSyCETA3VBE2NCOtmRFTw4Sg => 404 in 11ms
+2026-04-11 23:08:37.563 +06:00 [INF] Email sent to rayhan@ozsaip.com
+2026-04-11 23:09:44.793 +06:00 [INF] GET / => 302 in 219ms
+2026-04-11 23:10:15.654 +06:00 [INF] GET /Auth/VerifyEmail?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlbWFpbF92ZXJpZmljYXRpb24iLCJlbWFpbCI6InJheWhhbkBvenNhaXAuY29tIiwiZXhwIjoxNzc2MDEzMzU3LCJpc3MiOiJWYWF0Y29CTVNfQVBJIiwiYXVkIjoiVmFhdGNvQk1TX0NsaWVudCJ9.W6cxb3ct_oa6JN2--YziSyCETA3VBE2NCOtmRFTw4Sg => 404 in 5ms
+2026-04-11 23:10:15.977 +06:00 [INF] GET /auth/login => 200 in 31100ms
+2026-04-11 23:10:16.014 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 3ms
+2026-04-11 23:10:16.063 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-04-11 23:10:18.280 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-11 23:10:18.280 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-04-11 23:10:18.373 +06:00 [INF] GET /auth/register => 200 in 239ms
+2026-04-11 23:10:44.716 +06:00 [INF] Email sent to rayhan@ozsaip.com
+2026-04-11 23:10:45.704 +06:00 [INF] Email sent to rayhan@ozsaip.com
+2026-04-11 23:10:45.768 +06:00 [INF] POST /auth/register => 302 in 16484ms
+2026-04-11 23:10:45.789 +06:00 [INF] GET / => 302 in 6ms
+2026-04-11 23:17:18.342 +06:00 [INF] GET / => 302 in 273ms
+2026-04-11 23:17:23.754 +06:00 [INF] GET /auth/login => 200 in 5303ms
+2026-04-11 23:17:23.888 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 11ms
+2026-04-11 23:17:23.898 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 23:17:26.725 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-11 23:17:26.725 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-04-11 23:17:26.779 +06:00 [INF] GET /auth/register => 200 in 174ms
+2026-04-11 23:17:40.702 +06:00 [INF] Email sent to rayhan@ozsaip.com
+2026-04-11 23:17:41.704 +06:00 [INF] Email sent to rayhan@ozsaip.com
+2026-04-11 23:17:41.772 +06:00 [INF] POST /auth/register => 302 in 4501ms
+2026-04-11 23:17:41.792 +06:00 [INF] GET / => 302 in 2ms
+2026-04-11 23:17:49.661 +06:00 [INF] GET /auth/login => 200 in 7854ms
+2026-04-11 23:17:49.682 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 23:17:49.682 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 2ms
+2026-04-11 23:18:08.661 +06:00 [INF] GET /auth/VerifyEmail?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlbWFpbF92ZXJpZmljYXRpb24iLCJlbWFpbCI6InJheWhhbkBvenNhaXAuY29tIiwiZXhwIjoxNzc2MDE0MjU5LCJpc3MiOiJWYWF0Y29CTVNfQVBJIiwiYXVkIjoiVmFhdGNvQk1TX0NsaWVudCJ9.JL6l0VvLGHZ0O4VZRlPIq524V-YP7PvFjKJ1fFgt8d8 => 302 in 149ms
+2026-04-11 23:18:18.542 +06:00 [INF] GET /auth/login => 200 in 9853ms
+2026-04-11 23:18:19.936 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 0ms
+2026-04-11 23:18:20.067 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 23:18:20.106 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 23:18:21.460 +06:00 [INF] GET /images/vaatco_logo.jpeg => 200 in 1492ms
+2026-04-11 23:18:23.097 +06:00 [INF] GET /css/site.css => 200 in 3156ms
+2026-04-11 23:18:23.114 +06:00 [INF] GET /css/auth.css => 200 in 3170ms
+2026-04-11 23:18:33.981 +06:00 [INF] GET /js/site.js => 200 in 13913ms
+2026-04-11 23:18:34.003 +06:00 [INF] GET /js/site.js => 200 in 2ms
+2026-04-11 23:18:34.146 +06:00 [INF] GET /lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js => 200 in 14039ms
+2026-04-11 23:18:34.149 +06:00 [INF] GET /lib/jquery-validation/dist/jquery.validate.min.js => 200 in 14043ms
+2026-04-11 23:18:34.160 +06:00 [INF] GET /lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js => 200 in 3ms
+2026-04-11 23:18:34.167 +06:00 [INF] GET /lib/jquery-validation/dist/jquery.validate.min.js => 200 in 3ms
+2026-04-11 23:18:35.119 +06:00 [INF] GET /lib/jquery/dist/jquery.min.js => 200 in 15053ms
+2026-04-11 23:18:35.205 +06:00 [INF] GET /lib/jquery/dist/jquery.min.js => 200 in 8ms
+2026-04-11 23:18:35.304 +06:00 [INF] GET /favicon.ico => 200 in 21ms
+2026-04-11 23:18:54.090 +06:00 [INF] POST /auth/login => 200 in 2385ms
+2026-04-11 23:18:54.113 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 1ms
+2026-04-11 23:18:54.113 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 2ms
