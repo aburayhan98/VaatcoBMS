@@ -8,20 +8,16 @@ using VaatcoBMS.Domain.Interfaces;
 
 namespace VaatcoBMS.Application.Services;
 
-public class UserService : IUserService
+public class UserService(
+	IUnitOfWork uow,
+	IMapper mapper,
+	IEmailService email,
+	ILogger<UserService> logger) : IUserService
 {
-	private readonly IUnitOfWork _uow;
-	private readonly IMapper _mapper;
-	private readonly IEmailService _email;
-	private readonly ILogger<UserService> _logger;
-
-	public UserService(IUnitOfWork uow, IMapper mapper, IEmailService email, ILogger<UserService> logger)
-	{
-		_uow = uow;
-		_mapper = mapper;
-		_email = email;
-		_logger = logger;
-	}
+	private readonly IUnitOfWork _uow = uow;
+	private readonly IMapper _mapper = mapper;
+	private readonly IEmailService _email = email;
+	private readonly ILogger<UserService> _logger = logger;
 
 	// ── READ ────────────────────────────────────────────────
 
@@ -216,64 +212,102 @@ public class UserService : IUserService
 			throw new ApplicationException($"An error occurred while changing role for user Id: {id}", ex);
 		}
 	}
-
-	public async Task ApproveUserAsync(int id)
+	public async Task ApproveUserAsync(int targetId, int approverUserId)
 	{
+		var approver = await _uow.Users.GetByIdAsync(approverUserId);
+		var target = await _uow.Users.GetByIdAsync(targetId);
+
+		if (target == null)
+		{
+			throw new KeyNotFoundException($"User {targetId} not found.");
+		}
+
+		// Only SuperAdmin can approve another Admin
+		if (target.Role == UserRole.Admin && approver?.Role != UserRole.SuperAdmin)
+		{
+			throw new UnauthorizedAccessException("Only SuperAdmin can approve Admin accounts.");
+		}
+
+		if (target.IsApproved)
+		{
+			_logger.LogInformation("User {Id} is already approved", targetId);
+			return;
+		}
+
+		target.IsApproved = true;
+		_uow.Users.Update(target);
+		await _uow.SaveChangesAsync();
+
+		_logger.LogInformation("User {Id} approved by {ApproverId}", targetId, approverUserId);
+
+		// Send approval email
 		try
 		{
-			var user = await _uow.Users.GetByIdAsync(id);
-			if (user == null)
-			{
-				_logger.LogWarning("User with Id: {UserId} not found for approval", id);
-				throw new KeyNotFoundException($"User {id} not found.");
-			}
-
-			if (user.IsApproved)
-			{
-				_logger.LogInformation("User {UserId} is already approved", id);
-				return;
-			}
-
-			user.IsApproved = true;
-
-			_uow.Users.Update(user);
-			await _uow.SaveChangesAsync();
-
-			_logger.LogInformation("User approved successfully. UserId: {UserId}, Email: {Email}", id, user.Email);
-
-			// Send approval email
-			try
-			{
-				var subject = "Your VaatcoIMS account has been approved";
-				var body = $@"
-                    <html>
-                    <body>
-                        <h2>Welcome, {user.Name}!</h2>
-                        <p>Your account has been approved. You can now log in.</p>
-                        <br/>
-                        <p>Best regards,<br/>VaatcoIMS Team</p>
-                    </body>
-                    </html>";
-
-				await _email.SendEmailAsync(user.Email, subject, body);
-				_logger.LogInformation("Approval email sent to {Email}", user.Email);
-			}
-			catch (Exception ex)
-			{
-				_logger.LogError(ex, "Failed to send approval email to {Email}", user.Email);
-				// Don't throw - user is already approved, just log the error
-			}
-		}
-		catch (KeyNotFoundException)
-		{
-			throw;
+			var body = $"<html><body><h2>Welcome, {target.Name}!</h2><p>Your account has been approved. You can now log in.</p><p>Best regards,<br/>VaatcoIMS Team</p></body></html>";
+			await _email.SendEmailAsync(target.Email, "Your account has been approved", body);
 		}
 		catch (Exception ex)
 		{
-			_logger.LogError(ex, "Error approving user Id: {UserId}", id);
-			throw new ApplicationException($"An error occurred while approving user Id: {id}", ex);
+			_logger.LogError(ex, "Approval email failed for {Email}", target.Email);
 		}
 	}
+	//public async Task ApproveUserAsync(int id)
+	//{
+	//	try
+	//	{
+	//		var user = await _uow.Users.GetByIdAsync(id);
+	//		if (user == null)
+	//		{
+	//			_logger.LogWarning("User with Id: {UserId} not found for approval", id);
+	//			throw new KeyNotFoundException($"User {id} not found.");
+	//		}
+
+	//		if (user.IsApproved)
+	//		{
+	//			_logger.LogInformation("User {UserId} is already approved", id);
+	//			return;
+	//		}
+
+	//		user.IsApproved = true;
+
+	//		_uow.Users.Update(user);
+	//		await _uow.SaveChangesAsync();
+
+	//		_logger.LogInformation("User approved successfully. UserId: {UserId}, Email: {Email}", id, user.Email);
+
+	//		// Send approval email
+	//		try
+	//		{
+	//			var subject = "Your VaatcoIMS account has been approved";
+	//			var body = $@"
+	//                   <html>
+	//                   <body>
+	//                       <h2>Welcome, {user.Name}!</h2>
+	//                       <p>Your account has been approved. You can now log in.</p>
+	//                       <br/>
+	//                       <p>Best regards,<br/>VaatcoIMS Team</p>
+	//                   </body>
+	//                   </html>";
+
+	//			await _email.SendEmailAsync(user.Email, subject, body);
+	//			_logger.LogInformation("Approval email sent to {Email}", user.Email);
+	//		}
+	//		catch (Exception ex)
+	//		{
+	//			_logger.LogError(ex, "Failed to send approval email to {Email}", user.Email);
+	//			// Don't throw - user is already approved, just log the error
+	//		}
+	//	}
+	//	catch (KeyNotFoundException)
+	//	{
+	//		throw;
+	//	}
+	//	catch (Exception ex)
+	//	{
+	//		_logger.LogError(ex, "Error approving user Id: {UserId}", id);
+	//		throw new ApplicationException($"An error occurred while approving user Id: {id}", ex);
+	//	}
+	//}
 
 	public async Task RejectUserAsync(int id)
 	{
