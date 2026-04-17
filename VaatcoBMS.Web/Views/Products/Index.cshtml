@@ -1,0 +1,320 @@
+﻿@model IEnumerable<VaatcoBMS.Application.DTOs.Product.ProductDto>
+
+@{
+  ViewData["Title"] = "Products";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* ── Stat Row ─────────────────────────────────────────────── *@
+<div class="stat-grid">
+  <div class="stat-card">
+    <div class="stat-icon blue"><i class="bi bi-box-seam-fill"></i></div>
+    <div><div class="stat-label">Total Products</div><div class="stat-value">@Model.Count()</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon green"><i class="bi bi-check-circle-fill"></i></div>
+    <div><div class="stat-label">In Stock</div><div class="stat-value">@Model.Count(p => p.StockStatus == "OK")</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon amber"><i class="bi bi-exclamation-triangle-fill"></i></div>
+    <div><div class="stat-label">Low Stock</div><div class="stat-value">@Model.Count(p => p.StockStatus == "Low")</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon red"><i class="bi bi-x-circle-fill"></i></div>
+    <div><div class="stat-label">Out of Stock</div><div class="stat-value">@Model.Count(p => p.StockStatus == "Out of Stock")</div></div>
+  </div>
+</div>
+
+@* ── Product Table ─────────────────────────────────────────── *@
+<div class="vcard">
+  <div class="vcard-header">
+    <i class="bi bi-box-seam" style="font-size:16px;color:#64748b;"></i>
+    <span class="vcard-title">Product Catalogue</span>
+
+    <div class="search-bar" style="margin-left:auto;">
+      <i class="bi bi-search"></i>
+      <input type="text" id="productSearch" placeholder="Search products…" />
+    </div>
+
+    <select id="stockFilter" class="form-control-v" style="width:130px;padding:7px 10px;margin-left:8px;">
+      <option value="">All Stock</option>
+      <option value="OK">In Stock</option>
+      <option value="Low">Low Stock</option>
+      <option value="Out of Stock">Out of Stock</option>
+    </select>
+
+    <button class="btn-primary-v" id="openCreateProduct" style="margin-left:8px; white-space:nowrap;">
+      <i class="bi bi-plus-lg"></i> Add Product
+    </button>
+  </div>
+
+  <div style="overflow-x:auto;">
+    <table class="vtable" id="productTable">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Product Name</th>
+          <th>Pack Size</th>
+          <th>Price (BDT)</th>
+          <th>Stock Qty</th>
+          <th>Status</th>
+          <th>Active</th>
+          <th style="text-align:right;">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="productBody">
+        @foreach (var p in Model)
+        {
+          <tr data-id="@p.ProductCode" data-name="@p.ProductName" data-stock="@p.StockStatus">
+            <td><code style="font-size:12px;background:#f1f5f9;padding:2px 7px;border-radius:4px;">@p.ProductCode</code></td>
+            <td style="font-weight:500;">@p.ProductName</td>
+            <td style="color:var(--text-secondary);">@p.PackSize</td>
+            <td style="font-weight:500;">৳ @p.Price.ToString("N2")</td>
+            <td>
+              <span style="font-weight:600; color:@(p.StockQuantity < 10 ? "var(--danger)" : p.StockQuantity < 50 ? "var(--warning)" : "var(--success)");">
+                @p.StockQuantity
+              </span>
+            </td>
+            <td>
+              @{
+                var sc = p.StockStatus switch { "OK" => "green", "Low" => "amber", "Out of Stock" => "red", _ => "gray" };
+              }
+              <span class="vbadge @sc">@p.StockStatus</span>
+            </td>
+            <td>
+              @if (p.IsActive)
+              {
+                <span class="vbadge green">Active</span>
+              }
+              else
+              {
+                <span class="vbadge gray">Inactive</span>
+              }
+            </td>
+            <td style="text-align:right;">
+              <div style="display:flex;justify-content:flex-end;gap:5px;">
+                <button class="btn-action edit edit-product-btn" data-id="@p.Id" title="Edit">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn-action delete delete-product-btn" data-id="@p.Id" data-name="@p.ProductName" title="Delete">
+                  <i class="bi bi-trash3"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+        @if (!Model.Any())
+        {
+          <tr>
+            <td colspan="8" style="text-align:center;padding:48px;color:var(--text-muted);">
+              <i class="bi bi-box-seam" style="font-size:36px;display:block;margin-bottom:10px;"></i>
+              No products yet. Click <strong>Add Product</strong> to get started.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div class="vpager">
+    <span class="vpager-info" id="productCount">@Model.Count() products</span>
+  </div>
+</div>
+
+@* ── Create / Edit Modal ───────────────────────────────────── *@
+<div class="vmodal-backdrop" id="productModal">
+  <div class="vmodal">
+    <div class="vmodal-header">
+      <i class="bi bi-box-seam" style="font-size:16px;color:var(--primary);"></i>
+      <span class="vmodal-title" id="productModalTitle">Add Product</span>
+      <button class="vmodal-close" onclick="closeModal('productModal')">&times;</button>
+    </div>
+    <div class="vmodal-body">
+      <form id="productForm" novalidate>
+        @Html.AntiForgeryToken()
+        <input type="hidden" id="pId" value="0" />
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div class="form-group-v">
+            <label class="form-label-v">Product Code *</label>
+            <input type="text" id="pCode" class="form-control-v" placeholder="e.g. PRD-001" />
+            <div class="invalid-msg">Product code is required.</div>
+          </div>
+          <div class="form-group-v">
+            <label class="form-label-v">Pack Size *</label>
+            <input type="text" id="pPackSize" class="form-control-v" placeholder="e.g. 500ml x 12" />
+            <div class="invalid-msg">Pack size is required.</div>
+          </div>
+        </div>
+
+        <div class="form-group-v">
+          <label class="form-label-v">Product Name *</label>
+          <input type="text" id="pName" class="form-control-v" placeholder="Full product name" />
+          <div class="invalid-msg">Product name is required.</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div class="form-group-v">
+            <label class="form-label-v">Price (BDT) *</label>
+            <input type="number" id="pPrice" class="form-control-v" placeholder="0.00" min="0" step="0.01" />
+            <div class="invalid-msg">Valid price is required.</div>
+          </div>
+          <div class="form-group-v">
+            <label class="form-label-v">Stock Quantity</label>
+            <input type="number" id="pStock" class="form-control-v" placeholder="0" min="0" value="0" />
+          </div>
+        </div>
+
+        <div class="form-group-v">
+          <label class="form-label-v">Status</label>
+          <select id="pActive" class="form-control-v">
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="vmodal-footer">
+      <button class="btn-outline-v" onclick="closeModal('productModal')">Cancel</button>
+      <button class="btn-primary-v" id="saveProductBtn">
+        <i class="bi bi-check-lg"></i> Save Product
+      </button>
+    </div>
+  </div>
+</div>
+
+@* ── Delete Confirm ────────────────────────────────────────── *@
+<div class="vmodal-backdrop" id="deleteProductModal">
+  <div class="vmodal confirm-dialog">
+    <div class="vmodal-body" style="text-align:center;padding:32px 24px 20px;">
+      <div class="confirm-icon" style="background:#fee2e2;margin:0 auto 14px;">
+        <i class="bi bi-trash3-fill" style="font-size:24px;color:#b91c1c;"></i>
+      </div>
+      <div style="font-size:16px;font-weight:600;margin-bottom:8px;">Delete Product?</div>
+      <div style="font-size:13px;color:var(--text-secondary);">
+        Deleting <strong id="deleteProductName"></strong> cannot be undone.
+      </div>
+    </div>
+    <div class="vmodal-footer" style="justify-content:center;gap:10px;">
+      <button class="btn-outline-v" onclick="closeModal('deleteProductModal')">Cancel</button>
+      <button class="btn-primary-v" id="confirmDeleteProduct" style="background:#b91c1c;border:none;">
+        <i class="bi bi-trash3"></i> Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script>
+    $(function () {
+
+        // ── Search & Filter
+        function filterProducts() {
+            var q = $('#productSearch').val().toLowerCase();
+            var stock = $('#stockFilter').val().toLowerCase();
+            var count = 0;
+            $('#productBody tr[data-id]').each(function () {
+                var name = ($(this).find('td:eq(1)').text() + $(this).find('td:eq(0)').text()).toLowerCase();
+                var s = $(this).data('stock').toString().toLowerCase();
+                var show = (!q || name.includes(q)) && (!stock || s === stock);
+                $(this).toggle(show);
+                if (show) count++;
+            });
+            $('#productCount').text(count + ' products');
+        }
+        $('#productSearch').on('input', filterProducts);
+        $('#stockFilter').on('change', filterProducts);
+
+        // ── Open Create Modal
+        $('#openCreateProduct').on('click', function () {
+            $('#productForm')[0].reset();
+            $('#pId').val('0');
+            $('#productModalTitle').text('Add Product');
+            $('#productForm .form-control-v').removeClass('is-invalid');
+            openModal('productModal');
+        });
+
+        // ── Validation Helper
+        function validateRequired(id) {
+            var $el = $('#' + id);
+            var valid = $el.val().trim() !== '';
+            $el.toggleClass('is-invalid', !valid);
+            return valid;
+        }
+
+        // ── Save Product
+        $('#saveProductBtn').on('click', function () {
+            var v1 = validateRequired('pName');
+            var v2 = validateRequired('pCode');
+            var v3 = validateRequired('pPackSize');
+            var v4 = validateRequired('pPrice');
+            if (!v1 || !v2 || !v3 || !v4) return;
+
+            var id = parseInt($('#pId').val());
+            var payload = {
+                code: $('#pCode').val().trim(),
+                name: $('#pName').val().trim(),
+                packSize: $('#pPackSize').val().trim(),
+                price: parseFloat($('#pPrice').val()),
+                stockQuantity: parseInt($('#pStock').val()) || 0,
+                isActive: $('#pActive').val() === 'true'
+            };
+
+            var url = id ? '/api/products/' + id : '/api/products';
+            var method = id ? 'PUT' : 'POST';
+
+            $.ajax({ url: url, method: method, contentType: 'application/json', data: JSON.stringify(payload) })
+                .done(function () {
+                    closeModal('productModal');
+                    showToast(id ? 'Product updated.' : 'Product created.', 'success');
+                    setTimeout(function () { location.reload(); }, 800);
+                })
+                .fail(function (xhr) { showToast(xhr.responseJSON?.message || 'Save failed.', 'danger'); });
+        });
+
+        // ── Edit Button
+        $(document).on('click', '.edit-product-btn', function () {
+            var id = $(this).data('id');
+            $.get('/api/products/' + id, function (res) {
+                var p = res.data || res;
+                $('#pId').val(p.id);
+                $('#pCode').val(p.code || p.productCode);
+                $('#pName').val(p.name || p.productName);
+                $('#pPackSize').val(p.packSize);
+                $('#pPrice').val(p.price);
+                $('#pStock').val(p.stockQuantity);
+                $('#pActive').val(p.isActive.toString());
+                $('#productModalTitle').text('Edit Product');
+                $('#productForm .form-control-v').removeClass('is-invalid');
+                openModal('productModal');
+            }).fail(function () { showToast('Could not load product.', 'danger'); });
+        });
+
+        // ── Delete
+        var deleteId = null;
+        $(document).on('click', '.delete-product-btn', function () {
+            deleteId = $(this).data('id');
+            $('#deleteProductName').text($(this).data('name'));
+            openModal('deleteProductModal');
+        });
+        $('#confirmDeleteProduct').on('click', function () {
+            $.ajax({ url: '/api/products/' + deleteId, method: 'DELETE' })
+                .done(function () {
+                    closeModal('deleteProductModal');
+                    showToast('Product deleted.', 'danger');
+                    setTimeout(function () { location.reload(); }, 800);
+                })
+                .fail(function (xhr) { showToast(xhr.responseJSON?.message || 'Delete failed.', 'danger'); });
+        });
+
+        // Remove validation state on input
+        $(document).on('input change', '.form-control-v', function () { $(this).removeClass('is-invalid'); });
+    });
+
+    function openModal(id) { document.getElementById(id).classList.add('show'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+    document.querySelectorAll('.vmodal-backdrop').forEach(function (el) {
+        el.addEventListener('click', function (e) { if (e.target === el) el.classList.remove('show'); });
+    });
+  </script>
+}

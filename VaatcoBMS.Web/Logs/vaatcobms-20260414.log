@@ -1,0 +1,303 @@
+2026-04-14 23:29:31.521 +06:00 [INF] GET / => 302 in 202ms
+2026-04-14 23:29:37.299 +06:00 [INF] GET /css/site.css => 304 in 17ms
+2026-04-14 23:29:37.305 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 10ms
+2026-04-14 23:29:37.307 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 25ms
+2026-04-14 23:29:37.314 +06:00 [INF] GET /lib/jquery/dist/jquery.min.js => 304 in 0ms
+2026-04-14 23:29:37.321 +06:00 [INF] GET /css/auth.css => 304 in 0ms
+2026-04-14 23:29:37.329 +06:00 [INF] GET /lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js => 304 in 0ms
+2026-04-14 23:29:37.333 +06:00 [INF] GET /js/site.js => 304 in 0ms
+2026-04-14 23:29:37.333 +06:00 [INF] GET /lib/jquery-validation/dist/jquery.validate.min.js => 304 in 0ms
+2026-04-14 23:29:37.345 +06:00 [INF] GET /auth/login => 200 in 5552ms
+2026-04-14 23:29:54.738 +06:00 [WRN] Failed login for: aburayhan00457@gmail.com
+2026-04-14 23:29:54.768 +06:00 [INF] POST /auth/login => 200 in 3147ms
+2026-04-14 23:29:54.802 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 3ms
+2026-04-14 23:29:54.802 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 3ms
+2026-04-14 23:30:07.643 +06:00 [WRN] Failed login for: aburayhan00457@gmail.com
+2026-04-14 23:30:07.650 +06:00 [INF] POST /auth/login => 200 in 525ms
+2026-04-14 23:30:07.668 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 0ms
+2026-04-14 23:30:07.668 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-04-14 23:30:58.802 +06:00 [WRN] Failed login for: aburayhan00457@gmail.com
+2026-04-14 23:30:58.814 +06:00 [INF] POST /auth/login => 200 in 509ms
+2026-04-14 23:30:58.841 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-14 23:30:58.842 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-04-14 23:32:37.888 +06:00 [INF] Login: aburayhan00457@gmail.com
+2026-04-14 23:32:37.941 +06:00 [INF] POST /auth/login => 302 in 373ms
+2026-04-14 23:32:38.168 +06:00 [INF] GET / => 200 in 208ms
+2026-04-14 23:32:38.201 +06:00 [INF] GET /css/site.css?v=JHook7q1pfCQ622gj7P0hDjpdH_FiVqakQxFBj76wYA => 304 in 0ms
+2026-04-14 23:32:38.208 +06:00 [INF] GET /css/layout.css?v=QMPHCxA_6v7NLe0Yn5HIKELfUHSCYtDRPyAMJdId3Z0 => 304 in 0ms
+2026-04-14 23:32:38.282 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:32:38.448 +06:00 [INF] GET /api/users/pending => 200 in 198ms
+2026-04-14 23:32:38.479 +06:00 [INF] GET /api/customers => 404 in 1ms
+2026-04-14 23:32:38.480 +06:00 [INF] GET /api/products => 404 in 2ms
+2026-04-14 23:32:38.480 +06:00 [INF] GET /api/invoices => 404 in 0ms
+2026-04-14 23:32:38.481 +06:00 [INF] GET /api/invoices?page=1&size=6 => 404 in 0ms
+2026-04-14 23:32:38.484 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:32:38.513 +06:00 [INF] GET /api/users/pending => 200 in 36ms
+2026-04-14 23:32:38.534 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:32:38.548 +06:00 [INF] GET /api/users/pending => 200 in 31ms
+2026-04-14 23:32:43.384 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:32:43.410 +06:00 [INF] GET /admin/pending => 200 in 37ms
+2026-04-14 23:32:43.471 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:32:43.477 +06:00 [INF] GET /api/users/pending => 200 in 14ms
+2026-04-14 23:32:45.407 +06:00 [INF] GET /User/Index => 200 in 43ms
+2026-04-14 23:32:45.456 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:32:45.460 +06:00 [INF] GET /api/users/pending => 200 in 9ms
+2026-04-14 23:32:47.766 +06:00 [INF] GET /admin/create-user => 200 in 40ms
+2026-04-14 23:32:47.814 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:32:47.818 +06:00 [INF] GET /api/users/pending => 200 in 8ms
+2026-04-14 23:32:49.750 +06:00 [ERR] The view 'ManageAdmins' was not found. Searched locations: ["/Views/Admin/ManageAdmins.cshtml","/Views/Shared/ManageAdmins.cshtml"]
+2026-04-14 23:32:49.772 +06:00 [WRN] Bad request: /admin/manage-admins
+System.InvalidOperationException: The view 'ManageAdmins' was not found. The following locations were searched:
+/Views/Admin/ManageAdmins.cshtml
+/Views/Shared/ManageAdmins.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at VaatcoBMS.Web.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext ctx) in H:\VaatcoBMS\VaatcoBMS.Web\Middleware\RequestLoggingMiddleware.cs:line 10
+   at VaatcoBMS.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext ctx) in H:\VaatcoBMS\VaatcoBMS.Web\Middleware\ExceptionHandlingMiddleware.cs:line 9
+2026-04-14 23:32:49.862 +06:00 [INF] GET /Auth/Login?error=The%20view%20%27ManageAdmins%27%20was%20not%20found.%20The%20following%20locations%20were%20searched%3A%0D%0A%2FViews%2FAdmin%2FManageAdmins.cshtml%0D%0A%2FViews%2FShared%2FManageAdmins.cshtml => 302 in 10ms
+2026-04-14 23:32:49.890 +06:00 [INF] GET / => 200 in 2ms
+2026-04-14 23:32:49.938 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:32:49.943 +06:00 [INF] GET /api/users/pending => 200 in 8ms
+2026-04-14 23:32:49.965 +06:00 [INF] GET /api/customers => 404 in 0ms
+2026-04-14 23:32:49.969 +06:00 [INF] GET /api/invoices?page=1&size=6 => 404 in 0ms
+2026-04-14 23:32:49.969 +06:00 [INF] GET /api/invoices => 404 in 0ms
+2026-04-14 23:32:49.969 +06:00 [INF] GET /api/products => 404 in 0ms
+2026-04-14 23:32:49.970 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:32:49.996 +06:00 [INF] GET /api/users/pending => 200 in 32ms
+2026-04-14 23:32:50.003 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:32:50.012 +06:00 [INF] GET /api/users/pending => 200 in 12ms
+2026-04-14 23:32:51.273 +06:00 [INF] GET /admin/create-user => 200 in 8ms
+2026-04-14 23:32:51.321 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:32:51.326 +06:00 [INF] GET /api/users/pending => 200 in 9ms
+2026-04-14 23:32:53.714 +06:00 [INF] GET /Customers => 200 in 205ms
+2026-04-14 23:32:53.764 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:32:53.768 +06:00 [INF] GET /api/users/pending => 200 in 7ms
+2026-04-14 23:32:55.820 +06:00 [INF] GET /Products => 200 in 134ms
+2026-04-14 23:32:55.892 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:32:55.899 +06:00 [INF] GET /api/users/pending => 200 in 12ms
+2026-04-14 23:32:57.189 +06:00 [INF] GET /Invoices => 404 in 1ms
+2026-04-14 23:32:58.925 +06:00 [INF] GET /Products => 200 in 10ms
+2026-04-14 23:34:33.142 +06:00 [INF] GET /Home/Index => 200 in 2ms
+2026-04-14 23:34:33.204 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:34:33.209 +06:00 [INF] GET /api/users/pending => 200 in 15ms
+2026-04-14 23:34:33.219 +06:00 [INF] GET /api/customers => 404 in 0ms
+2026-04-14 23:34:33.219 +06:00 [INF] GET /api/products => 404 in 0ms
+2026-04-14 23:34:33.220 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:34:33.220 +06:00 [INF] GET /api/invoices => 404 in 0ms
+2026-04-14 23:34:33.221 +06:00 [INF] GET /api/invoices?page=1&size=6 => 404 in 0ms
+2026-04-14 23:34:33.237 +06:00 [INF] GET /api/users/pending => 200 in 21ms
+2026-04-14 23:34:33.242 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:34:33.260 +06:00 [INF] GET /api/users/pending => 200 in 20ms
+2026-04-14 23:34:35.257 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:34:35.268 +06:00 [INF] GET /admin/pending => 200 in 14ms
+2026-04-14 23:34:35.319 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:34:35.324 +06:00 [INF] GET /api/users/pending => 200 in 9ms
+2026-04-14 23:34:37.311 +06:00 [INF] GET /User/Index => 200 in 12ms
+2026-04-14 23:34:37.401 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:34:37.406 +06:00 [INF] GET /api/users/pending => 200 in 8ms
+2026-04-14 23:34:45.380 +06:00 [ERR] The view 'ManageAdmins' was not found. Searched locations: ["/Views/Admin/ManageAdmins.cshtml","/Views/Shared/ManageAdmins.cshtml"]
+2026-04-14 23:34:45.391 +06:00 [WRN] Bad request: /admin/manage-admins
+System.InvalidOperationException: The view 'ManageAdmins' was not found. The following locations were searched:
+/Views/Admin/ManageAdmins.cshtml
+/Views/Shared/ManageAdmins.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at VaatcoBMS.Web.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext ctx) in H:\VaatcoBMS\VaatcoBMS.Web\Middleware\RequestLoggingMiddleware.cs:line 10
+   at VaatcoBMS.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext ctx) in H:\VaatcoBMS\VaatcoBMS.Web\Middleware\ExceptionHandlingMiddleware.cs:line 9
+2026-04-14 23:34:45.441 +06:00 [INF] GET /Auth/Login?error=The%20view%20%27ManageAdmins%27%20was%20not%20found.%20The%20following%20locations%20were%20searched%3A%0D%0A%2FViews%2FAdmin%2FManageAdmins.cshtml%0D%0A%2FViews%2FShared%2FManageAdmins.cshtml => 302 in 3ms
+2026-04-14 23:34:45.465 +06:00 [INF] GET / => 200 in 1ms
+2026-04-14 23:34:45.535 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:34:45.543 +06:00 [INF] GET /api/users/pending => 200 in 12ms
+2026-04-14 23:34:45.574 +06:00 [INF] GET /api/customers => 404 in 0ms
+2026-04-14 23:34:45.574 +06:00 [INF] GET /api/products => 404 in 0ms
+2026-04-14 23:34:45.576 +06:00 [INF] GET /api/invoices?page=1&size=6 => 404 in 0ms
+2026-04-14 23:34:45.576 +06:00 [INF] GET /api/invoices => 404 in 0ms
+2026-04-14 23:34:45.578 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:34:45.606 +06:00 [INF] GET /api/users/pending => 200 in 36ms
+2026-04-14 23:34:45.613 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:34:45.619 +06:00 [INF] GET /api/users/pending => 200 in 9ms
+2026-04-14 23:34:48.889 +06:00 [INF] GET /Customers => 200 in 14ms
+2026-04-14 23:34:48.935 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:34:48.939 +06:00 [INF] GET /api/users/pending => 200 in 7ms
+2026-04-14 23:37:57.997 +06:00 [INF] GET /Home/Index => 200 in 3ms
+2026-04-14 23:37:58.072 +06:00 [INF] GET /api/products => 404 in 0ms
+2026-04-14 23:37:58.073 +06:00 [INF] GET /api/customers => 404 in 1ms
+2026-04-14 23:37:58.075 +06:00 [INF] GET /api/invoices => 404 in 0ms
+2026-04-14 23:37:58.077 +06:00 [INF] GET /api/invoices?page=1&size=6 => 404 in 0ms
+2026-04-14 23:37:58.078 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:37:58.121 +06:00 [INF] GET /api/users/pending => 200 in 75ms
+2026-04-14 23:37:58.127 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:37:58.138 +06:00 [INF] GET /api/users/pending => 200 in 14ms
+2026-04-14 23:37:58.142 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:37:58.146 +06:00 [INF] GET /api/users/pending => 200 in 6ms
+2026-04-14 23:38:05.420 +06:00 [INF] GET /Products => 200 in 10ms
+2026-04-14 23:38:05.481 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:38:05.487 +06:00 [INF] GET /api/users/pending => 200 in 14ms
+2026-04-14 23:42:56.038 +06:00 [INF] GET /Home/Index => 200 in 2ms
+2026-04-14 23:42:56.187 +06:00 [INF] GET /api/customers => 404 in 0ms
+2026-04-14 23:42:56.190 +06:00 [INF] GET /api/products => 404 in 0ms
+2026-04-14 23:42:56.192 +06:00 [INF] GET /api/invoices?page=1&size=6 => 404 in 0ms
+2026-04-14 23:42:56.194 +06:00 [INF] GET /api/invoices => 404 in 0ms
+2026-04-14 23:42:56.224 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:42:56.228 +06:00 [INF] GET /api/users/pending => 200 in 105ms
+2026-04-14 23:42:56.235 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:42:56.242 +06:00 [INF] GET /api/users/pending => 200 in 10ms
+2026-04-14 23:42:56.251 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:42:56.256 +06:00 [INF] GET /api/users/pending => 200 in 9ms
+2026-04-14 23:42:58.105 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:42:58.113 +06:00 [INF] GET /admin/pending => 200 in 43ms
+2026-04-14 23:42:58.203 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:42:58.207 +06:00 [INF] GET /api/users/pending => 200 in 18ms
+2026-04-14 23:42:59.838 +06:00 [INF] GET /User/Index => 200 in 34ms
+2026-04-14 23:42:59.910 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:42:59.915 +06:00 [INF] GET /api/users/pending => 200 in 8ms
+2026-04-14 23:43:02.958 +06:00 [INF] GET /Customers => 200 in 51ms
+2026-04-14 23:43:03.003 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:43:03.007 +06:00 [INF] GET /api/users/pending => 200 in 7ms
+2026-04-14 23:43:04.400 +06:00 [INF] GET /Products => 200 in 10ms
+2026-04-14 23:43:04.445 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:43:04.450 +06:00 [INF] GET /api/users/pending => 200 in 7ms
+2026-04-14 23:43:06.813 +06:00 [INF] GET /Home/Index => 200 in 1ms
+2026-04-14 23:43:06.878 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:43:06.883 +06:00 [INF] GET /api/users/pending => 200 in 7ms
+2026-04-14 23:43:06.889 +06:00 [INF] GET /api/customers => 404 in 0ms
+2026-04-14 23:43:06.889 +06:00 [INF] GET /api/products => 404 in 0ms
+2026-04-14 23:43:06.890 +06:00 [INF] GET /api/invoices => 404 in 0ms
+2026-04-14 23:43:06.891 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:43:06.892 +06:00 [INF] GET /api/invoices?page=1&size=6 => 404 in 0ms
+2026-04-14 23:43:06.915 +06:00 [INF] GET /api/users/pending => 200 in 27ms
+2026-04-14 23:43:06.923 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:43:06.929 +06:00 [INF] GET /api/users/pending => 200 in 11ms
+2026-04-14 23:52:26.680 +06:00 [INF] GET /auth/logout => 302 in 9ms
+2026-04-14 23:52:26.715 +06:00 [INF] GET /auth/login => 200 in 8ms
+2026-04-14 23:52:26.748 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 0ms
+2026-04-14 23:52:26.760 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-04-14 23:52:47.822 +06:00 [INF] Login: aburayhan00457@gmail.com
+2026-04-14 23:52:47.830 +06:00 [INF] POST /auth/login => 302 in 768ms
+2026-04-14 23:52:47.855 +06:00 [INF] GET / => 200 in 2ms
+2026-04-14 23:52:47.972 +06:00 [INF] GET /api/products => 404 in 0ms
+2026-04-14 23:52:47.972 +06:00 [INF] GET /api/customers => 404 in 0ms
+2026-04-14 23:52:47.972 +06:00 [INF] GET /api/invoices => 404 in 0ms
+2026-04-14 23:52:47.975 +06:00 [INF] GET /api/invoices?page=1&size=6 => 404 in 0ms
+2026-04-14 23:52:48.081 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:52:48.087 +06:00 [INF] GET /api/users/pending => 200 in 136ms
+2026-04-14 23:52:48.098 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:52:48.103 +06:00 [INF] GET /api/users/pending => 200 in 13ms
+2026-04-14 23:52:48.109 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:52:48.117 +06:00 [INF] GET /api/users/pending => 200 in 11ms
+2026-04-14 23:52:54.133 +06:00 [INF] GET /auth/login => 302 in 34ms
+2026-04-14 23:52:55.894 +06:00 [INF] GET /auth/logout => 302 in 4ms
+2026-04-14 23:52:55.953 +06:00 [INF] GET /auth/login => 200 in 11ms
+2026-04-14 23:52:55.999 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 0ms
+2026-04-14 23:52:56.005 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-04-14 23:52:58.731 +06:00 [INF] GET /auth/register => 200 in 43ms
+2026-04-14 23:52:58.750 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 0ms
+2026-04-14 23:52:58.750 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-04-14 23:53:17.273 +06:00 [INF] GET /auth/login => 200 in 4ms
+2026-04-14 23:53:17.308 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-14 23:53:17.310 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-04-14 23:54:27.676 +06:00 [INF] Login: aburayhan00457@gmail.com
+2026-04-14 23:54:27.684 +06:00 [INF] POST /auth/login => 302 in 409ms
+2026-04-14 23:54:27.708 +06:00 [INF] GET / => 200 in 1ms
+2026-04-14 23:54:27.757 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:54:27.761 +06:00 [INF] GET /api/users/pending => 200 in 7ms
+2026-04-14 23:54:27.784 +06:00 [INF] GET /api/customers => 404 in 0ms
+2026-04-14 23:54:27.786 +06:00 [INF] GET /api/products => 404 in 0ms
+2026-04-14 23:54:27.787 +06:00 [INF] GET /api/invoices => 404 in 0ms
+2026-04-14 23:54:27.788 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:54:27.789 +06:00 [INF] GET /api/invoices?page=1&size=6 => 404 in 0ms
+2026-04-14 23:54:27.810 +06:00 [INF] GET /api/users/pending => 200 in 27ms
+2026-04-14 23:54:27.816 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:54:27.829 +06:00 [INF] GET /api/users/pending => 200 in 16ms
+2026-04-14 23:54:31.277 +06:00 [INF] GET /User/Index => 200 in 4ms
+2026-04-14 23:54:31.324 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:54:31.329 +06:00 [INF] GET /api/users/pending => 200 in 7ms
+2026-04-14 23:54:37.075 +06:00 [INF] GET /admin/create-user => 200 in 5ms
+2026-04-14 23:54:37.125 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:54:37.129 +06:00 [INF] GET /api/users/pending => 200 in 6ms
+2026-04-14 23:54:47.660 +06:00 [ERR] The view 'ManageAdmins' was not found. Searched locations: ["/Views/Admin/ManageAdmins.cshtml","/Views/Shared/ManageAdmins.cshtml"]
+2026-04-14 23:54:47.678 +06:00 [WRN] Bad request: /admin/manage-admins
+System.InvalidOperationException: The view 'ManageAdmins' was not found. The following locations were searched:
+/Views/Admin/ManageAdmins.cshtml
+/Views/Shared/ManageAdmins.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at VaatcoBMS.Web.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext ctx) in H:\VaatcoBMS\VaatcoBMS.Web\Middleware\RequestLoggingMiddleware.cs:line 10
+   at VaatcoBMS.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext ctx) in H:\VaatcoBMS\VaatcoBMS.Web\Middleware\ExceptionHandlingMiddleware.cs:line 9
+2026-04-14 23:54:47.740 +06:00 [INF] GET /Auth/Login?error=The%20view%20%27ManageAdmins%27%20was%20not%20found.%20The%20following%20locations%20were%20searched%3A%0D%0A%2FViews%2FAdmin%2FManageAdmins.cshtml%0D%0A%2FViews%2FShared%2FManageAdmins.cshtml => 302 in 1ms
+2026-04-14 23:54:47.771 +06:00 [INF] GET / => 200 in 2ms
+2026-04-14 23:54:47.863 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:54:47.869 +06:00 [INF] GET /api/users/pending => 200 in 9ms
+2026-04-14 23:54:47.896 +06:00 [INF] GET /api/customers => 404 in 0ms
+2026-04-14 23:54:47.896 +06:00 [INF] GET /api/products => 404 in 0ms
+2026-04-14 23:54:47.899 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:54:47.899 +06:00 [INF] GET /api/invoices?page=1&size=6 => 404 in 0ms
+2026-04-14 23:54:47.899 +06:00 [INF] GET /api/invoices => 404 in 0ms
+2026-04-14 23:54:47.914 +06:00 [INF] GET /api/users/pending => 200 in 20ms
+2026-04-14 23:54:47.922 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:54:47.937 +06:00 [INF] GET /api/users/pending => 200 in 18ms
+2026-04-14 23:54:52.080 +06:00 [INF] GET /Invoices/Create => 404 in 0ms
+2026-04-14 23:54:57.613 +06:00 [INF] GET /Customers => 200 in 218ms
+2026-04-14 23:54:57.667 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:54:57.672 +06:00 [INF] GET /api/users/pending => 200 in 13ms
+2026-04-14 23:54:59.817 +06:00 [INF] GET /Products => 200 in 8ms
+2026-04-14 23:54:59.881 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:54:59.885 +06:00 [INF] GET /api/users/pending => 200 in 8ms
+2026-04-14 23:55:00.897 +06:00 [INF] GET /Invoices => 404 in 0ms
+2026-04-14 23:55:03.532 +06:00 [INF] GET /Products => 200 in 11ms
+2026-04-14 23:55:11.244 +06:00 [INF] GET /Customers => 200 in 18ms
+2026-04-14 23:55:11.314 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-14 23:55:11.319 +06:00 [INF] GET /api/users/pending => 200 in 9ms

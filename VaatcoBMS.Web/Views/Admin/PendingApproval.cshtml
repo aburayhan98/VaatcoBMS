@@ -1,0 +1,331 @@
+﻿@model IEnumerable<VaatcoBMS.Application.DTOs.User.UserDto>
+
+@{
+  ViewData["Title"] = "Pending Approval";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* ── Stat Row ─────────────────────────────────────────────── *@
+<div class="stat-grid">
+  <div class="stat-card">
+    <div class="stat-icon amber"><i class="bi bi-hourglass-split"></i></div>
+    <div>
+      <div class="stat-label">Awaiting Approval</div>
+      <div class="stat-value" id="pendingTotal">@Model.Count()</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon green"><i class="bi bi-person-check-fill"></i></div>
+    <div>
+      <div class="stat-label">Approved Today</div>
+      <div class="stat-value" id="approvedToday">0</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon red"><i class="bi bi-person-x-fill"></i></div>
+    <div>
+      <div class="stat-label">Rejected Today</div>
+      <div class="stat-value" id="rejectedToday">0</div>
+    </div>
+  </div>
+</div>
+
+@* ── Main Table ────────────────────────────────────────────── *@
+<div class="vcard">
+  <div class="vcard-header">
+    <i class="bi bi-person-lines-fill" style="font-size:16px; color:#64748b;"></i>
+    <span class="vcard-title">Pending Users</span>
+
+    <div class="search-bar" style="margin-left:auto;">
+      <i class="bi bi-search"></i>
+      <input type="text" id="searchInput" placeholder="Search by name or email…" />
+    </div>
+
+    <div style="display:flex; gap:6px; margin-left:10px;">
+      <select id="roleFilter" class="form-control-v" style="width:140px; padding:7px 10px;">
+        <option value="">All Roles</option>
+        <option value="Employee">Employee</option>
+        <option value="MarketingOfficer">Marketing Officer</option>
+        <option value="Distributor">Distributor</option>
+      </select>
+      <button class="btn-primary-v" id="approveAllBtn" style="white-space:nowrap;">
+        <i class="bi bi-check2-all"></i> Approve All
+      </button>
+    </div>
+  </div>
+
+  <div style="overflow-x:auto;">
+    <table class="vtable" id="pendingTable">
+      <thead>
+        <tr>
+          <th style="width:40px;"><input type="checkbox" id="selectAll" title="Select all" /></th>
+          <th>User</th>
+          <th>Role</th>
+          <th>Registered</th>
+          <th>Email Status</th>
+          <th style="text-align:right;">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        @foreach (var user in Model)
+        {
+          <tr data-id="@user.Id" data-name="@user.Name" data-email="@user.Email" data-role="@user.Role">
+            <td><input type="checkbox" class="row-check" value="@user.Id" /></td>
+            <td>
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div class="sidebar-avatar" style="width:36px;height:36px;font-size:13px;flex-shrink:0;">
+                  @user.Name.Substring(0, 1).ToUpper()
+                </div>
+                <div>
+                  <div style="font-weight:500; color:var(--text-primary);">@user.Name</div>
+                  <div style="font-size:12px; color:var(--text-muted);">@user.Email</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              @{
+                var roleColor = user.Role.ToString() switch
+                {
+                  "Admin" => "blue",
+                  "Employee" => "gray",
+                  "MarketingOfficer" => "amber",
+                  "Distributor" => "green",
+                  _ => "gray"
+                };
+              }
+              <span class="vbadge @roleColor">@user.Role</span>
+            </td>
+            <td style="color:var(--text-secondary); font-size:12px;">
+              @user.CreatedAt.ToString("dd MMM yyyy")
+            </td>
+            <td>
+              @if (user.EmailConfirmed)
+              {
+                <span class="vbadge green"><i class="bi bi-check-circle-fill" style="font-size:10px;margin-right:3px;"></i>Verified</span>
+              }
+              else
+              {
+                <span class="vbadge amber"><i class="bi bi-clock-fill" style="font-size:10px;margin-right:3px;"></i>Pending</span>
+              }
+            </td>
+            <td style="text-align:right;">
+              <div style="display:flex; justify-content:flex-end; gap:5px;">
+                <button class="btn-action approve approve-btn"
+                        data-id="@user.Id" data-name="@user.Name" title="Approve">
+                  <i class="bi bi-check-lg"></i>
+                </button>
+                <button class="btn-action reject reject-btn"
+                        data-id="@user.Id" data-name="@user.Name" title="Reject">
+                  <i class="bi bi-x-lg"></i>
+                </button>
+                <button class="btn-action view view-btn"
+                        data-id="@user.Id" title="View details">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+
+        @if (!Model.Any())
+        {
+          <tr id="emptyRow">
+            <td colspan="6" style="text-align:center; padding:48px; color:var(--text-muted);">
+              <i class="bi bi-check2-circle" style="font-size:40px; display:block; margin-bottom:10px; color:#22c55e;"></i>
+              <div style="font-size:15px; font-weight:500; color:var(--text-secondary);">All caught up!</div>
+              <div style="font-size:13px; margin-top:4px;">No users are currently pending approval.</div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div class="vpager">
+    <span style="font-size:12px; color:var(--text-muted);" id="rowCount">
+      Showing @Model.Count() user(s)
+    </span>
+  </div>
+</div>
+
+@* ── Confirm Modal ─────────────────────────────────────────── *@
+<div class="vmodal-backdrop" id="confirmModal">
+  <div class="vmodal confirm-dialog">
+    <div class="vmodal-body" style="text-align:center; padding:32px 24px 20px;">
+      <div class="confirm-icon" id="confirmIcon"></div>
+      <div style="font-size:16px; font-weight:600; margin-bottom:8px;" id="confirmTitle"></div>
+      <div style="font-size:13px; color:var(--text-secondary);" id="confirmMsg"></div>
+    </div>
+    <div class="vmodal-footer" style="justify-content:center; gap:10px;">
+      <button class="btn-outline-v" onclick="closeModal('confirmModal')">Cancel</button>
+      <button class="btn-primary-v" id="confirmActionBtn" style="min-width:100px;"></button>
+    </div>
+  </div>
+</div>
+
+@* ── View Detail Modal ─────────────────────────────────────── *@
+<div class="vmodal-backdrop" id="detailModal">
+  <div class="vmodal">
+    <div class="vmodal-header">
+      <i class="bi bi-person-badge" style="font-size:16px;color:var(--primary);"></i>
+      <span class="vmodal-title">User Details</span>
+      <button class="vmodal-close" onclick="closeModal('detailModal')">&times;</button>
+    </div>
+    <div class="vmodal-body" id="detailBody"></div>
+    <div class="vmodal-footer">
+      <button class="btn-outline-v" onclick="closeModal('detailModal')">Close</button>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script>
+    $(function () {
+
+        var approvedCount = 0, rejectedCount = 0;
+
+        // ── Search Filter
+        $('#searchInput').on('input', function () { filterTable(); });
+        $('#roleFilter').on('change', function () { filterTable(); });
+
+        function filterTable() {
+            var q = $('#searchInput').val().toLowerCase();
+            var role = $('#roleFilter').val().toLowerCase();
+            var visible = 0;
+            $('#tableBody tr[data-id]').each(function () {
+                var name = $(this).data('name').toLowerCase();
+                var email = $(this).data('email').toLowerCase();
+                var r = $(this).data('role').toString().toLowerCase();
+                var match = (!q || name.includes(q) || email.includes(q))
+                         && (!role || r.includes(role));
+                $(this).toggle(match);
+                if (match) visible++;
+            });
+            $('#rowCount').text('Showing ' + visible + ' user(s)');
+            $('#emptyRow').toggle(visible === 0);
+        }
+
+        // ── Select All
+        $('#selectAll').on('change', function () {
+            $('.row-check:visible').prop('checked', this.checked);
+        });
+
+        // ── Approve Single
+        $(document).on('click', '.approve-btn', function () {
+            var id = $(this).data('id'), name = $(this).data('name');
+            showConfirm(
+                'bi-check-circle-fill', '#15803d', '#dcfce7',
+                'Approve User', 'Are you sure you want to approve <strong>' + name + '</strong>? They will be able to log in immediately.',
+                'Approve', 'green', function () { doApprove([id]); }
+            );
+        });
+
+        // ── Reject Single
+        $(document).on('click', '.reject-btn', function () {
+            var id = $(this).data('id'), name = $(this).data('name');
+            showConfirm(
+                'bi-x-circle-fill', '#b91c1c', '#fee2e2',
+                'Reject User', 'Are you sure you want to reject <strong>' + name + '</strong>? This will permanently delete their account.',
+                'Reject', 'danger', function () { doReject(id); }
+            );
+        });
+
+        // ── Approve All
+        $('#approveAllBtn').on('click', function () {
+            var ids = [];
+            $('.row-check:checked').each(function () { ids.push($(this).val()); });
+            if (ids.length === 0) { showToast('Select at least one user first.', 'warning'); return; }
+            showConfirm(
+                'bi-check2-all', '#15803d', '#dcfce7',
+                'Approve Selected', 'Approve <strong>' + ids.length + ' selected user(s)</strong>?',
+                'Approve All', 'green', function () { doApprove(ids); }
+            );
+        });
+
+        // ── View Detail
+        $(document).on('click', '.view-btn', function () {
+            var $row = $(this).closest('tr');
+            var name = $row.data('name'), email = $row.data('email'), role = $row.data('role');
+            var date = $row.find('td:nth-child(4)').text();
+            $('#detailBody').html(`
+                <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--card-border);">
+                    <div class="sidebar-avatar" style="width:52px;height:52px;font-size:18px;">${name.charAt(0).toUpperCase()}</div>
+                    <div>
+                        <div style="font-size:16px;font-weight:600;">${name}</div>
+                        <div style="font-size:13px;color:var(--text-muted);">${email}</div>
+                    </div>
+                </div>
+                <table style="width:100%;font-size:13px;">
+                    <tr><td style="color:var(--text-muted);padding:7px 0;width:120px;">Role</td><td><span class="vbadge blue">${role}</span></td></tr>
+                    <tr><td style="color:var(--text-muted);padding:7px 0;">Registered</td><td>${date}</td></tr>
+                    <tr><td style="color:var(--text-muted);padding:7px 0;">Status</td><td><span class="vbadge amber">Pending Approval</span></td></tr>
+                </table>`);
+            openModal('detailModal');
+        });
+
+        // ── API Calls
+        function doApprove(ids) {
+            closeModal('confirmModal');
+            var calls = ids.map(function (id) {
+                return $.ajax({ url: '/api/users/' + id + '/approve', method: 'POST' });
+            });
+            $.when.apply($, calls).then(function () {
+                ids.forEach(function (id) { removeRow(id); });
+                approvedCount += ids.length;
+                $('#approvedToday').text(approvedCount);
+                showToast(ids.length + ' user(s) approved successfully.', 'success');
+                updatePendingTotal();
+            }).fail(function (xhr) {
+                showToast(xhr.responseJSON?.message || 'Approval failed.', 'danger');
+            });
+        }
+
+        function doReject(id) {
+            closeModal('confirmModal');
+            $.ajax({ url: '/api/users/' + id + '/reject', method: 'POST' })
+                .done(function () {
+                    removeRow(id);
+                    rejectedCount++;
+                    $('#rejectedToday').text(rejectedCount);
+                    showToast('User rejected and removed.', 'danger');
+                    updatePendingTotal();
+                })
+                .fail(function (xhr) { showToast(xhr.responseJSON?.message || 'Rejection failed.', 'danger'); });
+        }
+
+        function removeRow(id) {
+            var $row = $('tr[data-id="' + id + '"]');
+            $row.css({ background: '#f0fdf4', transition: 'opacity .4s' });
+            setTimeout(function () { $row.fadeOut(300, function () { $row.remove(); updatePendingTotal(); }); }, 200);
+        }
+
+        function updatePendingTotal() {
+            var remaining = $('#tableBody tr[data-id]:visible').length;
+            $('#pendingTotal').text(remaining);
+            $('#rowCount').text('Showing ' + remaining + ' user(s)');
+            if (remaining === 0) $('#emptyRow').show();
+        }
+
+        // ── Modal Helpers
+        var pendingAction = null;
+        function showConfirm(icon, iconColor, iconBg, title, msg, btnLabel, btnType, action) {
+            pendingAction = action;
+            $('#confirmIcon').html('<i class="bi ' + icon + '" style="font-size:24px;color:' + iconColor + ';"></i>')
+                            .css({ background: iconBg });
+            $('#confirmTitle').text(title);
+            $('#confirmMsg').html(msg);
+            var btnStyles = { green: 'background:#15803d;', danger: 'background:#b91c1c;', warning: 'background:#d97706;' };
+            $('#confirmActionBtn').text(btnLabel).attr('style', (btnStyles[btnType] || '') + 'color:#fff;border:none;');
+            openModal('confirmModal');
+        }
+        $('#confirmActionBtn').on('click', function () { if (pendingAction) pendingAction(); });
+    });
+
+    function openModal(id) { document.getElementById(id).classList.add('show'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+    document.querySelectorAll('.vmodal-backdrop').forEach(function (el) {
+        el.addEventListener('click', function (e) { if (e.target === el) el.classList.remove('show'); });
+    });
+  </script>
+}

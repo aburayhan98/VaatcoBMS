@@ -1,0 +1,113 @@
+﻿@model VaatcoBMS.Application.Model.Auth.Register
+@using VaatcoBMS.Domain.Enums
+
+@{
+  ViewData["Title"] = "Create User";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+  var allowedRoles = Enum.GetValues<UserRole>()
+      .Where(r => r != UserRole.SuperAdmin)
+      .Select(r => new SelectListItem(r.ToString(), ((int)r).ToString()));
+}
+
+<div style="max-width:600px;">
+  <div class="vcard">
+    <div class="vcard-header">
+      <i class="bi bi-person-plus-fill" style="font-size:16px;color:var(--primary);"></i>
+      <span class="vcard-title">Create New User Account</span>
+    </div>
+    <div class="vcard-body">
+
+      @if (TempData["Success"] != null)
+      {
+        <div style="background:var(--success-light);color:#15803d;border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:13px;display:flex;align-items:center;gap:8px;">
+          <i class="bi bi-check-circle-fill"></i> @TempData["Success"]
+        </div>
+      }
+
+      <form asp-action="CreateUser" method="post" id="createUserForm" novalidate>
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly" style="background:var(--danger-light);color:#b91c1c;border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:13px;"></div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div class="form-group-v">
+            <label class="form-label-v">Full Name *</label>
+            <input asp-for="Name" class="form-control-v" placeholder="John Smith" />
+            <span asp-validation-for="Name" style="font-size:11px;color:var(--danger);"></span>
+          </div>
+          <div class="form-group-v">
+            <label class="form-label-v">Role *</label>
+            <select asp-for="Role" class="form-control-v" asp-items="allowedRoles">
+              <option value="" disabled selected>Select role…</option>
+            </select>
+            <span asp-validation-for="Role" style="font-size:11px;color:var(--danger);"></span>
+          </div>
+        </div>
+
+        <div class="form-group-v">
+          <label class="form-label-v">Email Address *</label>
+          <input asp-for="Email" class="form-control-v" placeholder="user@vaatco.com" type="email" />
+          <span asp-validation-for="Email" style="font-size:11px;color:var(--danger);"></span>
+        </div>
+
+        <div class="form-group-v">
+          <label class="form-label-v">Password *</label>
+          <div style="position:relative;">
+            <input asp-for="Password" type="password" class="form-control-v" id="newUserPass" placeholder="Min. 6 characters" style="padding-right:42px;" />
+            <button type="button" onclick="togglePass()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:15px;" id="eyeToggle">
+              <i class="bi bi-eye" id="eyeIcon"></i>
+            </button>
+          </div>
+          <span asp-validation-for="Password" style="font-size:11px;color:var(--danger);"></span>
+          <div id="strengthBar" style="margin-top:6px;"></div>
+        </div>
+
+        <div style="background:var(--primary-light);border-radius:8px;padding:12px 14px;margin-bottom:18px;font-size:12px;color:var(--primary-text);display:flex;gap:8px;">
+          <i class="bi bi-info-circle-fill" style="font-size:14px;flex-shrink:0;margin-top:1px;"></i>
+          <div>This account will be <strong>immediately active</strong> — no email verification or approval required. The user can log in right away with these credentials.</div>
+        </div>
+
+        <div style="display:flex;gap:10px;">
+          <button type="submit" class="btn-primary-v" id="createBtn">
+            <i class="bi bi-person-plus-fill"></i> Create Account
+            <span class="spinner-border spinner-border-sm d-none ms-1" id="createSpinner"></span>
+          </button>
+          <a href="/admin/users" class="btn-outline-v">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+  <script>
+    function togglePass() {
+        var inp = document.getElementById('newUserPass');
+        var icon = document.getElementById('eyeIcon');
+        if (inp.type === 'password') { inp.type = 'text'; icon.className = 'bi bi-eye-slash'; }
+        else { inp.type = 'password'; icon.className = 'bi bi-eye'; }
+    }
+    document.getElementById('newUserPass').addEventListener('input', function () {
+        var val = this.value;
+        var bar = document.getElementById('strengthBar');
+        if (!val) { bar.innerHTML = ''; return; }
+        var score = 0;
+        if (val.length >= 6) score++;
+        if (/[A-Z]/.test(val)) score++;
+        if (/[0-9]/.test(val)) score++;
+        if (/[^a-zA-Z0-9]/.test(val)) score++;
+        var colors = ['', 'var(--danger)', 'var(--warning)', '#2563b0', 'var(--success)'];
+        var labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+        bar.innerHTML = `<div style="height:4px;border-radius:2px;background:#e2e8f0;overflow:hidden;">
+            <div style="height:100%;width:${score*25}%;background:${colors[score]};transition:.3s;border-radius:2px;"></div></div>
+            <div style="font-size:11px;color:${colors[score]};font-weight:600;text-align:right;margin-top:2px;">${labels[score]}</div>`;
+    });
+    $('#createUserForm').on('submit', function () {
+        if ($(this).valid()) {
+            $('#createBtn').prop('disabled', true);
+            $('#createSpinner').removeClass('d-none');
+        }
+    });
+  </script>
+}

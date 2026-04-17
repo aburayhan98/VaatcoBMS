@@ -1,0 +1,13 @@
+2026-04-15 00:10:11.329 +06:00 [INF] GET /Invoices => 404 in 3ms
+2026-04-15 00:10:14.438 +06:00 [INF] GET /Customers => 200 in 234ms
+2026-04-15 00:10:18.969 +06:00 [INF] GET /Home/Index => 200 in 20ms
+2026-04-15 00:10:19.061 +06:00 [INF] GET /api/products => 404 in 0ms
+2026-04-15 00:10:19.061 +06:00 [INF] GET /api/customers => 404 in 0ms
+2026-04-15 00:10:19.062 +06:00 [INF] GET /api/invoices => 404 in 1ms
+2026-04-15 00:10:19.068 +06:00 [INF] GET /api/invoices?page=1&size=6 => 404 in 0ms
+2026-04-15 00:10:19.086 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-15 00:10:19.129 +06:00 [INF] GET /api/users/pending => 200 in 93ms
+2026-04-15 00:10:19.144 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-15 00:10:19.150 +06:00 [INF] GET /api/users/pending => 200 in 17ms
+2026-04-15 00:10:19.162 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-15 00:10:19.168 +06:00 [INF] GET /api/users/pending => 200 in 16ms
