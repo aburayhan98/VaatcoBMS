@@ -8,4 +8,7 @@ public class UpdateProductDto
 	public string PackSize { get; set; } = ""; 
 	public decimal Price { get; set; }
 	public int StockQuantity { get; set; }
+	
+	// Add IsActive so the Edit modal can update it
+	public bool IsActive { get; set; }
 }
