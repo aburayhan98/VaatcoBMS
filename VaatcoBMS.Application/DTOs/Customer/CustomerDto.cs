@@ -11,5 +11,6 @@ public class CustomerDto
 	public string? District { get; set; }
 	public string Phone { get; set; } = "";
 	public string? Email { get; set; }
+	public bool IsActive { get; set; }
 	public int TotalInvoices { get; set; } // computed in mapping public DateTime CreatedAt { get; set; }
 }
