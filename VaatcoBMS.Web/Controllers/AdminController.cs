@@ -76,4 +76,5 @@ public class AdminController(IUserService userService, IAuthService authService)
 		var admins = all.Where(u => u.Role.ToString() == "Admin");
 		return View(admins);
 	}
+	
 }
