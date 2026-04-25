@@ -157,4 +157,29 @@ public class UserApiController(IUserService userService) : ControllerBase
 			return NotFound(new { success = false, message = ex.Message });
 		}
 	}
+
+	/// <summary>
+	/// Manually resets a user's password (SuperAdmin only).
+	/// </summary>
+	[HttpPost("{id}/admin-reset-password")]
+	[Authorize(Roles = "SuperAdmin")]
+	public async Task<IActionResult> AdminResetPassword(int id, [FromBody] AdminResetPasswordDto dto)
+	{
+		try
+		{
+			if (string.IsNullOrWhiteSpace(dto.NewPassword))
+				return BadRequest(new { success = false, message = "Password cannot be empty." });
+
+			await _userService.AdminResetUserPasswordAsync(id, dto.NewPassword, CallerId);
+			return Ok(new { success = true, message = "Password was reset successfully for account." });
+		}
+		catch (KeyNotFoundException ex)
+		{
+			return NotFound(new { success = false, message = ex.Message });
+		}
+		catch (UnauthorizedAccessException ex)
+		{
+			return StatusCode(403, new { success = false, message = ex.Message });
+		}
+	}
 }
