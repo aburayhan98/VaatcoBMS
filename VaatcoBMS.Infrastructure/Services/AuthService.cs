@@ -239,15 +239,16 @@ public class AuthService(
 		}
 	}
 
-	// ── RESET PASSWORD ───────────────────────────────────────────────
 	public async Task ResetPasswordAsync(ResetPasswordModel model)
 	{
-		if (!_tokenBuilder.IsJwtValid(model.Token))
+		// 1. Validate Token
+		if (!_tokenBuilder.IsJwtValid(model.ResetToken))
 		{
 			throw new InvalidOperationException("Invalid or expired password reset token.");
 		}
 
-		var claims = _tokenBuilder.GetClaims(model.Token);
+		// 2. Extract Claims
+		var claims = _tokenBuilder.GetClaims(model.ResetToken);
 		var purposeClaim = claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub)?.Value;
 		var emailClaim = claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Email)?.Value;
 
@@ -256,9 +257,20 @@ public class AuthService(
 			throw new InvalidOperationException("Invalid token type.");
 		}
 
-		var users = await _uow.Users.GetAllAsync();
-		var user = users.FirstOrDefault(u => u.Email.Equals(emailClaim, StringComparison.OrdinalIgnoreCase)) ?? throw new InvalidOperationException("User not found.");
+		// 3. Fetch ONLY the requested user directly from the database
+		// (You may need to add this method to your repository if it doesn't exist)
+		var user = await _uow.Users.GetByEmailAsync(emailClaim) ?? throw new InvalidOperationException("User not found.");
+
+		// 4. Update the password
 		user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password);
+
+		// 5. Implicitly confirm their email
+		if (!user.EmailConfirmed)
+		{
+			user.EmailConfirmed = true;
+		}
+
+		// 6. Save changes
 		_uow.Users.Update(user);
 		await _uow.SaveChangesAsync();
 	}
