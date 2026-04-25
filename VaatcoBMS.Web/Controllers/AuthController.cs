@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using VaatcoBMS.Application.Interfaces;
 using VaatcoBMS.Application.Model.Auth;
-using VaatcoBMS.Infrastructure.Services;
 
 namespace VaatcoBMS.Web.Controllers;
 
@@ -12,7 +11,7 @@ public class AuthController(
 	IEmailService emailService) : Controller
 {
 	private readonly IAuthService _authService = authService;
-	private readonly IEmailService _emailService = emailService; // Initialize the email service
+	private readonly IEmailService _emailService = emailService;
 
 	// GET /auth/login
 	[HttpGet("login")]
@@ -39,7 +38,6 @@ public class AuthController(
 		{
 			var tokens = await _authService.LoginAsync(model);
 
-			// set secure HttpOnly cookies
 			Response.Cookies.Append("access_token", tokens.AccessToken, new CookieOptions
 			{
 				HttpOnly = true,
@@ -68,7 +66,7 @@ public class AuthController(
 
 	// POST /auth/refresh
 	[HttpPost("refresh")]
-	[AllowAnonymous] // clients call with cookie
+	[AllowAnonymous]
 	[ValidateAntiForgeryToken]
 	public IActionResult Refresh()
 	{
@@ -83,12 +81,12 @@ public class AuthController(
 				HttpOnly = true,
 				Secure = true,
 				SameSite = SameSiteMode.Strict,
-				Expires = tokens.ExpiresAtUtc.AddDays(7) // refresh token also gets extended
+				Expires = tokens.ExpiresAtUtc.AddDays(7)
 			});
 			Response.Cookies.Append("refresh_token", tokens.RefreshToken, new CookieOptions
 			{
 				HttpOnly = true,
-				Secure = true,
+			 Secure = true,
 				SameSite = SameSiteMode.Strict,
 				Expires = tokens.ExpiresAtUtc.AddDays(7)
 			});
@@ -118,14 +116,14 @@ public class AuthController(
 
 		try
 		{
-			var token = await _authService.RegisterAsync(model); // now returns token
+			var token = await _authService.RegisterAsync(model);
 			var link = Url.Action("VerifyEmail", "Auth", new { token }, Request.Scheme, Request.Host.Value);
 			var body = $"<p>Hi {model.Name},</p><p>Verify your email: <a href='{link}'>Click here</a></p>";
 
 			await _emailService.SendEmailAsync(model.Email, "Verify Your Account", body);
 
 			TempData["Success"] = "Account created. Check email to verify before logging in.";
-			return RedirectToAction("Index", "Home"); // as you requested: go to Index after registration
+			return RedirectToAction("Index", "Home");
 		}
 		catch (InvalidOperationException ex)
 		{
@@ -144,23 +142,16 @@ public class AuthController(
 	[AllowAnonymous]
 	public IActionResult Logout()
 	{
-		// 1. Delete the secure authentication cookies
 		Response.Cookies.Delete("access_token");
 		Response.Cookies.Delete("refresh_token");
 
-		// 2. Set a nice logout message
 		TempData["Success"] = "You have been successfully logged out.";
-
-		// 3. Redirect back to the auth/login page
 		return RedirectToAction("Login");
 	}
 
 	// Default fallback action
 	[HttpGet("index")]
-	public IActionResult Index()
-	{
-		return View();
-	}
+	public IActionResult Index() => View();
 
 	// GET /auth/verify-email
 	[HttpGet("VerifyEmail")]
@@ -175,7 +166,6 @@ public class AuthController(
 
 		try
 		{
-			// Call your existing service method to validate the token and update the database
 			var isSuccess = await _authService.VerifyEmailAsync(token);
 
 			if (isSuccess)
@@ -193,6 +183,67 @@ public class AuthController(
 		}
 
 		return RedirectToAction("Login");
+	}
+
+	// GET /auth/forgot-password
+	[HttpGet("forgot-password")]
+	[AllowAnonymous]
+	public IActionResult ForgotPassword() => View(new ForgotPasswordModel());
+
+	// POST /auth/forgot-password
+	[HttpPost("forgot-password")]
+	[AllowAnonymous]
+	[ValidateAntiForgeryToken]
+	public async Task<IActionResult> ForgotPassword(ForgotPasswordModel model)
+	{
+		if (!ModelState.IsValid)
+			return View(model);
+
+		// Sending the email request (Silent response to prevent user enumeration)
+		await _authService.ForgotPasswordAsync(model.Email);
+
+		TempData["Success"] = "If an account exists with that email, a password reset link has been sent.";
+		return RedirectToAction("Login");
+	}
+
+	// GET /auth/reset-password
+	[HttpGet("reset-password")]
+	[AllowAnonymous]
+	public IActionResult ResetPassword(string token)
+	{
+		if (string.IsNullOrEmpty(token))
+		{
+			TempData["Error"] = "A valid token must be supplied for password reset.";
+			return RedirectToAction("Login");
+		}
+
+		var model = new ResetPasswordModel { ResetToken = token }; // Map directly to new property name
+		return View(model);
+	}
+
+	// POST /auth/reset-password
+	[HttpPost("reset-password")]
+	[AllowAnonymous]
+	[ValidateAntiForgeryToken]
+	public async Task<IActionResult> ResetPassword(ResetPasswordModel model)
+	{
+		if (!ModelState.IsValid)
+			return View(model);
+
+		try
+		{
+			await _authService.ResetPasswordAsync(model);
+
+			// Updated: Custom message to let them know they must wait for admin approval
+			TempData["Success"] = "Your password has been reset successfully. Please wait for Admin approval before logging in.";
+
+			return RedirectToAction("Login"); // Redirects them to the login page (GET /auth/login)
+		}
+		catch (InvalidOperationException ex)
+		{
+			ModelState.AddModelError(string.Empty, ex.Message);
+			return View(model);
+		}
 	}
 }
 
