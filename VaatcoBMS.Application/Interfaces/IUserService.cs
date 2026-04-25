@@ -11,10 +11,10 @@ public interface IUserService
 	Task<UserDto?> GetByEmailAsync(string email);
 	Task<UserDto> UpdateProfileAsync(int id, UpdateProfileDto dto);
 	Task ChangeRoleAsync(int id, UserRole newRole);
-	// UPDATED: now requires approverUserId to enforce SuperAdmin gate
 	Task ApproveUserAsync(int targetId, int approverUserId);
 	Task RejectUserAsync(int id);
 	Task ChangePasswordAsync(int id, ChangePasswordDto dto);
+    Task AdminResetUserPasswordAsync(int targetId, string newPassword, int adminUserId);
 	Task DeactivateAsync(int id);
 	Task<bool> EmailExistsAsync(string email, int? excludeId = null);
 }

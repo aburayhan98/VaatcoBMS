@@ -1,5 +1,4 @@
-﻿
-using MapsterMapper;
+﻿using MapsterMapper;
 using Microsoft.Extensions.Logging;
 using VaatcoBMS.Application.DTOs.User;
 using VaatcoBMS.Application.Interfaces;
@@ -44,7 +43,11 @@ public class UserService(
 		try
 		{
 			var users = await _uow.Users.GetAllAsync();
-			var pendingUsers = users.Where(u => !u.IsApproved && u.EmailConfirmed);
+			
+			// BEST PRACTICE FIX: Show all users who need approval, 
+			// so the SuperAdmin can manually override/approve them even if email verification is delayed.
+			var pendingUsers = users.Where(u => !u.IsApproved);
+			
 			var pendingCount = pendingUsers.Count();
 
 			_logger.LogInformation("Retrieved {Count} pending approval users", pendingCount);
@@ -401,6 +404,48 @@ public class UserService(
 		{
 			_logger.LogError(ex, "Error changing password for user Id: {UserId}", id);
 			throw new ApplicationException($"An error occurred while changing password for user Id: {id}", ex);
+		}
+	}
+
+	public async Task AdminResetUserPasswordAsync(int targetId, string newPassword, int adminUserId)
+	{
+		try
+		{
+			var admin = await _uow.Users.GetByIdAsync(adminUserId);
+			var targetUser = await _uow.Users.GetByIdAsync(targetId);
+
+			if (targetUser == null)
+			{
+				_logger.LogWarning("Target user with Id: {TargetId} not found for admin password reset", targetId);
+				throw new KeyNotFoundException($"User {targetId} not found.");
+			}
+
+			if (admin == null || admin.Role != UserRole.SuperAdmin)
+			{
+				_logger.LogWarning("Unauthorized admin reset attempt by User Id: {AdminId}", adminUserId);
+				throw new UnauthorizedAccessException("Only SuperAdmin can reset passwords directly.");
+			}
+
+			// Hash and set new password using BCrypt
+			targetUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newPassword);
+
+			_uow.Users.Update(targetUser);
+			await _uow.SaveChangesAsync();
+
+			_logger.LogInformation("Password reset manually by SuperAdmin {AdminId} for user Id: {TargetId}", adminUserId, targetId);
+		}
+		catch (KeyNotFoundException)
+		{
+			throw;
+		}
+		catch (UnauthorizedAccessException)
+		{
+			throw;
+		}
+		catch (Exception ex)
+		{
+			_logger.LogError(ex, "Error manually resetting password for user Id: {TargetId}", targetId);
+			throw new ApplicationException($"An error occurred while resetting password for user Id: {targetId}", ex);
 		}
 	}
 
