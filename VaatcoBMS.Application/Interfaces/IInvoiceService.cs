@@ -5,9 +5,10 @@ namespace VaatcoBMS.Application.Interfaces;
 
 public interface IInvoiceService
 {
-    Task<InvoiceDto> CreateAsync(InvoiceDto dto, int userId);
+    Task<InvoiceDto> CreateAsync(CreateInvoiceDto dto, int userId);
     Task<InvoiceDto> GetByIdAsync(int id);
     Task<IEnumerable<InvoiceDto>> GetAllAsync(int page, int pageSize);
     Task UpdateStatusAsync(int id, InvoiceStatus status);
-    Task<bool> DeleteAsync(int id);
+	  Task<InvoiceStatsDto> GetStatsAsync();
+	Task<bool> DeleteAsync(int id);
 }
