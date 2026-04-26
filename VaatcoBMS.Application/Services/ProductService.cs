@@ -105,7 +105,8 @@ public class ProductService(
 
 			// Soft delete
 			product.IsActive = false;
-			_uow.Products.Update(product);
+			_uow.Products.Delete(product);
+			//_uow.Products.Update(product);
 			await _uow.SaveChangesAsync();
 
 			_logger.LogInformation("Product soft deleted successfully. Id: {ProductId}, Code: {ProductCode}, Name: {ProductName}",
