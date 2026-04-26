@@ -1,0 +1,542 @@
+2026-04-27 00:05:42.157 +06:00 [WRN] No store type was specified for the decimal property 'TaxRate' on entity type 'Invoice'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-27 00:05:42.200 +06:00 [WRN] No store type was specified for the decimal property 'Amount' on entity type 'Payment'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-27 00:15:35.149 +06:00 [WRN] The foreign key property 'Payment.InvoiceId1' was created in shadow state because a conflicting property with the simple name 'InvoiceId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2026-04-27 00:16:28.458 +06:00 [WRN] The foreign key property 'Payment.InvoiceId1' was created in shadow state because a conflicting property with the simple name 'InvoiceId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2026-04-27 00:17:46.071 +06:00 [WRN] The foreign key property 'Payment.InvoiceId1' was created in shadow state because a conflicting property with the simple name 'InvoiceId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2026-04-27 00:21:16.833 +06:00 [WRN] The foreign key property 'Payment.InvoiceId1' was created in shadow state because a conflicting property with the simple name 'InvoiceId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2026-04-27 00:21:17.107 +06:00 [WRN] The foreign key property 'Payment.InvoiceId1' was created in shadow state because a conflicting property with the simple name 'InvoiceId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2026-04-27 01:24:50.220 +06:00 [INF] GET / => 302 in 12273ms
+2026-04-27 01:24:52.106 +06:00 [INF] GET /auth/login => 200 in 1783ms
+2026-04-27 01:24:52.142 +06:00 [INF] GET /css/site.css => 304 in 15ms
+2026-04-27 01:24:52.142 +06:00 [INF] GET /css/auth.css => 304 in 13ms
+2026-04-27 01:24:52.146 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 23ms
+2026-04-27 01:24:52.359 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-04-27 01:24:52.368 +06:00 [INF] GET /js/site.js => 304 in 0ms
+2026-04-27 01:25:09.872 +06:00 [INF] Login: aburayhan00457@gmail.com
+2026-04-27 01:25:10.128 +06:00 [INF] POST /auth/login => 302 in 10339ms
+2026-04-27 01:25:10.575 +06:00 [INF] GET /css/site.css?v=JHook7q1pfCQ622gj7P0hDjpdH_FiVqakQxFBj76wYA => 304 in 0ms
+2026-04-27 01:25:10.577 +06:00 [INF] GET / => 200 in 434ms
+2026-04-27 01:25:10.581 +06:00 [INF] GET /css/layout.css?v=QMPHCxA_6v7NLe0Yn5HIKELfUHSCYtDRPyAMJdId3Z0 => 304 in 0ms
+2026-04-27 01:25:11.078 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:25:11.236 +06:00 [INF] GET /api/users/pending => 200 in 264ms
+2026-04-27 01:25:11.554 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:25:11.587 +06:00 [INF] GET /api/users/pending => 200 in 346ms
+2026-04-27 01:25:11.895 +06:00 [INF] GET /api/invoices/stats => 200 in 887ms
+2026-04-27 01:25:12.112 +06:00 [INF] GET /api/customers => 200 in 1102ms
+2026-04-27 01:25:12.152 +06:00 [INF] Found 0 products with low stock (threshold: 10)
+2026-04-27 01:25:12.160 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 1150ms
+2026-04-27 01:25:12.166 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 1156ms
+2026-04-27 01:25:14.642 +06:00 [INF] GET /Invoices => 200 in 62ms
+2026-04-27 01:25:14.839 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:25:14.844 +06:00 [INF] GET /api/users/pending => 200 in 19ms
+2026-04-27 01:25:16.930 +06:00 [INF] GET /Customers => 200 in 72ms
+2026-04-27 01:25:17.106 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:25:17.111 +06:00 [INF] GET /api/users/pending => 200 in 16ms
+2026-04-27 01:25:19.101 +06:00 [INF] GET /Products => 200 in 48ms
+2026-04-27 01:25:19.266 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:25:19.272 +06:00 [INF] GET /api/users/pending => 200 in 18ms
+2026-04-27 01:25:21.666 +06:00 [INF] GET /Invoices => 200 in 11ms
+2026-04-27 01:25:21.787 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:25:21.795 +06:00 [INF] GET /api/users/pending => 200 in 21ms
+2026-04-27 01:25:23.671 +06:00 [INF] GET /auth/UserProfile => 404 in 0ms
+2026-04-27 01:25:29.453 +06:00 [INF] GET /Home/Index => 200 in 12ms
+2026-04-27 01:25:29.564 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:25:29.569 +06:00 [INF] GET /api/users/pending => 200 in 19ms
+2026-04-27 01:25:29.608 +06:00 [INF] GET /api/customers => 200 in 19ms
+2026-04-27 01:25:29.624 +06:00 [INF] Found 0 products with low stock (threshold: 10)
+2026-04-27 01:25:29.613 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:25:29.630 +06:00 [INF] GET /api/invoices/stats => 200 in 42ms
+2026-04-27 01:25:29.641 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 51ms
+2026-04-27 01:25:29.643 +06:00 [INF] GET /api/users/pending => 200 in 52ms
+2026-04-27 01:25:29.643 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 54ms
+2026-04-27 01:25:31.579 +06:00 [INF] GET /auth/logout => 302 in 11ms
+2026-04-27 01:25:31.600 +06:00 [INF] GET /auth/login => 200 in 6ms
+2026-04-27 01:25:31.616 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-27 01:25:31.632 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 2ms
+2026-04-27 01:25:59.363 +06:00 [INF] Login: aburayhan011260@gmail.com
+2026-04-27 01:25:59.368 +06:00 [INF] POST /auth/login => 302 in 8752ms
+2026-04-27 01:25:59.389 +06:00 [INF] GET / => 200 in 7ms
+2026-04-27 01:25:59.509 +06:00 [INF] Found 0 products with low stock (threshold: 10)
+2026-04-27 01:25:59.522 +06:00 [INF] GET /api/customers => 200 in 31ms
+2026-04-27 01:25:59.526 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 34ms
+2026-04-27 01:25:59.529 +06:00 [INF] GET /api/invoices/stats => 200 in 41ms
+2026-04-27 01:25:59.533 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 43ms
+2026-04-27 01:26:08.370 +06:00 [INF] GET /Customers => 200 in 16ms
+2026-04-27 01:26:10.456 +06:00 [INF] GET /Products => 200 in 67ms
+2026-04-27 01:26:11.988 +06:00 [INF] GET /Invoices => 200 in 12ms
+2026-04-27 01:26:18.439 +06:00 [INF] GET /Customers => 200 in 13ms
+2026-04-27 01:26:19.931 +06:00 [INF] GET /Products => 200 in 10ms
+2026-04-27 01:26:20.663 +06:00 [INF] GET /Invoices => 200 in 10ms
+2026-04-27 01:26:22.760 +06:00 [INF] GET /Customers => 200 in 11ms
+2026-04-27 01:27:08.257 +06:00 [INF] Successfully created customer with phone 01999011560
+2026-04-27 01:27:08.269 +06:00 [INF] POST /api/customers => 200 in 478ms
+2026-04-27 01:27:09.115 +06:00 [INF] GET /Customers => 200 in 13ms
+2026-04-27 01:27:13.868 +06:00 [INF] GET /api/customers/1 => 200 in 110ms
+2026-04-27 01:27:18.090 +06:00 [INF] GET /Products => 200 in 10ms
+2026-04-27 01:27:49.636 +06:00 [INF] POST /api/products => 403 in 6ms
+2026-04-27 01:27:55.009 +06:00 [INF] POST /api/products => 403 in 0ms
+2026-04-27 01:28:43.713 +06:00 [INF] POST /api/products => 403 in 1ms
+2026-04-27 01:28:48.824 +06:00 [INF] GET /Customers => 200 in 154ms
+2026-04-27 01:28:51.678 +06:00 [INF] GET /Invoices => 200 in 113ms
+2026-04-27 01:28:53.461 +06:00 [INF] GET /Invoices/Create => 200 in 20ms
+2026-04-27 01:28:53.650 +06:00 [INF] GET /api/products/active => 200 in 33ms
+2026-04-27 01:28:53.659 +06:00 [INF] GET /api/customers => 200 in 43ms
+2026-04-27 01:29:27.886 +06:00 [INF] GET /Products => 200 in 16ms
+2026-04-27 01:30:29.997 +06:00 [INF] POST /api/products => 403 in 4ms
+2026-04-27 01:33:40.506 +06:00 [INF] GET /Products => 200 in 36ms
+2026-04-27 01:33:53.407 +06:00 [INF] POST /api/products => 403 in 4ms
+2026-04-27 01:34:00.843 +06:00 [INF] POST /api/products => 403 in 1ms
+2026-04-27 01:34:06.785 +06:00 [INF] POST /api/products => 403 in 0ms
+2026-04-27 01:38:05.441 +06:00 [INF] GET /Products => 200 in 51ms
+2026-04-27 01:38:22.884 +06:00 [INF] POST /api/products => 403 in 3ms
+2026-04-27 01:38:37.223 +06:00 [INF] GET /.well-known/appspecific/com.chrome.devtools.json => 404 in 0ms
+2026-04-27 01:38:41.018 +06:00 [INF] POST /api/products => 403 in 1ms
+2026-04-27 01:38:46.495 +06:00 [INF] POST /api/products => 403 in 1ms
+2026-04-27 01:43:22.818 +06:00 [INF] GET /auth/logout => 302 in 11ms
+2026-04-27 01:43:22.856 +06:00 [INF] GET /auth/login => 200 in 23ms
+2026-04-27 01:43:22.879 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 1ms
+2026-04-27 01:43:22.890 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-04-27 01:43:30.482 +06:00 [INF] Login: aburayhan00457@gmail.com
+2026-04-27 01:43:30.486 +06:00 [INF] POST /auth/login => 302 in 5912ms
+2026-04-27 01:43:30.506 +06:00 [INF] GET / => 200 in 8ms
+2026-04-27 01:43:30.735 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:43:30.743 +06:00 [INF] GET /api/users/pending => 200 in 130ms
+2026-04-27 01:43:30.756 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:43:30.759 +06:00 [INF] GET /api/users/pending => 200 in 12ms
+2026-04-27 01:43:30.825 +06:00 [INF] Found 0 products with low stock (threshold: 10)
+2026-04-27 01:43:30.826 +06:00 [INF] GET /api/customers => 200 in 161ms
+2026-04-27 01:43:30.833 +06:00 [INF] GET /api/invoices/stats => 200 in 174ms
+2026-04-27 01:43:30.839 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 168ms
+2026-04-27 01:43:30.850 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 185ms
+2026-04-27 01:43:33.634 +06:00 [INF] GET /Products => 200 in 14ms
+2026-04-27 01:43:33.765 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:43:33.770 +06:00 [INF] GET /api/users/pending => 200 in 22ms
+2026-04-27 01:43:35.664 +06:00 [INF] GET /Home/Index => 200 in 7ms
+2026-04-27 01:43:35.773 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:43:35.780 +06:00 [INF] GET /api/users/pending => 200 in 14ms
+2026-04-27 01:43:35.827 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:43:35.841 +06:00 [INF] GET /api/customers => 200 in 33ms
+2026-04-27 01:43:35.842 +06:00 [INF] Found 0 products with low stock (threshold: 10)
+2026-04-27 01:43:35.858 +06:00 [INF] GET /api/users/pending => 200 in 48ms
+2026-04-27 01:43:35.860 +06:00 [INF] GET /api/invoices/stats => 200 in 54ms
+2026-04-27 01:43:35.887 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 78ms
+2026-04-27 01:43:35.887 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 81ms
+2026-04-27 01:43:38.425 +06:00 [INF] GET /Products => 200 in 13ms
+2026-04-27 01:43:38.553 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:43:38.559 +06:00 [INF] GET /api/users/pending => 200 in 18ms
+2026-04-27 01:43:51.802 +06:00 [INF] Product created successfully. Id: 1, Code: , Name: 
+2026-04-27 01:50:23.156 +06:00 [INF] GET / => 302 in 87ms
+2026-04-27 01:50:25.354 +06:00 [INF] GET /auth/login => 200 in 2033ms
+2026-04-27 01:50:25.452 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 6ms
+2026-04-27 01:50:25.462 +06:00 [INF] GET /images/vaatco_logo.jpeg => 200 in 14ms
+2026-04-27 01:50:25.462 +06:00 [INF] GET /css/site.css => 200 in 15ms
+2026-04-27 01:50:25.462 +06:00 [INF] GET /css/auth.css => 200 in 14ms
+2026-04-27 01:50:25.462 +06:00 [INF] GET /lib/jquery/dist/jquery.min.js => 200 in 13ms
+2026-04-27 01:50:25.723 +06:00 [INF] GET /js/site.js => 200 in 1ms
+2026-04-27 01:50:25.724 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 4ms
+2026-04-27 01:50:25.736 +06:00 [INF] GET /lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js => 200 in 13ms
+2026-04-27 01:50:25.740 +06:00 [INF] GET /lib/jquery-validation/dist/jquery.validate.min.js => 200 in 18ms
+2026-04-27 01:50:40.127 +06:00 [INF] Login: aburayhan00457@gmail.com
+2026-04-27 01:50:40.190 +06:00 [INF] POST /auth/login => 302 in 1191ms
+2026-04-27 01:50:40.296 +06:00 [INF] GET / => 200 in 92ms
+2026-04-27 01:50:40.309 +06:00 [INF] GET /css/site.css?v=JHook7q1pfCQ622gj7P0hDjpdH_FiVqakQxFBj76wYA => 200 in 1ms
+2026-04-27 01:50:40.309 +06:00 [INF] GET /css/layout.css?v=QMPHCxA_6v7NLe0Yn5HIKELfUHSCYtDRPyAMJdId3Z0 => 200 in 1ms
+2026-04-27 01:50:40.482 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:50:40.534 +06:00 [INF] Found 0 products with low stock (threshold: 10)
+2026-04-27 01:50:40.656 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 214ms
+2026-04-27 01:50:40.671 +06:00 [INF] GET /api/users/pending => 200 in 245ms
+2026-04-27 01:50:40.680 +06:00 [INF] GET /api/customers => 200 in 241ms
+2026-04-27 01:50:40.691 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:50:40.696 +06:00 [INF] GET /api/users/pending => 200 in 21ms
+2026-04-27 01:50:40.711 +06:00 [INF] GET /api/invoices/stats => 200 in 274ms
+2026-04-27 01:50:40.898 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 459ms
+2026-04-27 01:50:45.356 +06:00 [INF] GET /Products => 200 in 47ms
+2026-04-27 01:50:45.450 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:50:45.454 +06:00 [INF] GET /api/users/pending => 200 in 32ms
+2026-04-27 01:50:55.368 +06:00 [INF] Product soft deleted successfully. Id: 1, Code: , Name: 
+2026-04-27 01:50:55.374 +06:00 [INF] DELETE /api/products/1 => 200 in 406ms
+2026-04-27 01:50:56.205 +06:00 [INF] GET /Products => 200 in 11ms
+2026-04-27 01:50:56.245 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:50:56.250 +06:00 [INF] GET /api/users/pending => 200 in 11ms
+2026-04-27 01:50:56.292 +06:00 [INF] GET /favicon.ico => 200 in 1ms
+2026-04-27 01:51:37.841 +06:00 [INF] Product created successfully. Id: 2, Code: V-45, Name: Vaathrine
+2026-04-27 01:51:37.850 +06:00 [INF] POST /api/products => 200 in 294ms
+2026-04-27 01:51:38.891 +06:00 [INF] GET /Products => 200 in 21ms
+2026-04-27 01:51:38.952 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:51:38.957 +06:00 [INF] GET /api/users/pending => 200 in 17ms
+2026-04-27 01:51:45.435 +06:00 [INF] Product soft deleted successfully. Id: 1, Code: , Name: 
+2026-04-27 01:51:45.439 +06:00 [INF] DELETE /api/products/1 => 200 in 37ms
+2026-04-27 01:51:46.265 +06:00 [INF] GET /Products => 200 in 7ms
+2026-04-27 01:51:46.302 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:51:46.306 +06:00 [INF] GET /api/users/pending => 200 in 7ms
+2026-04-27 01:51:47.689 +06:00 [INF] GET /Products => 200 in 7ms
+2026-04-27 01:51:47.749 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:51:47.753 +06:00 [INF] GET /api/users/pending => 200 in 15ms
+2026-04-27 01:51:56.265 +06:00 [INF] GET /Products => 200 in 7ms
+2026-04-27 01:51:56.302 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:51:56.305 +06:00 [INF] GET /api/users/pending => 200 in 7ms
+2026-04-27 01:52:04.207 +06:00 [INF] Product soft deleted successfully. Id: 1, Code: , Name: 
+2026-04-27 01:52:04.215 +06:00 [INF] DELETE /api/products/1 => 200 in 42ms
+2026-04-27 01:52:05.046 +06:00 [INF] GET /Products => 200 in 8ms
+2026-04-27 01:52:05.109 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:52:05.115 +06:00 [INF] GET /api/users/pending => 200 in 15ms
+2026-04-27 01:52:42.836 +06:00 [INF] GET /api/products/2 => 200 in 14ms
+2026-04-27 01:52:47.479 +06:00 [INF] PUT /api/products/2 => 400 in 270ms
+2026-04-27 01:52:58.697 +06:00 [INF] GET /api/products/2 => 200 in 5ms
+2026-04-27 01:53:03.776 +06:00 [INF] PUT /api/products/2 => 400 in 11ms
+2026-04-27 01:53:19.131 +06:00 [INF] GET /.well-known/appspecific/com.chrome.devtools.json => 404 in 0ms
+2026-04-27 01:53:40.611 +06:00 [INF] GET /api/products/2 => 200 in 11ms
+2026-04-27 01:53:46.511 +06:00 [INF] PUT /api/products/2 => 400 in 27ms
+2026-04-27 01:54:02.442 +06:00 [INF] GET /api/products/2 => 200 in 57ms
+2026-04-27 01:54:06.783 +06:00 [INF] PUT /api/products/2 => 400 in 49ms
+2026-04-27 01:54:26.040 +06:00 [INF] PUT /api/products/2 => 400 in 71ms
+2026-04-27 01:55:29.426 +06:00 [INF] GET / => 200 in 791ms
+2026-04-27 01:55:34.324 +06:00 [INF] Found 0 products with low stock (threshold: 10)
+2026-04-27 01:55:34.326 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:55:34.385 +06:00 [INF] GET /api/invoices/stats => 200 in 4115ms
+2026-04-27 01:55:34.505 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 4226ms
+2026-04-27 01:55:34.517 +06:00 [INF] GET /api/customers => 200 in 4239ms
+2026-04-27 01:55:34.524 +06:00 [INF] GET /api/users/pending => 200 in 4328ms
+2026-04-27 01:55:34.538 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 4260ms
+2026-04-27 01:55:34.758 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:55:34.763 +06:00 [INF] GET /api/users/pending => 200 in 198ms
+2026-04-27 01:55:41.262 +06:00 [INF] GET /Products => 200 in 66ms
+2026-04-27 01:55:41.476 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 01:55:41.483 +06:00 [INF] GET /api/users/pending => 200 in 44ms
+2026-04-27 01:55:44.540 +06:00 [INF] GET /api/products/2 => 200 in 46ms
+2026-04-27 02:03:45.371 +06:00 [INF] PUT /api/products/2 => 400 in 476672ms
+2026-04-27 02:03:46.271 +06:00 [INF] GET /Products => 200 in 88ms
+2026-04-27 02:03:46.404 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:03:46.468 +06:00 [INF] GET /api/users/pending => 200 in 85ms
+2026-04-27 02:04:35.094 +06:00 [INF] GET / => 200 in 1116ms
+2026-04-27 02:04:40.411 +06:00 [INF] Found 0 products with low stock (threshold: 10)
+2026-04-27 02:04:40.461 +06:00 [INF] GET /api/invoices/stats => 200 in 4729ms
+2026-04-27 02:04:40.413 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:04:40.591 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 4841ms
+2026-04-27 02:04:40.607 +06:00 [INF] GET /api/customers => 200 in 4866ms
+2026-04-27 02:04:40.639 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 4897ms
+2026-04-27 02:04:40.648 +06:00 [INF] GET /api/users/pending => 200 in 4975ms
+2026-04-27 02:04:40.678 +06:00 [INF] GET /Products => 200 in 463ms
+2026-04-27 02:04:40.678 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:04:41.603 +06:00 [INF] GET /api/users/pending => 200 in 950ms
+2026-04-27 02:04:41.664 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:04:41.669 +06:00 [INF] GET /api/users/pending => 200 in 580ms
+2026-04-27 02:04:42.449 +06:00 [INF] GET /api/products/2 => 200 in 150ms
+2026-04-27 02:04:53.288 +06:00 [INF] Product updated successfully. Id: 2, Code: V-45
+2026-04-27 02:15:30.540 +06:00 [INF] PUT /api/products/2 => 200 in 642356ms
+2026-04-27 02:15:31.004 +06:00 [INF] GET /Products => 200 in 126ms
+2026-04-27 02:15:31.391 +06:00 [INF] GET /Products => 200 in 13ms
+2026-04-27 02:15:31.680 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:15:31.685 +06:00 [INF] GET /api/users/pending => 200 in 17ms
+2026-04-27 02:15:35.571 +06:00 [INF] GET /api/products/2 => 200 in 9ms
+2026-04-27 02:15:54.365 +06:00 [INF] Product updated successfully. Id: 2, Code: V-45
+2026-04-27 02:15:59.176 +06:00 [INF] PUT /api/products/2 => 200 in 17367ms
+2026-04-27 02:16:02.588 +06:00 [INF] GET /Products => 200 in 15ms
+2026-04-27 02:16:02.672 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:16:02.676 +06:00 [INF] GET /api/users/pending => 200 in 15ms
+2026-04-27 02:16:29.772 +06:00 [INF] Product soft deleted successfully. Id: 1, Code: , Name: 
+2026-04-27 02:16:39.151 +06:00 [INF] DELETE /api/products/1 => 200 in 29368ms
+2026-04-27 02:16:39.993 +06:00 [INF] GET /Products => 200 in 12ms
+2026-04-27 02:16:40.073 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:16:40.079 +06:00 [INF] GET /api/users/pending => 200 in 15ms
+2026-04-27 02:16:48.636 +06:00 [INF] GET /Home/Index => 200 in 16ms
+2026-04-27 02:16:48.788 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:16:48.793 +06:00 [INF] GET /api/users/pending => 200 in 13ms
+2026-04-27 02:16:48.866 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:16:48.907 +06:00 [INF] GET /api/users/pending => 200 in 53ms
+2026-04-27 02:16:48.922 +06:00 [INF] GET /api/customers => 200 in 71ms
+2026-04-27 02:16:48.940 +06:00 [INF] Found 0 products with low stock (threshold: 10)
+2026-04-27 02:16:48.948 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 94ms
+2026-04-27 02:16:48.952 +06:00 [INF] GET /api/invoices/stats => 200 in 102ms
+2026-04-27 02:16:48.990 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 136ms
+2026-04-27 02:16:50.840 +06:00 [INF] GET /Invoices => 200 in 76ms
+2026-04-27 02:16:51.004 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:16:51.012 +06:00 [INF] GET /api/users/pending => 200 in 21ms
+2026-04-27 02:16:53.058 +06:00 [INF] GET /Invoices/Create => 200 in 24ms
+2026-04-27 02:16:53.307 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:16:53.313 +06:00 [INF] GET /api/users/pending => 200 in 23ms
+2026-04-27 02:16:53.346 +06:00 [INF] GET /api/customers => 200 in 11ms
+2026-04-27 02:16:53.369 +06:00 [INF] GET /api/products/active => 200 in 33ms
+2026-04-27 02:28:19.526 +06:00 [INF] GET / => 200 in 1850ms
+2026-04-27 02:28:25.774 +06:00 [INF] Found 0 products with low stock (threshold: 10)
+2026-04-27 02:28:25.777 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:28:25.851 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 6041ms
+2026-04-27 02:28:25.851 +06:00 [INF] GET /api/invoices/stats => 200 in 6043ms
+2026-04-27 02:28:25.862 +06:00 [INF] GET /api/users/pending => 200 in 6404ms
+2026-04-27 02:28:25.852 +06:00 [INF] GET /api/customers => 200 in 6039ms
+2026-04-27 02:28:25.884 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 6072ms
+2026-04-27 02:28:25.999 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:28:26.003 +06:00 [INF] GET /api/users/pending => 200 in 135ms
+2026-04-27 02:28:31.134 +06:00 [INF] GET /Products => 200 in 80ms
+2026-04-27 02:28:31.422 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:28:31.426 +06:00 [INF] GET /api/users/pending => 200 in 107ms
+2026-04-27 02:28:39.984 +06:00 [INF] GET /Invoices => 200 in 54ms
+2026-04-27 02:28:40.121 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:28:40.124 +06:00 [INF] GET /api/users/pending => 200 in 42ms
+2026-04-27 02:28:41.666 +06:00 [INF] GET /Invoices/Create => 200 in 14ms
+2026-04-27 02:28:41.805 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:28:41.810 +06:00 [INF] GET /api/users/pending => 200 in 19ms
+2026-04-27 02:28:41.847 +06:00 [INF] GET /api/customers => 200 in 13ms
+2026-04-27 02:28:41.879 +06:00 [INF] GET /api/products/active => 200 in 44ms
+2026-04-27 02:30:03.330 +06:00 [INF] Invoice INV-1001 created by user 1
+2026-04-27 02:30:03.542 +06:00 [INF] POST /api/invoices => 200 in 1365ms
+2026-04-27 02:30:04.231 +06:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-04-27 02:30:04.470 +06:00 [INF] GET /Invoices/1 => 200 in 278ms
+2026-04-27 02:30:04.667 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:30:04.672 +06:00 [INF] GET /api/users/pending => 200 in 22ms
+2026-04-27 02:30:13.525 +06:00 [INF] GET /Home/Index => 200 in 9ms
+2026-04-27 02:30:13.675 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:30:13.681 +06:00 [INF] GET /api/users/pending => 200 in 28ms
+2026-04-27 02:30:13.731 +06:00 [INF] GET /api/customers => 200 in 22ms
+2026-04-27 02:30:13.826 +06:00 [INF] Found 0 products with low stock (threshold: 10)
+2026-04-27 02:30:13.829 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 109ms
+2026-04-27 02:30:13.946 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:30:13.951 +06:00 [INF] GET /api/users/pending => 200 in 230ms
+2026-04-27 02:30:13.966 +06:00 [INF] GET /api/invoices/stats => 200 in 258ms
+2026-04-27 02:30:14.077 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 364ms
+2026-04-27 02:30:26.027 +06:00 [INF] GET /Customers => 200 in 68ms
+2026-04-27 02:30:26.160 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:30:26.164 +06:00 [INF] GET /api/users/pending => 200 in 23ms
+2026-04-27 02:30:27.039 +06:00 [INF] GET /Invoices => 200 in 32ms
+2026-04-27 02:30:27.172 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:30:27.183 +06:00 [INF] GET /api/users/pending => 200 in 35ms
+2026-04-27 02:30:32.408 +06:00 [INF] GET /Invoices/1 => 200 in 116ms
+2026-04-27 02:30:32.643 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:30:32.647 +06:00 [INF] GET /api/users/pending => 200 in 125ms
+2026-04-27 02:30:39.267 +06:00 [INF] GET /Invoices => 200 in 56ms
+2026-04-27 02:30:39.370 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:30:39.374 +06:00 [INF] GET /api/users/pending => 200 in 14ms
+2026-04-27 02:30:51.050 +06:00 [INF] DELETE /api/invoices/1 => 200 in 274ms
+2026-04-27 02:30:51.916 +06:00 [INF] GET /Invoices => 200 in 44ms
+2026-04-27 02:30:52.047 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:30:52.051 +06:00 [INF] GET /api/users/pending => 200 in 20ms
+2026-04-27 02:30:56.003 +06:00 [INF] GET /Invoices/Create => 200 in 9ms
+2026-04-27 02:30:56.131 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:30:56.135 +06:00 [INF] GET /api/users/pending => 200 in 22ms
+2026-04-27 02:30:56.173 +06:00 [INF] GET /api/customers => 200 in 18ms
+2026-04-27 02:30:56.173 +06:00 [INF] GET /api/products/active => 200 in 18ms
+2026-04-27 02:31:00.819 +06:00 [INF] GET /Invoices/Create => 200 in 9ms
+2026-04-27 02:31:00.951 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:31:00.955 +06:00 [INF] GET /api/users/pending => 200 in 23ms
+2026-04-27 02:31:01.001 +06:00 [INF] GET /api/customers => 200 in 27ms
+2026-04-27 02:31:01.001 +06:00 [INF] GET /api/products/active => 200 in 24ms
+2026-04-27 02:31:49.559 +06:00 [INF] Invoice INV-1001 created by user 1
+2026-04-27 02:31:49.613 +06:00 [INF] POST /api/invoices => 200 in 900ms
+2026-04-27 02:31:50.308 +06:00 [INF] GET /Invoices/2 => 200 in 39ms
+2026-04-27 02:31:50.443 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:31:50.447 +06:00 [INF] GET /api/users/pending => 200 in 18ms
+2026-04-27 02:31:54.671 +06:00 [INF] GET /Home/Index => 200 in 18ms
+2026-04-27 02:31:54.774 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:31:54.797 +06:00 [INF] GET /api/users/pending => 200 in 45ms
+2026-04-27 02:31:54.822 +06:00 [INF] Found 0 products with low stock (threshold: 10)
+2026-04-27 02:31:54.829 +06:00 [INF] GET /api/customers => 200 in 57ms
+2026-04-27 02:31:54.860 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:31:54.850 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 65ms
+2026-04-27 02:31:54.865 +06:00 [INF] GET /api/users/pending => 200 in 25ms
+2026-04-27 02:31:54.894 +06:00 [INF] GET /api/invoices/stats => 200 in 125ms
+2026-04-27 02:31:54.938 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 159ms
+2026-04-27 02:32:06.334 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:32:06.363 +06:00 [INF] GET /admin/pending => 200 in 3290ms
+2026-04-27 02:32:06.530 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:32:06.535 +06:00 [INF] GET /api/users/pending => 200 in 38ms
+2026-04-27 02:32:11.234 +06:00 [INF] GET /User/Index => 200 in 1717ms
+2026-04-27 02:32:11.348 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:32:11.352 +06:00 [INF] GET /api/users/pending => 200 in 14ms
+2026-04-27 02:32:17.593 +06:00 [INF] GET /Customers => 200 in 16ms
+2026-04-27 02:32:17.701 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:32:17.706 +06:00 [INF] GET /api/users/pending => 200 in 14ms
+2026-04-27 02:32:21.915 +06:00 [INF] GET /Products => 200 in 109ms
+2026-04-27 02:32:22.033 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:32:22.042 +06:00 [INF] GET /api/users/pending => 200 in 17ms
+2026-04-27 02:32:26.820 +06:00 [INF] GET /Invoices => 200 in 154ms
+2026-04-27 02:32:26.939 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:32:26.945 +06:00 [INF] GET /api/users/pending => 200 in 16ms
+2026-04-27 02:32:47.814 +06:00 [INF] GET /Invoices/2 => 200 in 260ms
+2026-04-27 02:32:47.988 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:32:47.992 +06:00 [INF] GET /api/users/pending => 200 in 32ms
+2026-04-27 02:34:38.683 +06:00 [INF] GET /Invoices/2 => 200 in 189ms
+2026-04-27 02:34:38.802 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:34:38.809 +06:00 [INF] GET /api/users/pending => 200 in 39ms
+2026-04-27 02:34:43.149 +06:00 [INF] Invoice 2 status: "Draft" -> "Approved"
+2026-04-27 02:34:43.154 +06:00 [INF] PUT /api/invoices/2/status => 200 in 299ms
+2026-04-27 02:34:43.888 +06:00 [INF] GET /Invoices/2 => 200 in 14ms
+2026-04-27 02:34:44.009 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:34:44.015 +06:00 [INF] GET /api/users/pending => 200 in 18ms
+2026-04-27 02:35:06.228 +06:00 [INF] Payment ৳1029 recorded for invoice 2
+2026-04-27 02:35:06.236 +06:00 [INF] POST /api/payments => 200 in 222ms
+2026-04-27 02:35:06.906 +06:00 [INF] GET /Invoices/2 => 200 in 25ms
+2026-04-27 02:35:07.031 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:35:07.034 +06:00 [INF] GET /api/users/pending => 200 in 15ms
+2026-04-27 02:35:31.323 +06:00 [INF] GET /Home/Index => 200 in 38ms
+2026-04-27 02:35:31.417 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:35:31.421 +06:00 [INF] GET /api/users/pending => 200 in 22ms
+2026-04-27 02:35:31.471 +06:00 [INF] Found 0 products with low stock (threshold: 10)
+2026-04-27 02:35:31.493 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:35:31.505 +06:00 [INF] GET /api/invoices/stats => 200 in 50ms
+2026-04-27 02:35:31.495 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 37ms
+2026-04-27 02:35:31.499 +06:00 [INF] GET /api/customers => 200 in 38ms
+2026-04-27 02:35:31.513 +06:00 [INF] GET /api/users/pending => 200 in 51ms
+2026-04-27 02:35:31.533 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 74ms
+2026-04-27 02:35:41.447 +06:00 [INF] GET /Products => 200 in 13ms
+2026-04-27 02:35:41.551 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:35:41.560 +06:00 [INF] GET /api/users/pending => 200 in 19ms
+2026-04-27 02:35:53.810 +06:00 [INF] Product soft deleted successfully. Id: 1, Code: , Name: 
+2026-04-27 02:35:53.814 +06:00 [INF] DELETE /api/products/1 => 200 in 3028ms
+2026-04-27 02:35:54.652 +06:00 [INF] GET /Products => 200 in 11ms
+2026-04-27 02:35:54.781 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:35:54.793 +06:00 [INF] GET /api/users/pending => 200 in 20ms
+2026-04-27 02:37:34.305 +06:00 [INF] GET /Products => 200 in 174ms
+2026-04-27 02:37:34.991 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:37:34.998 +06:00 [INF] GET /api/users/pending => 200 in 482ms
+2026-04-27 02:37:58.660 +06:00 [INF] Product soft deleted successfully. Id: 1, Code: , Name: 
+2026-04-27 02:37:58.666 +06:00 [INF] DELETE /api/products/1 => 200 in 2710ms
+2026-04-27 02:37:59.611 +06:00 [INF] GET /Products => 200 in 56ms
+2026-04-27 02:37:59.908 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:37:59.922 +06:00 [INF] GET /api/users/pending => 200 in 65ms
+2026-04-27 02:38:08.545 +06:00 [INF] GET /Customers => 200 in 39ms
+2026-04-27 02:38:08.694 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:38:08.703 +06:00 [INF] GET /api/users/pending => 200 in 65ms
+2026-04-27 02:38:19.791 +06:00 [INF] GET /auth/logout => 302 in 80ms
+2026-04-27 02:38:20.886 +06:00 [INF] GET /auth/login => 200 in 1076ms
+2026-04-27 02:38:20.925 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 15ms
+2026-04-27 02:38:20.959 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-04-27 02:38:41.927 +06:00 [INF] Login: aburayhan011260@gmail.com
+2026-04-27 02:38:41.959 +06:00 [INF] POST /auth/login => 302 in 4892ms
+2026-04-27 02:38:42.000 +06:00 [INF] GET / => 200 in 19ms
+2026-04-27 02:38:42.280 +06:00 [INF] GET /api/customers => 200 in 78ms
+2026-04-27 02:38:42.281 +06:00 [INF] Found 0 products with low stock (threshold: 10)
+2026-04-27 02:38:42.302 +06:00 [INF] GET /api/invoices/stats => 200 in 103ms
+2026-04-27 02:38:42.333 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 132ms
+2026-04-27 02:38:42.367 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 166ms
+2026-04-27 02:39:05.223 +06:00 [INF] GET /Invoices/Create => 200 in 46ms
+2026-04-27 02:39:05.421 +06:00 [INF] GET /api/customers => 200 in 63ms
+2026-04-27 02:39:05.427 +06:00 [INF] GET /api/products/active => 200 in 69ms
+2026-04-27 02:40:07.106 +06:00 [INF] Invoice INV-1002 created by user 2
+2026-04-27 02:40:07.115 +06:00 [INF] POST /api/invoices => 200 in 62ms
+2026-04-27 02:40:07.819 +06:00 [INF] GET /Invoices/3 => 200 in 48ms
+2026-04-27 02:40:22.939 +06:00 [INF] GET /Products => 200 in 23ms
+2026-04-27 02:40:26.750 +06:00 [INF] GET /Customers => 200 in 12ms
+2026-04-27 02:40:29.540 +06:00 [INF] GET /auth/logout => 302 in 1ms
+2026-04-27 02:40:29.559 +06:00 [INF] GET /auth/login => 200 in 6ms
+2026-04-27 02:40:29.577 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 3ms
+2026-04-27 02:40:29.577 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 3ms
+2026-04-27 02:40:33.477 +06:00 [INF] Login: aburayhan00457@gmail.com
+2026-04-27 02:40:33.481 +06:00 [INF] POST /auth/login => 302 in 2362ms
+2026-04-27 02:40:33.502 +06:00 [INF] GET / => 200 in 7ms
+2026-04-27 02:40:33.593 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:40:33.597 +06:00 [INF] GET /api/users/pending => 200 in 12ms
+2026-04-27 02:40:33.668 +06:00 [INF] Found 0 products with low stock (threshold: 10)
+2026-04-27 02:40:33.678 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 28ms
+2026-04-27 02:40:33.757 +06:00 [INF] GET /api/customers => 200 in 112ms
+2026-04-27 02:40:33.758 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:40:33.757 +06:00 [INF] GET /api/invoices/stats => 200 in 112ms
+2026-04-27 02:40:33.766 +06:00 [INF] GET /api/users/pending => 200 in 116ms
+2026-04-27 02:40:33.770 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 121ms
+2026-04-27 02:40:44.404 +06:00 [INF] GET /Invoices => 200 in 29ms
+2026-04-27 02:40:44.566 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:40:44.571 +06:00 [INF] GET /api/users/pending => 200 in 21ms
+2026-04-27 02:40:49.627 +06:00 [INF] GET /Invoices/3 => 200 in 90ms
+2026-04-27 02:40:49.746 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:40:49.751 +06:00 [INF] GET /api/users/pending => 200 in 20ms
+2026-04-27 02:41:25.255 +06:00 [INF] Invoice 3 status: "Draft" -> "Approved"
+2026-04-27 02:41:25.260 +06:00 [INF] PUT /api/invoices/3/status => 200 in 124ms
+2026-04-27 02:41:26.001 +06:00 [INF] GET /Invoices/3 => 200 in 14ms
+2026-04-27 02:41:26.130 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:41:26.133 +06:00 [INF] GET /api/users/pending => 200 in 12ms
+2026-04-27 02:41:34.511 +06:00 [INF] Payment ৳2089.5 recorded for invoice 3
+2026-04-27 02:41:34.516 +06:00 [INF] POST /api/payments => 200 in 69ms
+2026-04-27 02:41:35.183 +06:00 [INF] GET /Invoices/3 => 200 in 43ms
+2026-04-27 02:41:35.302 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:41:35.305 +06:00 [INF] GET /api/users/pending => 200 in 26ms
+2026-04-27 02:45:08.865 +06:00 [INF] GET /Home/Index => 200 in 12ms
+2026-04-27 02:45:09.394 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:45:09.398 +06:00 [INF] GET /api/users/pending => 200 in 351ms
+2026-04-27 02:45:09.776 +06:00 [INF] GET /api/customers => 200 in 701ms
+2026-04-27 02:45:10.085 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:45:10.090 +06:00 [INF] GET /api/users/pending => 200 in 326ms
+2026-04-27 02:45:10.695 +06:00 [INF] Found 1 products with low stock (threshold: 10)
+2026-04-27 02:45:10.703 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 1625ms
+2026-04-27 02:45:10.766 +06:00 [INF] GET /api/invoices/stats => 200 in 1691ms
+2026-04-27 02:45:10.807 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 1729ms
+2026-04-27 02:45:17.310 +06:00 [INF] GET /Products => 200 in 14ms
+2026-04-27 02:45:17.411 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:45:17.414 +06:00 [INF] GET /api/users/pending => 200 in 16ms
+2026-04-27 02:45:21.279 +06:00 [INF] GET /api/products/2 => 200 in 122ms
+2026-04-27 02:45:31.997 +06:00 [INF] Product updated successfully. Id: 2, Code: V-45
+2026-04-27 02:45:32.001 +06:00 [INF] PUT /api/products/2 => 200 in 4793ms
+2026-04-27 02:45:32.836 +06:00 [INF] GET /Products => 200 in 10ms
+2026-04-27 02:45:32.946 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:45:32.951 +06:00 [INF] GET /api/users/pending => 200 in 11ms
+2026-04-27 02:45:43.320 +06:00 [INF] GET /Home/Index => 200 in 8ms
+2026-04-27 02:45:43.447 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:45:43.451 +06:00 [INF] GET /api/users/pending => 200 in 12ms
+2026-04-27 02:45:43.503 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:45:43.507 +06:00 [INF] Found 0 products with low stock (threshold: 10)
+2026-04-27 02:45:43.534 +06:00 [INF] GET /api/users/pending => 200 in 56ms
+2026-04-27 02:45:43.551 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 73ms
+2026-04-27 02:45:43.550 +06:00 [INF] GET /api/customers => 200 in 73ms
+2026-04-27 02:45:43.557 +06:00 [INF] GET /api/invoices/stats => 200 in 80ms
+2026-04-27 02:45:43.562 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 86ms
+2026-04-27 02:46:04.212 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:46:04.226 +06:00 [INF] GET /admin/pending => 200 in 4352ms
+2026-04-27 02:46:04.328 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:46:04.333 +06:00 [INF] GET /api/users/pending => 200 in 14ms
+2026-04-27 02:46:07.305 +06:00 [INF] GET /admin/create-user => 200 in 286ms
+2026-04-27 02:46:07.407 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-27 02:46:07.417 +06:00 [INF] GET /api/users/pending => 200 in 18ms
+2026-04-27 02:47:23.696 +06:00 [INF] User jte0hssk5y@bwmyga.com created by admin 1
+2026-04-27 02:47:23.715 +06:00 [INF] POST /admin/create-user => 302 in 1045ms
+2026-04-27 02:49:10.687 +06:00 [ERR] The view 'Users' was not found. Searched locations: ["/Views/Admin/Users.cshtml","/Views/Shared/Users.cshtml"]
+2026-04-27 02:49:12.591 +06:00 [INF] GET /Home/Index => 200 in 1752ms
+2026-04-27 02:49:12.799 +06:00 [ERR] The view 'Users' was not found. Searched locations: ["/Views/Admin/Users.cshtml","/Views/Shared/Users.cshtml"]
+2026-04-27 02:49:13.449 +06:00 [INF] GET /Home/Index => 200 in 490ms
+2026-04-27 02:49:15.286 +06:00 [WRN] Bad request: /admin/users
+System.InvalidOperationException: The view 'Users' was not found. The following locations were searched:
+/Views/Admin/Users.cshtml
+/Views/Shared/Users.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at VaatcoBMS.Web.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext ctx) in H:\VaatcoBMS\VaatcoBMS.Web\Middleware\RequestLoggingMiddleware.cs:line 10
+   at VaatcoBMS.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext ctx) in H:\VaatcoBMS\VaatcoBMS.Web\Middleware\ExceptionHandlingMiddleware.cs:line 9
+2026-04-27 02:49:15.346 +06:00 [WRN] Bad request: /admin/users
+System.InvalidOperationException: The view 'Users' was not found. The following locations were searched:
+/Views/Admin/Users.cshtml
+/Views/Shared/Users.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at VaatcoBMS.Web.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext ctx) in H:\VaatcoBMS\VaatcoBMS.Web\Middleware\RequestLoggingMiddleware.cs:line 10
+   at VaatcoBMS.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext ctx) in H:\VaatcoBMS\VaatcoBMS.Web\Middleware\ExceptionHandlingMiddleware.cs:line 9
