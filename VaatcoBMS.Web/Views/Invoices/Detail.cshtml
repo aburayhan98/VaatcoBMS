@@ -1,0 +1,377 @@
+﻿@using VaatcoBMS.Application.DTOs.Invoice
+@model InvoiceDto
+
+@{
+  ViewData["Title"] = "Invoice " + Model.InvoiceNumber;
+  Layout = "~/Views/Shared/_Layout.cshtml";
+  var statusColor = Model.Status switch
+  {
+    "Draft" => "gray",
+    "Approved" => "blue",
+    "Paid" => "green",
+    "Cancelled" => "red",
+    _ => "gray"
+  };
+  var canApprove = Model.Status == "Draft";
+  var canCancel = Model.Status is "Draft" or "Approved";
+  var canPay = Model.Status == "Approved" && Model.OutstandingBalance > 0;
+}
+
+<style>
+  @@media print {
+    .sidebar, .topbar, .no-print, #toast-container {
+      display: none !important;
+    }
+
+    .app-main {
+      margin-left: 0 !important;
+    }
+
+    .app-content {
+      padding: 0 !important;
+    }
+
+    .app-shell {
+      display: block !important;
+    }
+
+    .print-invoice {
+      box-shadow: none !important;
+      border: none !important;
+    }
+  }
+</style>
+
+@* Action Bar *@
+<div class="no-print" style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+  <a href="/Invoices" class="btn-outline-v"><i class="bi bi-arrow-left"></i> Back</a>
+  <span class="vbadge @statusColor" style="font-size:13px;padding:5px 12px;">@Model.Status</span>
+  <div style="margin-left:auto;display:flex;gap:8px;">
+    @if (canApprove)
+    {
+      <button onclick="updateStatus('Approved')" class="btn-primary-v" style="background:#15803d;">
+        <i class="bi bi-check-circle"></i> Approve
+      </button>
+    }
+    @if (canPay)
+    {
+      <button onclick="openModal('paymentModal')" class="btn-primary-v">
+        <i class="bi bi-cash-coin"></i> Record Payment
+      </button>
+    }
+    @if (canCancel)
+    {
+      <button onclick="updateStatus('Cancelled')" class="btn-primary-v" style="background:#b91c1c;border:none;">
+        <i class="bi bi-x-circle"></i> Cancel
+      </button>
+    }
+    <button onclick="window.print()" class="btn-outline-v">
+      <i class="bi bi-printer"></i> Print
+    </button>
+  </div>
+</div>
+
+@* Invoice Document *@
+<div class="vcard print-invoice" style="padding:0;">
+  @* Header *@
+  <div style="background:linear-gradient(135deg,#1e4db7,#1a40a0);padding:28px 32px;border-radius:14px 14px 0 0;display:flex;justify-content:space-between;align-items:flex-start;">
+    <div>
+      <div style="font-size:22px;font-weight:700;color:#fff;">VaatcoBMS</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.65);margin-top:4px;">Business Management System</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:28px;font-weight:800;color:#fff;letter-spacing:.02em;">INVOICE</div>
+      <div style="font-size:16px;font-weight:600;color:rgba(255,255,255,.85);margin-top:2px;">#@Model.InvoiceNumber</div>
+      @if (Model.ReferenceNumber != null)
+      {
+        <div style="font-size:12px;color:rgba(255,255,255,.55);margin-top:2px;">Ref: @Model.ReferenceNumber</div>
+      }
+    </div>
+  </div>
+
+  @* Customer & Dates *@
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--card-border);">
+    <div style="padding:20px 32px;border-right:1px solid var(--card-border);">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:8px;">Bill To</div>
+      <div style="font-size:16px;font-weight:700;">@Model.CustomerName</div>
+    </div>
+    <div style="padding:20px 32px;">
+      <table style="width:100%;font-size:13px;">
+        <tr>
+          <td style="color:var(--text-muted);padding:3px 0;width:120px;">Invoice Date</td>
+          <td style="font-weight:500;">@Model.InvoiceDate.ToString("dd MMM yyyy")</td>
+        </tr>
+        @if (Model.DueDate.HasValue)
+        {
+          var overdue = Model.DueDate < DateTime.Today && Model.Status != "Paid" && Model.Status != "Cancelled";
+          <tr>
+            <td style="color:var(--text-muted);padding:3px 0;">Due Date</td>
+            <td style="font-weight:500;color:@(overdue ? "var(--danger)" : "inherit");">
+              @if (overdue)
+              {
+                <i class="bi bi-exclamation-circle-fill"></i>
+                @(" ")
+              }
+              @Model.DueDate.Value.ToString("dd MMM yyyy")
+            </td>
+          </tr>
+        }
+        <tr>
+          <td style="color:var(--text-muted);padding:3px 0;">Created By</td>
+          <td>@Model.CreatedByName</td>
+        </tr>
+        <tr>
+          <td style="color:var(--text-muted);padding:3px 0;">Status</td>
+          <td><span class="vbadge @statusColor">@Model.Status</span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  @* Items *@
+  <div style="padding:0 0 4px;">
+    <table class="vtable" style="margin:0;">
+      <thead>
+        <tr>
+          <th style="padding-left:32px;">#</th>
+          <th>Product</th>
+          <th>Code</th>
+          <th>Pack Size</th>
+          <th style="text-align:center;">Qty</th>
+          <th style="text-align:center;">Bonus</th>
+          <th style="text-align:right;">Unit Price</th>
+          <th style="text-align:right;padding-right:32px;">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        @{
+          var n = 0;
+        }
+        @foreach (var item in Model.Items)
+        {
+          n++;
+          <tr>
+            <td style="padding-left:32px;color:var(--text-muted);">@n</td>
+            <td style="font-weight:500;">@item.ProductName</td>
+            <td><code style="font-size:11px;background:#f1f5f9;padding:2px 6px;border-radius:4px;">@item.ProductCode</code></td>
+            <td style="color:var(--text-secondary);font-size:12px;">@item.PackSize</td>
+            <td style="text-align:center;font-weight:600;">@item.Quantity</td>
+            <td style="text-align:center;color:var(--text-muted);">@item.BonusQuantity</td>
+            <td style="text-align:right;">৳ @item.UnitPrice.ToString("N2")</td>
+            <td style="text-align:right;font-weight:600;padding-right:32px;">৳ @(item.Quantity * item.UnitPrice).ToString("N2")</td>
+          </tr>
+        }
+        @if (!Model.Items.Any())
+        {
+          <tr><td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted);">No items.</td></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  @* Totals *@
+  <div style="display:grid;grid-template-columns:1fr 320px;border-top:1px solid var(--card-border);">
+    <div style="padding:20px 32px;">
+      @if (Model.Notes != null)
+      {
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px;">Notes</div>
+        <div style="font-size:13px;color:var(--text-secondary);">@Model.Notes</div>
+      }
+    </div>
+    <div style="padding:20px 32px;border-left:1px solid var(--card-border);">
+      <table style="width:100%;font-size:13px;">
+        <tr>
+          <td style="padding:4px 0;color:var(--text-secondary);">Subtotal</td>
+          <td style="text-align:right;font-weight:500;">৳ @Model.Subtotal.ToString("N2")</td>
+        </tr>
+        @if (Model.Discount > 0)
+        {
+          <tr>
+            <td style="padding:4px 0;color:var(--text-secondary);">Discount</td>
+            <td style="text-align:right;color:var(--success);">- ৳ @Model.Discount.ToString("N2")</td>
+          </tr>
+        }
+        @if (Model.TaxRate > 0)
+        {
+          <tr>
+            <td style="padding:4px 0;color:var(--text-secondary);">Tax (@Model.TaxRate.ToString("G")%)</td>
+            <td style="text-align:right;font-weight:500;">৳ @Model.VAT.ToString("N2")</td>
+          </tr>
+        }
+        <tr style="border-top:2px solid var(--card-border);">
+          <td style="padding:10px 0 4px;font-size:15px;font-weight:700;">Total</td>
+          <td style="text-align:right;font-size:17px;font-weight:800;color:var(--primary);">৳ @Model.TotalAmount.ToString("N2")</td>
+        </tr>
+        <tr>
+          <td style="padding:3px 0;color:var(--text-secondary);font-size:12px;">Amount Paid</td>
+          <td style="text-align:right;color:#15803d;font-weight:600;">৳ @Model.AmountPaid.ToString("N2")</td>
+        </tr>
+        <tr>
+          <td style="padding:3px 0;font-weight:600;">Outstanding</td>
+          <td style="text-align:right;font-size:15px;font-weight:700;color:@(Model.OutstandingBalance > 0 ? "var(--danger)" : "var(--success)");">
+            ৳ @Model.OutstandingBalance.ToString("N2")
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+@* Payment History *@
+@if (Model.Payments.Any() || canPay)
+{
+  <div class="vcard no-print" style="margin-top:16px;">
+    <div class="vcard-header">
+      <i class="bi bi-cash-stack" style="font-size:15px;color:#64748b;"></i>
+      <span class="vcard-title">Payment History</span>
+      @if (canPay)
+      {
+        <button onclick="openModal('paymentModal')" class="btn-primary-v" style="margin-left:auto;padding:6px 14px;font-size:12px;">
+          <i class="bi bi-plus-lg"></i> Add Payment
+        </button>
+      }
+    </div>
+    @if (Model.Payments.Any())
+    {
+      <div style="overflow-x:auto;">
+        <table class="vtable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Method</th>
+              <th>Reference</th>
+              <th>Notes</th>
+              <th style="text-align:right;">Amount</th>
+              <th style="text-align:right;width:60px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach (var p in Model.Payments)
+            {
+              <tr>
+                <td>@p.PaymentDate.ToString("dd MMM yyyy")</td>
+                <td><span class="vbadge blue">@p.Method</span></td>
+                <td style="font-size:12px;color:var(--text-secondary);">@(p.Reference ?? "—")</td>
+                <td style="font-size:12px;color:var(--text-secondary);">@(p.Notes ?? "—")</td>
+                <td style="text-align:right;font-weight:700;color:#15803d;">৳ @p.Amount.ToString("N2")</td>
+                <td style="text-align:right;">
+                  @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+                  {
+                    <button onclick="deletePayment(@p.Id)" style="background:none;border:none;color:var(--danger);cursor:pointer;">
+                      <i class="bi bi-trash3"></i>
+                    </button>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+    else
+    {
+      <div style="text-align:center;padding:24px;color:var(--text-muted);font-size:13px;">
+        No payments recorded yet.
+      </div>
+    }
+  </div>
+}
+
+@* Add Payment Modal *@
+<div class="vmodal-backdrop" id="paymentModal">
+  <div class="vmodal" style="max-width:440px;">
+    <div class="vmodal-header">
+      <i class="bi bi-cash-coin" style="font-size:16px;color:var(--primary);"></i>
+      <span class="vmodal-title">Record Payment</span>
+      <button class="vmodal-close" onclick="closeModal('paymentModal')">&times;</button>
+    </div>
+    <div class="vmodal-body">
+      <div style="background:var(--primary-light);border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:13px;">
+        Outstanding Balance: <strong>৳ @Model.OutstandingBalance.ToString("N2")</strong>
+      </div>
+      <div class="form-group-v">
+        <label class="form-label-v">Amount (৳) *</label>
+        <input type="number" id="payAmount" class="form-control-v" value="@Model.OutstandingBalance.ToString("F2")"
+               min="0.01" step="0.01" max="@Model.OutstandingBalance.ToString("F2")" />
+      </div>
+      <div class="form-group-v">
+        <label class="form-label-v">Payment Date *</label>
+        <input type="date" id="payDate" class="form-control-v" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+      </div>
+      <div class="form-group-v">
+        <label class="form-label-v">Method *</label>
+        <select id="payMethod" class="form-control-v">
+          <option value="Cash">Cash</option>
+          <option value="BankTransfer">Bank Transfer</option>
+          <option value="Cheque">Cheque</option>
+          <option value="MobileBanking">Mobile Banking</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-group-v">
+        <label class="form-label-v">Reference</label>
+        <input type="text" id="payRef" class="form-control-v" placeholder="Transaction ID, cheque no…" />
+      </div>
+      <div class="form-group-v">
+        <label class="form-label-v">Notes</label>
+        <input type="text" id="payNotes" class="form-control-v" placeholder="Optional notes…" />
+      </div>
+    </div>
+    <div class="vmodal-footer">
+      <button class="btn-outline-v" onclick="closeModal('paymentModal')">Cancel</button>
+      <button class="btn-primary-v" id="savePayBtn" onclick="savePayment()">
+        <i class="bi bi-check-lg"></i> Record Payment
+      </button>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script>
+    var invoiceId = @Model.Id
+
+    function updateStatus(status) {
+        $.ajax({ url: '/api/invoices/' + invoiceId + '/status', method: 'PUT',
+                 contentType: 'application/json', data: JSON.stringify(status) })
+            .done(function () { showToast('Invoice ' + status + '.', 'success'); setTimeout(() => location.reload(), 700); })
+            .fail(function (xhr) { showToast(xhr.responseJSON?.message || 'Failed.', 'danger'); });
+    }
+
+    function savePayment() {
+        var amount = parseFloat($('#payAmount').val());
+        if (!amount || amount <= 0) { showToast('Enter a valid amount.', 'warning'); return; }
+
+        var payload = {
+            invoiceId: invoiceId,
+            amount: amount,
+            paymentDate: $('#payDate').val(),
+            method: $('#payMethod').val(),
+            reference: $('#payRef').val() || null,
+            notes: $('#payNotes').val() || null,
+        };
+
+        $('#savePayBtn').prop('disabled', true).text('Saving…');
+        $.ajax({ url: '/api/payments', method: 'POST', contentType: 'application/json', data: JSON.stringify(payload) })
+            .done(function () {
+                showToast('Payment recorded!', 'success');
+                setTimeout(() => location.reload(), 600);
+            })
+            .fail(function (xhr) {
+                showToast(xhr.responseJSON?.message || 'Failed.', 'danger');
+                $('#savePayBtn').prop('disabled', false).text('Record Payment');
+            });
+    }
+
+    function deletePayment(id) {
+        if (!confirm('Delete this payment?')) return;
+        $.ajax({ url: '/api/payments/' + id, method: 'DELETE' })
+            .done(function () { showToast('Payment deleted.', 'danger'); setTimeout(() => location.reload(), 600); })
+            .fail(function (xhr) { showToast(xhr.responseJSON?.message || 'Failed.', 'danger'); });
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add('show'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+    document.querySelectorAll('.vmodal-backdrop').forEach(el =>
+        el.addEventListener('click', e => { if (e.target === el) el.classList.remove('show'); }));
+  </script>
+}
