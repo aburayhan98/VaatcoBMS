@@ -1,8 +1,8 @@
-﻿
-using Mapster;
+﻿using Mapster;
 using VaatcoBMS.Application.DTOs.Customer;
 using VaatcoBMS.Application.DTOs.Invoice;
 using VaatcoBMS.Application.DTOs.InvoiceItem;
+using VaatcoBMS.Application.DTOs.Payment;
 using VaatcoBMS.Application.DTOs.Product;
 using VaatcoBMS.Application.DTOs.User;
 using VaatcoBMS.Application.Model.Auth;
@@ -25,6 +25,17 @@ public class MappingProfile : IRegister
 			.Map(dest => dest.ProductName, src => src.Name)
 			.Map(dest => dest.StockStatus, src => MapStockStatus(src.StockStatus));
 
+		config.NewConfig<CreateProductDto, Product>()
+			.Map(dest => dest.Code, src => src.ProductCode)
+			.Map(dest => dest.Name, src => src.ProductName);
+
+		config.NewConfig<UpdateProductDto, Product>()
+			.Ignore(dest => dest.Id)
+			.Map(dest => dest.Code, src => src.ProductCode)
+			.Map(dest => dest.Name, src => src.ProductName)
+			.Map(dest => dest.PackSize, src => src.PackSize)
+			.Map(dest => dest.Price, src => src.Price)
+			.Map(dest => dest.Code, src => src.ProductCode);
 		// ── INVOICE MAPPINGS ──
 		config.NewConfig<Invoice, InvoiceDto>()
 			.Map(dest => dest.CustomerName, src => src.Customer != null ? src.Customer.Name : string.Empty)
@@ -36,6 +47,9 @@ public class MappingProfile : IRegister
 			.Map(dest => dest.ProductName, src => src.Product != null ? src.Product.Name : string.Empty)
 			.Map(dest => dest.ProductCode, src => src.Product != null ? src.Product.Code : string.Empty)
 			.Map(dest => dest.PackSize, src => src.Product != null ? src.Product.PackSize : string.Empty);
+
+		// ── PAYMENT MAPPINGS ──
+		config.NewConfig<Payment, PaymentDto>();
 
 		// ── USER & AUTH MAPPINGS  ──
 		config.NewConfig<User, UserDto>()
