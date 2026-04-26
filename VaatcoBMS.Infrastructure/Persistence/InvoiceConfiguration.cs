@@ -14,6 +14,7 @@ public class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
 		b.Property(x => x.Discount).HasPrecision(18, 2); 
 		b.Property(x => x.VAT).HasPrecision(18, 2); 
 		b.Property(x => x.TotalAmount).HasPrecision(18, 2); 
+		b.Property(x => x.TaxRate).HasPrecision(18, 2);
 		b.HasOne(x => x.Customer).WithMany(c => c.Invoices).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Restrict); 
 		b.HasOne(i => i.CreatorUser)
        .WithMany()
