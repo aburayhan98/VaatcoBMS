@@ -1,9 +1,12 @@
-﻿@model IEnumerable<VaatcoBMS.Application.DTOs.Product.ProductDto>
+﻿@using VaatcoBMS.Application.DTOs.Product
+@model IEnumerable<ProductDto>
 
 @{
   ViewData["Title"] = "Products";
   Layout = "~/Views/Shared/_Layout.cshtml";
-}
+  // Only Admin or SuperAdmin are allowed to CRUD products
+  var canEditProducts = User.IsInRole("Admin") || User.IsInRole("SuperAdmin");
+  }
 
 @* ── Stat Row ─────────────────────────────────────────────── *@
 <div class="stat-grid">
@@ -93,12 +96,15 @@
             </td>
             <td style="text-align:right;">
               <div style="display:flex;justify-content:flex-end;gap:5px;">
-                <button class="btn-action edit edit-product-btn" data-id="@p.Id" title="Edit">
-                  <i class="bi bi-pencil"></i>
-                </button>
-                <button class="btn-action delete delete-product-btn" data-id="@p.Id" data-name="@p.ProductName" title="Delete">
-                  <i class="bi bi-trash3"></i>
-                </button>
+                @if (canEditProducts)
+                {
+                  <button class="btn-action edit edit-product-btn" data-id="@p.Id" title="Edit">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn-action delete delete-product-btn" data-id="@p.Id" data-name="@p.ProductName" title="Delete">
+                    <i class="bi bi-trash3"></i>
+                  </button>
+                }
               </div>
             </td>
           </tr>
@@ -252,8 +258,8 @@
 
             var id = parseInt($('#pId').val());
             var payload = {
-                code: $('#pCode').val().trim(),
-                name: $('#pName').val().trim(),
+                productCode: $('#pCode').val().trim(),
+                productName: $('#pName').val().trim(),
                 packSize: $('#pPackSize').val().trim(),
                 price: parseFloat($('#pPrice').val()),
                 stockQuantity: parseInt($('#pStock').val()) || 0,
