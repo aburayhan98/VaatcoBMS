@@ -1,0 +1,382 @@
+﻿@{
+  ViewData["Title"] = "Create Invoice";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start;">
+
+  @* Left: Invoice details + items *@
+  <div>
+    @* Header section *@
+    <div class="vcard" style="margin-bottom:16px;">
+      <div class="vcard-header">
+        <i class="bi bi-receipt-cutoff" style="font-size:16px;color:var(--primary);"></i>
+        <span class="vcard-title">Invoice Details</span>
+      </div>
+      <div class="vcard-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div class="form-group-v">
+            <label class="form-label-v">Customer *</label>
+            <select id="customerId" class="form-control-v">
+              <option value="">Select customer…</option>
+            </select>
+            <div class="invalid-msg">Please select a customer.</div>
+          </div>
+          <div class="form-group-v">
+            <label class="form-label-v">Reference Number</label>
+            <input type="text" id="referenceNumber" class="form-control-v" placeholder="e.g. PO-2025-001" />
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div class="form-group-v">
+            <label class="form-label-v">Invoice Date *</label>
+            <input type="date" id="issueDate" class="form-control-v"
+                   value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+          </div>
+          <div class="form-group-v">
+            <label class="form-label-v">Due Date</label>
+            <input type="date" id="dueDate" class="form-control-v" />
+          </div>
+        </div>
+        <div class="form-group-v">
+          <label class="form-label-v">Notes</label>
+          <textarea id="notes" class="form-control-v" rows="2" placeholder="Optional notes for customer…"></textarea>
+        </div>
+      </div>
+    </div>
+
+    @* Items table *@
+    <div class="vcard">
+      <div class="vcard-header">
+        <i class="bi bi-boxes" style="font-size:16px;color:var(--primary);"></i>
+        <span class="vcard-title">Line Items</span>
+        <button class="btn-primary-v" id="addRowBtn" style="margin-left:auto;padding:6px 14px;font-size:12px;">
+          <i class="bi bi-plus-lg"></i> Add Product
+        </button>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="vtable" id="itemsTable">
+          <thead>
+            <tr>
+              <th style="min-width:200px;">Product</th>
+              <th style="width:80px;">Pack</th>
+              <th style="width:90px;">Qty</th>
+              <th style="width:80px;">Bonus</th>
+              <th style="width:120px;">Unit Price</th>
+              <th style="width:120px;">Total</th>
+              <th style="width:50px;"></th>
+            </tr>
+          </thead>
+          <tbody id="itemsBody">
+            <tr id="emptyRow">
+              <td colspan="7" style="text-align:center;padding:32px;color:var(--text-muted);">
+                <i class="bi bi-box-seam" style="font-size:28px;display:block;margin-bottom:8px;"></i>
+                Click <strong>Add Product</strong> to add line items.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  @* Right: Summary + save *@
+  <div style="position:sticky;top:80px;">
+    <div class="vcard">
+      <div class="vcard-header">
+        <i class="bi bi-calculator" style="font-size:15px;color:var(--primary);"></i>
+        <span class="vcard-title">Summary</span>
+      </div>
+      <div class="vcard-body">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;justify-content:space-between;font-size:13px;">
+            <span style="color:var(--text-secondary);">Subtotal</span>
+            <span id="dispSubtotal" style="font-weight:600;">৳ 0.00</span>
+          </div>
+          <div class="form-group-v" style="margin:0;">
+            <label class="form-label-v" style="font-size:12px;">Discount (৳)</label>
+            <input type="number" id="discount" class="form-control-v" value="0" min="0" step="0.01"
+                   style="padding:6px 10px;font-size:13px;" />
+          </div>
+          <div class="form-group-v" style="margin:0;">
+            <label class="form-label-v" style="font-size:12px;">Tax Rate (%)</label>
+            <input type="number" id="taxRate" class="form-control-v" value="0" min="0" max="100" step="0.01"
+                   style="padding:6px 10px;font-size:13px;" />
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;">
+            <span style="color:var(--text-secondary);">VAT/Tax</span>
+            <span id="dispVat" style="font-weight:600;">৳ 0.00</span>
+          </div>
+          <div style="border-top:2px solid var(--card-border);padding-top:12px;display:flex;justify-content:space-between;">
+            <span style="font-size:15px;font-weight:700;">Total</span>
+            <span id="dispTotal" style="font-size:18px;font-weight:700;color:var(--primary);">৳ 0.00</span>
+          </div>
+        </div>
+        <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px;">
+          <button class="btn-primary-v" id="saveInvoiceBtn" style="width:100%;justify-content:center;padding:12px;">
+            <i class="bi bi-save"></i> Save as Draft
+          </button>
+          <a href="/Invoices" class="btn-outline-v" style="width:100%;justify-content:center;padding:10px;text-align:center;">
+            Cancel
+          </a>
+        </div>
+      </div>
+    </div>
+
+    @* Low stock warning *@
+    <div class="vcard" id="stockWarning" style="display:none;margin-top:12px;border-color:#fde68a;">
+      <div class="vcard-body" style="padding:12px 14px;">
+        <div style="font-size:12px;font-weight:600;color:#92400e;margin-bottom:6px;">
+          <i class="bi bi-exclamation-triangle-fill"></i> Stock Warning
+        </div>
+        <div id="stockWarningList" style="font-size:12px;color:#78350f;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@* Product select modal *@
+<div class="vmodal-backdrop" id="productPickerModal">
+  <div class="vmodal" style="max-width:560px;">
+    <div class="vmodal-header">
+      <i class="bi bi-box-seam" style="font-size:15px;color:var(--primary);"></i>
+      <span class="vmodal-title">Select Product</span>
+      <button class="vmodal-close" onclick="closePicker()">&times;</button>
+    </div>
+    <div class="vmodal-body" style="padding:12px 16px;">
+      <div class="search-bar" style="margin-bottom:12px;">
+        <i class="bi bi-search"></i>
+        <input type="text" id="productPickerSearch" placeholder="Search by name or code…" />
+      </div>
+      <div style="max-height:320px;overflow-y:auto;" id="productPickerList">
+        <div style="text-align:center;padding:32px;color:var(--text-muted);">
+          <div class="spinner-border spinner-border-sm text-primary"></div> Loading…
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script>
+    var allProducts = [];
+    var rowCount = 0;
+
+    $(function () {
+        // Load customers
+        $.get('/api/customers', function (r) {
+            var opts = (r.data || []).filter(c => c.isActive).map(c =>
+                `<option value="${c.id}">${c.name}</option>`
+            ).join('');
+            $('#customerId').append(opts);
+        });
+
+        // Load products
+        $.get('/api/products/active', function (r) {
+            allProducts = r.data || [];
+        });
+
+        // Recalc on discount/tax change
+        $('#discount, #taxRate').on('input', recalcTotals);
+
+        // Add row
+        $('#addRowBtn').on('click', openPicker);
+
+        // Product search in modal
+        $('#productPickerSearch').on('input', function () {
+            renderPickerList($(this).val());
+        });
+
+        // Save invoice
+        $('#saveInvoiceBtn').on('click', saveInvoice);
+    });
+
+    function openPicker() {
+        renderPickerList('');
+        document.getElementById('productPickerModal').classList.add('show');
+        $('#productPickerSearch').val('').focus();
+    }
+    function closePicker() {
+        document.getElementById('productPickerModal').classList.remove('show');
+    }
+    document.querySelectorAll('.vmodal-backdrop').forEach(el =>
+        el.addEventListener('click', e => { if (e.target === el) el.classList.remove('show'); }));
+
+       function renderPickerList(q) {
+        var filtered = allProducts.filter(p =>
+            !q || p.productName.toLowerCase().includes(q.toLowerCase()) ||
+            p.productCode.toLowerCase().includes(q.toLowerCase())
+        );
+        if (!filtered.length) {
+            $('#productPickerList').html('<div style="text-align:center;padding:24px;color:var(--text-muted);">No products found.</div>');
+            return;
+        }
+        var html = filtered.map(p => {
+            var stockColor = p.stockStatus === 'OK' ? 'var(--success)' : p.stockStatus === 'Low' ? 'var(--warning)' : 'var(--danger)';
+
+            // FIX: Replaced the backslash escape with &quot;
+            return `<div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;cursor:pointer;transition:.1s;"
+                         onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background=''"
+                         onclick="addProductRow(${JSON.stringify(p).replace(/"/g, '&quot;')})">
+                <code style="font-size:11px;background:#f1f5f9;padding:2px 6px;border-radius:4px;min-width:60px;text-align:center;">${p.productCode}</code>
+                <div style="flex:1;">
+                    <div style="font-size:13px;font-weight:500;">${p.productName}</div>
+                    <div style="font-size:11px;color:var(--text-muted);">${p.packSize}</div>
+                </div>
+                <div style="text-align:right;">
+                    <div style="font-size:13px;font-weight:600;">৳ ${parseFloat(p.price).toFixed(2)}</div>
+                    <div style="font-size:11px;color:${stockColor};">Stock: ${p.stockQuantity}</div>
+                </div>
+            </div>`;
+        }).join('');
+        $('#productPickerList').html(html);
+    }
+
+    // function renderPickerList(q) {
+    //     var filtered = allProducts.filter(p =>
+    //         !q || p.productName.toLowerCase().includes(q.toLowerCase()) ||
+    //         p.productCode.toLowerCase().includes(q.toLowerCase())
+    //     );
+    //     if (!filtered.length) {
+    //         $('#productPickerList').html('<div style="text-align:center;padding:24px;color:var(--text-muted);">No products found.</div>');
+    //         return;
+    //     }
+    //     var html = filtered.map(p => {
+    //         var stockColor = p.stockStatus === 'OK' ? 'var(--success)' : p.stockStatus === 'Low' ? 'var(--warning)' : 'var(--danger)';
+    //         return `<div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;cursor:pointer;transition:.1s;"
+    //                      onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background=''"
+    //                      onclick="addProductRow(${JSON.stringify(p).replace(/"/g,'\\'+'\"')})">
+    //             <code style="font-size:11px;background:#f1f5f9;padding:2px 6px;border-radius:4px;min-width:60px;text-align:center;">${p.productCode}</code>
+    //             <div style="flex:1;">
+    //                 <div style="font-size:13px;font-weight:500;">${p.productName}</div>
+    //                 <div style="font-size:11px;color:var(--text-muted);">${p.packSize}</div>
+    //             </div>
+    //             <div style="text-align:right;">
+    //                 <div style="font-size:13px;font-weight:600;">৳ ${parseFloat(p.price).toFixed(2)}</div>
+    //                 <div style="font-size:11px;color:${stockColor};">Stock: ${p.stockQuantity}</div>
+    //             </div>
+    //         </div>`;
+    //     }).join('');
+    //     $('#productPickerList').html(html);
+    // }
+
+    function addProductRow(p) {
+        closePicker();
+        $('#emptyRow').hide();
+        rowCount++;
+        var rid = 'row' + rowCount;
+        var row = `<tr id="${rid}" data-product-id="${p.id}" data-stock="${p.stockQuantity}" data-price="${p.price}">
+            <td>
+                <div style="font-weight:500;font-size:13px;">${p.productName}</div>
+                <div style="font-size:11px;color:var(--text-muted);">${p.productCode} · ${p.packSize}</div>
+            </td>
+            <td style="font-size:12px;color:var(--text-secondary);">${p.packSize}</td>
+            <td><input type="number" class="form-control-v qty-inp" data-row="${rid}" value="1" min="1" max="${p.stockQuantity}" style="padding:5px 8px;width:70px;" /></td>
+            <td><input type="number" class="form-control-v bonus-inp" value="0" min="0" style="padding:5px 8px;width:60px;" /></td>
+            <td><input type="number" class="form-control-v price-inp" data-row="${rid}" value="${p.price}" min="0" step="0.01" style="padding:5px 8px;width:100px;" /></td>
+            <td class="row-total" style="font-weight:600;">৳ ${p.price.toFixed(2)}</td>
+            <td><button onclick="removeRow('${rid}')" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:16px;padding:4px;">
+                <i class="bi bi-x-circle-fill"></i></button></td>
+        </tr>`;
+        $('#itemsBody').append(row);
+        recalcTotals();
+        checkStockWarnings();
+    }
+
+    function removeRow(rid) {
+        $('#' + rid).remove();
+        if ($('#itemsBody tr[id^="row"]').length === 0) $('#emptyRow').show();
+        recalcTotals();
+        checkStockWarnings();
+    }
+
+    $(document).on('input', '.qty-inp, .price-inp', function () {
+        var rid = $(this).data('row');
+        var qty = parseFloat($('#' + rid + ' .qty-inp').val()) || 0;
+        var price = parseFloat($('#' + rid + ' .price-inp').val()) || 0;
+        $('#' + rid + ' .row-total').text('৳ ' + (qty * price).toFixed(2));
+        recalcTotals();
+        checkStockWarnings();
+    });
+
+    function recalcTotals() {
+        var subtotal = 0;
+        $('#itemsBody tr[id^="row"]').each(function () {
+            var qty = parseFloat($(this).find('.qty-inp').val()) || 0;
+            var price = parseFloat($(this).find('.price-inp').val()) || 0;
+            subtotal += qty * price;
+        });
+        var discount = parseFloat($('#discount').val()) || 0;
+        var taxRate = parseFloat($('#taxRate').val()) || 0;
+        var vat = (subtotal - discount) * (taxRate / 100);
+        var total = subtotal - discount + vat;
+        $('#dispSubtotal').text('৳ ' + subtotal.toFixed(2));
+        $('#dispVat').text('৳ ' + vat.toFixed(2));
+        $('#dispTotal').text('৳ ' + total.toFixed(2));
+    }
+
+    function checkStockWarnings() {
+        var warnings = [];
+        $('#itemsBody tr[id^="row"]').each(function () {
+            var stock = parseInt($(this).data('stock')) || 0;
+            var qty = parseInt($(this).find('.qty-inp').val()) || 0;
+            var name = $(this).find('td:eq(0) div:first').text();
+            if (qty > stock) warnings.push(`<div>⚠ <strong>${name}</strong>: requested ${qty}, available ${stock}</div>`);
+        });
+        if (warnings.length) {
+            $('#stockWarningList').html(warnings.join(''));
+            $('#stockWarning').show();
+        } else {
+            $('#stockWarning').hide();
+        }
+    }
+
+    function saveInvoice() {
+        if (!$('#customerId').val()) {
+            $('#customerId').addClass('is-invalid');
+            showToast('Please select a customer.', 'warning');
+            return;
+        }
+        var items = [];
+        var valid = true;
+        $('#itemsBody tr[id^="row"]').each(function () {
+            var qty = parseInt($(this).find('.qty-inp').val()) || 0;
+            var stock = parseInt($(this).data('stock')) || 0;
+            if (qty > stock) valid = false;
+            items.push({
+                productId: parseInt($(this).data('product-id')),
+                quantity: qty,
+                bonusQuantity: parseInt($(this).find('.bonus-inp').val()) || 0,
+                unitPrice: parseFloat($(this).find('.price-inp').val()) || 0,
+            });
+        });
+        if (!items.length) { showToast('Add at least one product.', 'warning'); return; }
+        if (!valid) { showToast('Fix stock warnings before saving.', 'danger'); return; }
+
+        var payload = {
+            customerId: parseInt($('#customerId').val()),
+            issueDate: $('#issueDate').val(),
+            dueDate: $('#dueDate').val() || null,
+            referenceNumber: $('#referenceNumber').val() || null,
+            notes: $('#notes').val() || null,
+            discount: parseFloat($('#discount').val()) || 0,
+            taxRate: parseFloat($('#taxRate').val()) || 0,
+            totalAmount: parseFloat($('#dispTotal').text().replace('৳ ', '')),
+            items: items,
+        };
+
+        var btn = $('#saveInvoiceBtn');
+        btn.prop('disabled', true).html('<div class="spinner-border spinner-border-sm" role="status"></div> Saving…');
+
+        $.ajax({ url: '/api/invoices', method: 'POST', contentType: 'application/json', data: JSON.stringify(payload) })
+            .done(function (r) {
+                showToast('Invoice created!', 'success');
+                setTimeout(() => window.location.href = '/Invoices/' + r.data.id, 600);
+            })
+            .fail(function (xhr) {
+                showToast(xhr.responseJSON?.message || 'Save failed.', 'danger');
+                btn.prop('disabled', false).html('<i class="bi bi-save"></i> Save as Draft');
+            });
+    }
+  </script>
+}
