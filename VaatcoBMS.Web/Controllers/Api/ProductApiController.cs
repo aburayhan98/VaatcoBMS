@@ -1,0 +1,87 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using VaatcoBMS.Application.DTOs.Product;
+using VaatcoBMS.Application.Interfaces;
+
+namespace VaatcoBMS.Web.Controllers.Api;
+
+[ApiController]
+[Route("api/products")]
+[Authorize]
+public class ProductApiController(IProductService productService) : ControllerBase
+{
+	private readonly IProductService _productService = productService;
+
+	[HttpGet]
+	public async Task<IActionResult> GetAll()
+	{
+		var products = await _productService.GetAllAsync();
+		return Ok(new { success = true, data = products });
+	}
+
+	[HttpGet("active")]
+	public async Task<IActionResult> GetActive()
+	{
+		var products = await _productService.GetActiveAsync();
+		return Ok(new { success = true, data = products });
+	}
+
+	[HttpGet("low-stock")]
+	public async Task<IActionResult> GetLowStock([FromQuery] int threshold = 20)
+	{
+		var products = await _productService.GetLowStockAsync(threshold);
+		return Ok(new { success = true, data = products });
+	}
+
+	[HttpGet("{id:int}")]
+	public async Task<IActionResult> GetById(int id)
+	{
+		var p = await _productService.GetByIdAsync(id);
+		if (p == null) return NotFound(new { success = false, message = "Product not found." });
+		return Ok(new { success = true, data = p });
+	}
+
+	[HttpGet("search")]
+	public async Task<IActionResult> Search([FromQuery] string q)
+	{
+		var results = await _productService.SearchAsync(q ?? string.Empty);
+		return Ok(new { success = true, data = results });
+	}
+
+	[HttpPost]
+	[Authorize(Roles = "Admin,SuperAdmin")]
+	public async Task<IActionResult> Create([FromBody] CreateProductDto dto)
+	{
+		try
+		{
+			var p = await _productService.CreateAsync(dto);
+			return Ok(new { success = true, data = p });
+		}
+		catch (InvalidOperationException ex) { return BadRequest(new { success = false, message = ex.Message }); }
+	}
+
+	[HttpPut("{id:int}")]
+	[Authorize(Roles = "Admin,SuperAdmin")]
+	public async Task<IActionResult> Update(int id, [FromBody] UpdateProductDto dto)
+	{
+		try
+		{
+			var p = await _productService.UpdateAsync(id, dto);
+			return Ok(new { success = true, data = p });
+		}
+		catch (KeyNotFoundException ex) { return NotFound(new { success = false, message = ex.Message }); }
+		catch (InvalidOperationException ex) { return BadRequest(new { success = false, message = ex.Message }); }
+	}
+
+	[HttpDelete("{id:int}")]
+	[Authorize(Roles = "Admin,SuperAdmin")]
+	public async Task<IActionResult> Delete(int id)
+	{
+		try
+		{
+			await _productService.DeleteAsync(id);
+			return Ok(new { success = true, message = "Product deleted." });
+		}
+		catch (KeyNotFoundException ex) { return NotFound(new { success = false, message = ex.Message }); }
+	}
+}
