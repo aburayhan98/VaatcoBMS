@@ -1,0 +1,255 @@
+﻿@using VaatcoBMS.Application.DTOs.Invoice
+@model IEnumerable<InvoiceDto>
+
+@{
+  ViewData["Title"] = "Invoices";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="stat-grid" id="invoiceStats">
+  <div class="stat-card">
+    <div class="stat-icon blue"><i class="bi bi-receipt"></i></div>
+    <div><div class="stat-label">Total Invoices</div><div class="stat-value">@Model.Count()</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon gray"><i class="bi bi-pencil-square"></i></div>
+    <div><div class="stat-label">Draft</div><div class="stat-value">@Model.Count(i => i.Status == "Draft")</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon green"><i class="bi bi-check2-circle"></i></div>
+    <div><div class="stat-label">Paid</div><div class="stat-value">@Model.Count(i => i.Status == "Paid")</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon amber"><i class="bi bi-hourglass-split"></i></div>
+    <div>
+      <div class="stat-label">Outstanding</div>
+      <div class="stat-value" style="font-size:16px;">৳ @Model.Where(i => i.Status != "Cancelled").Sum(i => i.OutstandingBalance).ToString("N0")</div>
+    </div>
+  </div>
+</div>
+
+<div class="vcard">
+  <div class="vcard-header">
+    <i class="bi bi-receipt" style="font-size:16px;color:#64748b;"></i>
+    <span class="vcard-title">Invoice Register</span>
+
+    <div class="search-bar" style="margin-left:auto;">
+      <i class="bi bi-search"></i>
+      <input type="text" id="invSearch" placeholder="Search invoices…" />
+    </div>
+
+    <select id="statusFilter" class="form-control-v" style="width:130px;padding:7px 10px;margin-left:8px;">
+      <option value="">All Status</option>
+      <option value="Draft">Draft</option>
+      <option value="Approved">Approved</option>
+      <option value="Paid">Paid</option>
+      <option value="Cancelled">Cancelled</option>
+    </select>
+
+    <a href="/Invoices/Create" class="btn-primary-v" style="margin-left:8px;white-space:nowrap;">
+      <i class="bi bi-plus-lg"></i> New Invoice
+    </a>
+  </div>
+
+  <div style="overflow-x:auto;">
+    <table class="vtable" id="invTable">
+      <thead>
+        <tr>
+          <th>Invoice #</th>
+          <th>Customer</th>
+          <th>Date</th>
+          <th>Due Date</th>
+          <th>Total</th>
+          <th>Paid</th>
+          <th>Balance</th>
+          <th>Status</th>
+          <th style="text-align:right;">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="invBody">
+        @foreach (var inv in Model)
+        {
+          var sc = inv.Status switch
+          {
+            "Draft" => "gray",
+            "Approved" => "blue",
+            "Paid" => "green",
+            "Cancelled" => "red",
+            _ => "gray"
+          };
+          var overdue = inv.DueDate.HasValue && inv.DueDate < DateTime.Today
+          && inv.Status != "Paid" && inv.Status != "Cancelled";
+          <tr data-id="@inv.Id" data-inv="@inv.InvoiceNumber" data-customer="@inv.CustomerName" data-status="@inv.Status">
+            <td>
+              <a href="/Invoices/@inv.Id" style="color:var(--primary);font-weight:600;text-decoration:none;">
+                @inv.InvoiceNumber
+              </a>
+              @if (inv.ReferenceNumber != null)
+              {
+                <div style="font-size:11px;color:var(--text-muted);">Ref: @inv.ReferenceNumber</div>
+              }
+            </td>
+            <td style="font-weight:500;">@inv.CustomerName</td>
+            <td style="font-size:12px;color:var(--text-secondary);">
+              @inv.InvoiceDate.ToString("dd MMM yyyy")
+            </td>
+            <td style="font-size:12px;">
+              @if (inv.DueDate.HasValue)
+              {
+                <span style="color:@(overdue ? "var(--danger)" : "var(--text-secondary)");">
+                  @if (overdue)
+                  {
+                    <i class="bi bi-exclamation-circle-fill" style="font-size:11px;"></i>
+                    @(" ")
+                  }
+                  @inv.DueDate.Value.ToString("dd MMM yyyy")
+                </span>
+              }
+              else
+              {
+
+                <span style="color:var(--text-muted);">—</span>
+              }
+            </td>
+            <td style="font-weight:600;">৳ @inv.TotalAmount.ToString("N2")</td>
+            <td style="color:var(--success-text,#15803d);">৳ @inv.AmountPaid.ToString("N2")</td>
+            <td>
+              @if (inv.OutstandingBalance > 0)
+              {
+                <span style="color:var(--danger);font-weight:600;">৳ @inv.OutstandingBalance.ToString("N2")</span>
+              }
+              else
+              {
+                <span style="color:var(--text-muted);">—</span>
+              }
+            </td>
+            <td><span class="vbadge @sc">@inv.Status</span></td>
+            <td style="text-align:right;">
+              <div style="display:flex;justify-content:flex-end;gap:5px;">
+                <a href="/Invoices/@inv.Id" class="btn-action view" title="View"><i class="bi bi-eye"></i></a>
+                @if (inv.Status == "Draft")
+                {
+                  <button class="btn-action approve approve-inv-btn" data-id="@inv.Id" title="Approve">
+                    <i class="bi bi-check-lg"></i>
+                  </button>
+                  <button class="btn-action delete delete-inv-btn" data-id="@inv.Id" data-inv="@inv.InvoiceNumber" title="Delete">
+                    <i class="bi bi-trash3"></i>
+                  </button>
+                }
+                @if (inv.Status == "Approved")
+                {
+                  <button class="btn-action" style="background:#dcfce7;color:#15803d;" data-id="@inv.Id"
+                          onclick="updateStatus(@inv.Id,'Paid')" title="Mark Paid">
+                    <i class="bi bi-cash-coin"></i>
+                  </button>
+                  <button class="btn-action delete cancel-inv-btn" data-id="@inv.Id" title="Cancel">
+                    <i class="bi bi-x-lg"></i>
+                  </button>
+                }
+              </div>
+            </td>
+          </tr>
+        }
+        @if (!Model.Any())
+        {
+          <tr>
+            <td colspan="9" style="text-align:center;padding:48px;color:var(--text-muted);">
+              <i class="bi bi-receipt" style="font-size:36px;display:block;margin-bottom:10px;"></i>
+              No invoices yet. <a href="/Invoices/Create" class="text-primary">Create your first invoice</a>.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="vpager">
+    <span class="vpager-info" id="invCount">@Model.Count() invoices</span>
+  </div>
+</div>
+
+@* Delete Confirm *@
+<div class="vmodal-backdrop" id="deleteInvModal">
+  <div class="vmodal confirm-dialog">
+    <div class="vmodal-body" style="text-align:center;padding:32px 24px 20px;">
+      <div class="confirm-icon" style="background:#fee2e2;margin:0 auto 14px;">
+        <i class="bi bi-receipt-x" style="font-size:24px;color:#b91c1c;"></i>
+      </div>
+      <div style="font-size:16px;font-weight:600;margin-bottom:8px;">Delete Invoice?</div>
+      <div style="font-size:13px;color:var(--text-secondary);">
+        Deleting <strong id="delInvNum"></strong> cannot be undone.
+      </div>
+    </div>
+    <div class="vmodal-footer" style="justify-content:center;gap:10px;">
+      <button class="btn-outline-v" onclick="closeModal('deleteInvModal')">Cancel</button>
+      <button class="btn-primary-v" id="confirmDelInv" style="background:#b91c1c;border:none;">
+        <i class="bi bi-trash3"></i> Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script>
+    $(function () {
+        // Search & filter
+        function filterInv() {
+            var q = $('#invSearch').val().toLowerCase();
+            var st = $('#statusFilter').val().toLowerCase();
+            var count = 0;
+            $('#invBody tr[data-id]').each(function () {
+                var inv = $(this).data('inv').toString().toLowerCase();
+                var cust = $(this).data('customer').toString().toLowerCase();
+                var status = $(this).data('status').toString().toLowerCase();
+                var show = (!q || inv.includes(q) || cust.includes(q)) && (!st || status === st);
+                $(this).toggle(show);
+                if (show) count++;
+            });
+            $('#invCount').text(count + ' invoices');
+        }
+        $('#invSearch').on('input', filterInv);
+        $('#statusFilter').on('change', filterInv);
+
+        // Approve
+        $(document).on('click', '.approve-inv-btn', function () {
+            updateStatus($(this).data('id'), 'Approved');
+        });
+
+        // Cancel
+        $(document).on('click', '.cancel-inv-btn', function () {
+            updateStatus($(this).data('id'), 'Cancelled');
+        });
+
+        // Delete
+        var delId = null;
+        $(document).on('click', '.delete-inv-btn', function () {
+            delId = $(this).data('id');
+            $('#delInvNum').text($(this).data('inv'));
+            openModal('deleteInvModal');
+        });
+        $('#confirmDelInv').on('click', function () {
+            $.ajax({ url: '/api/invoices/' + delId, method: 'DELETE' })
+                .done(function () {
+                    closeModal('deleteInvModal');
+                    showToast('Invoice deleted.', 'danger');
+                    setTimeout(() => location.reload(), 800);
+                })
+                .fail(function (xhr) { showToast(xhr.responseJSON?.message || 'Delete failed.', 'danger'); });
+        });
+    });
+
+    function updateStatus(id, status) {
+        $.ajax({ url: '/api/invoices/' + id + '/status', method: 'PUT',
+                 contentType: 'application/json', data: JSON.stringify(status) })
+            .done(function () {
+                showToast('Invoice ' + status + '.', 'success');
+                setTimeout(() => location.reload(), 700);
+            })
+            .fail(function (xhr) { showToast(xhr.responseJSON?.message || 'Failed.', 'danger'); });
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add('show'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+    document.querySelectorAll('.vmodal-backdrop').forEach(el =>
+        el.addEventListener('click', e => { if (e.target === el) el.classList.remove('show'); }));
+  </script>
+}
