@@ -72,7 +72,7 @@ namespace VaatcoBMS.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("VaatcoBMS.Domain.Entities.Invoice", b =>
@@ -152,7 +152,7 @@ namespace VaatcoBMS.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Invoices");
+                    b.ToTable("Invoices", (string)null);
                 });
 
             modelBuilder.Entity("VaatcoBMS.Domain.Entities.InvoiceItem", b =>
@@ -210,7 +210,7 @@ namespace VaatcoBMS.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("InvoiceItems");
+                    b.ToTable("InvoiceItems", (string)null);
                 });
 
             modelBuilder.Entity("VaatcoBMS.Domain.Entities.Payment", b =>
@@ -251,7 +251,7 @@ namespace VaatcoBMS.Infrastructure.Migrations
 
                     b.HasIndex("InvoiceId");
 
-                    b.ToTable("Payments");
+                    b.ToTable("Payments", (string)null);
                 });
 
             modelBuilder.Entity("VaatcoBMS.Domain.Entities.Product", b =>
@@ -304,7 +304,7 @@ namespace VaatcoBMS.Infrastructure.Migrations
                     b.HasIndex("Code")
                         .IsUnique();
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("VaatcoBMS.Domain.Entities.User", b =>
@@ -359,7 +359,7 @@ namespace VaatcoBMS.Infrastructure.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("VaatcoBMS.Domain.Entities.Invoice", b =>
