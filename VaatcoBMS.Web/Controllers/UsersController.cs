@@ -9,14 +9,22 @@ public class UsersController(IUserService userService) : Controller
 {
     private readonly IUserService _userService = userService;
 
-    // This lists ALL users (Approved and Unapproved) or just Approved
-    public async Task<IActionResult> Index()
+	// Redirect old singular route to the new plural controller
+	
+
+	// GET /Users/Index
+	public async Task<IActionResult> Index()
     {
         var allUsers = await _userService.GetAllAsync();
-        
-        // Let's filter to only show APPROVED users here (pending users have their own page)
-        var approvedUsers = allUsers.Where(u => u.IsApproved).ToList();
-        
-        return View(approvedUsers);
+        // show the List.cshtml view with the users model
+        return View("List", allUsers);
+    }
+
+    // GET /Users/List
+    public async Task<IActionResult> List()
+    {
+        // Fetch ALL users unfiltered
+        var allUsers = await _userService.GetAllAsync();
+        return View(allUsers);
     }
 }

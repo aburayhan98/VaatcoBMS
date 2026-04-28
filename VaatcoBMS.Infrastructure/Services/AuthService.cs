@@ -160,18 +160,22 @@ public class AuthService(
 			throw new UnauthorizedAccessException("Admins cannot create Admin or SuperAdmin accounts.");
 		}
 
-		var users = await _uow.Users.GetAllAsync();
-
-		if (users.Any(u => u.Email.Equals(model.Email, StringComparison.OrdinalIgnoreCase)))
+		// Use the correct repository method to check if email exists to avoid full table scan
+		if (!await _uow.Users.IsEmailUniqueAsync(model.Email))
 		{
 			throw new InvalidOperationException("Email already registered.");
 		}
 
-		var user = _mapper.Map<User>(model);
-		user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password);
-		user.IsApproved = true; // skip approval
-		user.EmailConfirmed = true; // skip email verification
-		user.CreatedAt = DateTime.UtcNow;
+		var user = new User
+		{
+			Name = model.Name,
+			Email = model.Email,
+			Role = model.Role.Value, // Role is nullable in Register DTO
+			PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password),
+			IsApproved = true,
+			EmailConfirmed = true,
+			CreatedAt = DateTime.UtcNow
+		};
 
 		await _uow.Users.AddAsync(user);
 		await _uow.SaveChangesAsync();

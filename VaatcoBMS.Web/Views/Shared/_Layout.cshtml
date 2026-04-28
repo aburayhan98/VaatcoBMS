@@ -49,8 +49,8 @@
             <span class="sidebar-role-badge" id="pendingCount"></span>
           </a>
 
-          <!-- FIX: Point to /User/Index -->
-          <a href="/User/Index" class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "User" ? "active" : "")">
+          <!-- FIX: Point to /Users/Index -->
+          <a href="/Users/List" class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "User" ? "active" : "")">
             <i class="bi bi-people-fill"></i>
             <span class="sidebar-link-text">All Users</span>
           </a>

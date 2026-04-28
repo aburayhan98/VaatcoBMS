@@ -1,0 +1,87 @@
+﻿@model IEnumerable<VaatcoBMS.Application.DTOs.User.UserDto>
+
+@{
+    ViewData["Title"] = "All Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div style="background:var(--success-light);color:#15803d;border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:13px;display:flex;align-items:center;gap:8px;">
+        <i class="bi bi-check-circle-fill"></i> @TempData["Success"]
+    </div>
+}
+
+<div class="vcard">
+    <div class="vcard-header">
+        <i class="bi bi-people-fill" style="font-size:16px;color:#64748b;"></i>
+        <span class="vcard-title">All Users</span>
+        
+        <div style="margin-left:auto;">
+            <a href="/admin/create-user" class="btn-primary-v">
+                <i class="bi bi-person-plus-fill"></i> Create User
+            </a>
+        </div>
+    </div>
+
+    <div style="overflow-x:auto;">
+        <table class="vtable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Email Confirmed</th>
+                    <th>Joined</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td style="font-weight:500;">@user.Name</td>
+                        <td style="color:var(--text-secondary);">@user.Email</td>
+                        <td>
+                            @{
+                                var roleColor = user.Role.ToString() switch {
+                                    "SuperAdmin" => "red",
+                                    "Admin" => "amber",
+                                    "Manager" => "blue",
+                                    _ => "gray"
+                                };
+                            }
+                            <span class="vbadge @roleColor">@user.Role</span>
+                        </td>
+                        <td>
+                            @if(user.IsApproved) {
+                                <span class="vbadge green">Approved</span>
+                            } else {
+                                <span class="vbadge gray">Pending</span>
+                            }
+                        </td>
+                        <td>
+                            @if(user.EmailConfirmed) {
+                                <span class="vbadge green">Yes</span>
+                            } else {
+                                <span class="vbadge gray">No</span>
+                            }
+                        </td>
+                        <td style="color:var(--text-secondary);font-size:12px;">
+                            @user.CreatedAt.ToString("dd MMM yyyy")
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">
+                            <i class="bi bi-people" style="font-size:36px;display:block;margin-bottom:10px;"></i>
+                            No users found in the system.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

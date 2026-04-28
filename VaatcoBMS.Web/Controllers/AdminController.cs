@@ -47,20 +47,33 @@ public class AdminController(IUserService userService, IAuthService authService)
 
 		try
 		{
-			var callerIdStr = User.Claims
-					.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier)
-					?.Value;
-
-			_ = int.TryParse(callerIdStr, out int callerId);
+			// Extract caller ID using standard identity extensions safely
+			var callerIdStr = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            
+			if (!int.TryParse(callerIdStr, out int callerId))
+			{
+				ModelState.AddModelError(string.Empty, "Could not identify current admin user.");
+				return View(model);
+			}
 
 			await _authService.CreateUserByAdminAsync(model, callerId);
 
 			TempData["Success"] = "User created successfully.";
-			return RedirectToAction("Users");
+			return RedirectToAction("Index", "Users");
+		}
+		catch (UnauthorizedAccessException ex)
+		{
+			ModelState.AddModelError(string.Empty, ex.Message);
+			return View(model);
+		}
+		catch (InvalidOperationException ex)
+		{
+			ModelState.AddModelError(string.Empty, ex.Message);
+			return View(model);
 		}
 		catch (Exception ex)
 		{
-			ModelState.AddModelError(string.Empty, ex.Message);
+			ModelState.AddModelError(string.Empty, "An unexpected error occurred while creating the user.");
 			return View(model);
 		}
 	}
