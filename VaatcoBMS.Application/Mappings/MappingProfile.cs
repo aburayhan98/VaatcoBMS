@@ -59,11 +59,17 @@ public class MappingProfile : IRegister
 		config.NewConfig<UpdateProfileDto, User>()
 			.Map(dest => dest.Name, src => src.Name)
 			.Map(dest => dest.Email, src => src.Email)
-			.IgnoreNonMapped(true); 
+			.IgnoreNonMapped(true);
 
 		config.NewConfig<Register, User>()
+			.Map(dest => dest.Name, src => src.Name)
+			.Map(dest => dest.Email, src => src.Email)
 			.Map(dest => dest.Role, src => src.Role)
 			.Ignore(dest => dest.PasswordHash);
+
+		//config.NewConfig<Register, User>()
+		//	.Map(dest => dest.Role, src => src.Role);
+			
 	}
 
 	// Helper method to keep the mapping clean
