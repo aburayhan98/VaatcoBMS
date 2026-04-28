@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VaatcoBMS.Application.DTOs.Product;
 using VaatcoBMS.Application.Interfaces;
+using VaatcoBMS.Domain.Common;
 
 namespace VaatcoBMS.Web.Controllers.Api;
 
@@ -12,13 +13,31 @@ public class ProductApiController(IProductService productService) : ControllerBa
 {
 	private readonly IProductService _productService = productService;
 
+	/// <summary>
+	/// Server-side paged + filtered + sorted product list.
+	/// GET /api/products?page=1&pageSize=20&search=xyz&stockStatus=Low&isActive=true&sortBy=name&sortDir=asc
+	/// </summary>
 	[HttpGet]
-	public async Task<IActionResult> GetAll()
+	public async Task<IActionResult> GetAll([FromQuery] ProductQueryParams q)
 	{
-		var products = await _productService.GetAllAsync();
-		return Ok(new { success = true, data = products });
+		var result = await _productService.GetPagedAsync(q);
+		return Ok(new
+		{
+			success = true,
+			data = result.Items,
+			meta = new
+			{
+				result.TotalCount,
+				result.Page,
+				result.PageSize,
+				result.TotalPages,
+				result.HasPrev,
+				result.HasNext,
+			}
+		});
 	}
 
+	/// <summary>All active products — used by Invoice Create product picker (no pagination).</summary>
 	[HttpGet("active")]
 	public async Task<IActionResult> GetActive()
 	{
@@ -26,6 +45,7 @@ public class ProductApiController(IProductService productService) : ControllerBa
 		return Ok(new { success = true, data = products });
 	}
 
+	/// <summary>Products at or below the given stock threshold.</summary>
 	[HttpGet("low-stock")]
 	public async Task<IActionResult> GetLowStock([FromQuery] int threshold = 20)
 	{
@@ -37,7 +57,7 @@ public class ProductApiController(IProductService productService) : ControllerBa
 	public async Task<IActionResult> GetById(int id)
 	{
 		var p = await _productService.GetByIdAsync(id);
-		if (p == null) return NotFound(new { success = false, message = "Product not found." });
+		if (p is null) return NotFound(new { success = false, message = "Product not found." });
 		return Ok(new { success = true, data = p });
 	}
 

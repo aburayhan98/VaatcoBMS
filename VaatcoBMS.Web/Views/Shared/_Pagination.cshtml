@@ -1,0 +1,103 @@
+﻿@*
+  Reusable server-side pagination partial.
+
+  Usage in a Razor view:
+  ──────────────────────
+  // In your PageModel or ViewBag, expose a typed meta object:
+  @{
+      var paginationMeta = new {
+          Page = 1, TotalPages = 10, TotalCount = 195,
+          PageSize = 20, HasPrev = false, HasNext = true
+      };
+  }
+  <div id="paginationContainer">
+      <partial name="_Pagination" model="@paginationMeta" />
+  </div>
+
+  For AJAX-driven pages (like Products) the JS renderPagination()
+  function in Index.cshtml handles this dynamically — this partial
+  is for server-rendered pages (Customers, Invoices index fallback).
+
+  Requires in layout.css:
+  .vpager-btn { ... }
+  .vpager-btn.active { background: var(--primary); color: #fff; }
+  .vpager-btn:disabled { opacity: .4; cursor: not-allowed; }
+*@
+
+
+
+@model dynamic
+
+@{
+  // Renamed local variable from 'page' to 'currentPage' to avoid colliding with Razor's @page directive
+  int currentPage = (int)Model.Page;
+  int totalPages = (int)Model.TotalPages;
+  int totalCount = (int)Model.TotalCount;
+  int pageSize = (int)Model.PageSize;
+  bool hasPrev = (bool)Model.HasPrev;
+  bool hasNext = (bool)Model.HasNext;
+
+  int start = Math.Max(1, currentPage - 2);
+  int end = Math.Min(totalPages, start + 4);
+  if (end - start < 4) start = Math.Max(1, end - 4);
+}
+
+@if (totalPages > 0)
+{
+  <div class="vpager" style="justify-content:space-between;flex-wrap:wrap;gap:8px;padding:12px 16px;">
+    <span class="vpager-info">
+      Page <strong>@currentPage</strong> of <strong>@totalPages</strong>
+      &nbsp;·&nbsp; @totalCount.ToString("N0") records
+    </span>
+
+    <div style="display:flex;align-items:center;gap:4px;">
+      @* First *@
+      <button class="vpager-btn" onclick="changePage(1)"
+              disabled="@(!hasPrev)" title="First page"
+              style="padding:5px 9px;font-size:12px;">
+        «
+      </button>
+
+      @* Previous *@
+      <button class="vpager-btn" onclick="changePage(@(currentPage - 1))"
+              disabled="@(!hasPrev)" title="Previous page"
+              style="padding:5px 10px;">
+        ‹
+      </button>
+
+      @* Numbered pages *@
+      @for (int p = start; p <= end; p++)
+      {
+        <button class="vpager-btn @(p == currentPage ? "active" : "")"
+                onclick="changePage(@p)"
+                style="padding:5px 10px;min-width:34px;">
+          @p
+        </button>
+      }
+
+      @* Next *@
+      <button class="vpager-btn" onclick="changePage(@(currentPage + 1))"
+              disabled="@(!hasNext)" title="Next page"
+              style="padding:5px 10px;">
+        ›
+      </button>
+
+      @* Last *@
+      <button class="vpager-btn" onclick="changePage(@totalPages)"
+              disabled="@(!hasNext)" title="Last page"
+              style="padding:5px 9px;font-size:12px;">
+        »
+      </button>
+
+      @* Page size picker *@
+      <select onchange="changePageSize(this.value)"
+              class="form-control-v"
+              style="margin-left:12px;width:95px;padding:5px 8px;font-size:12px;">
+        @foreach (var sz in new[] { 10, 20, 50, 100 })
+        {
+          <option value="@sz" selected="@(sz == pageSize)">@sz / page</option>
+        }
+      </select>
+    </div>
+  </div>
+}

@@ -1,370 +1,175 @@
-﻿@model IEnumerable<VaatcoBMS.Application.DTOs.Customer.CustomerDto>
-
-@{
-    ViewData["Title"] = "Customers";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+  ViewData["Title"] = "Customers";
+  Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="stat-grid">
-    <div class="stat-card">
-        <div class="stat-icon blue"><i class="bi bi-building"></i></div>
-        <div><div class="stat-label">Total Customers</div><div class="stat-value">@Model.Count()</div></div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-icon green"><i class="bi bi-check-circle-fill"></i></div>
-        <div><div class="stat-label">Active</div><div class="stat-value">@Model.Count(c => c.IsActive)</div></div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-icon amber"><i class="bi bi-receipt"></i></div>
-        <div><div class="stat-label">Total Invoices</div><div class="stat-value">@Model.Sum(c => c.TotalInvoices)</div></div>
-    </div>
+  <div class="stat-card">
+    <div class="stat-icon blue"><i class="bi bi-building"></i></div>
+    <div><div class="stat-label">Total Customers</div><div class="stat-value" id="statTotal">—</div></div>
+  </div>
 </div>
 
 <div class="vcard">
-    <div class="vcard-header">
-        <i class="bi bi-building" style="font-size:16px;color:#64748b;"></i>
-        <span class="vcard-title">Customer Directory</span>
+  <div class="vcard-header">
+    <i class="bi bi-building" style="font-size:16px;color:#64748b;"></i>
+    <span class="vcard-title">Customer Directory</span>
 
-        <div class="search-bar" style="margin-left:auto;">
-            <i class="bi bi-search"></i>
-            <input type="text" id="custSearch" placeholder="Search customers…" />
-        </div>
-
-        <select id="statusFilter" class="form-control-v" style="width:120px;padding:7px 10px;margin-left:8px;">
-            <option value="">All Status</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-        </select>
-
-        <button class="btn-primary-v" id="openCreateCust" style="margin-left:8px;white-space:nowrap;">
-            <i class="bi bi-plus-lg"></i> Add Customer
-        </button>
+    <div class="search-bar" style="margin-left:auto;">
+      <i class="bi bi-search"></i>
+      <input type="text" id="custSearch" placeholder="Search customers…" />
     </div>
+  </div>
 
-    <div style="overflow-x:auto;">
-        <table class="vtable" id="custTable">
-            <thead>
-                <tr>
-                    <th>Customer</th>
-                    <th>Contact Person</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Invoices</th>
-                    <th>Status</th>
-                    <th style="text-align:right;">Actions</th>
-                </tr>
-            </thead>
-            <tbody id="custBody">
-                @foreach (var c in Model)
-                {
-                    <tr data-id="@c.Id" data-name="@c.Name" data-status="@(c.IsActive ? "active" : "inactive")">
-                        <td>
-                            <div style="display:flex;align-items:center;gap:10px;">
-                                <div style="width:36px;height:36px;border-radius:9px;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;">
-                                    @c.Name.Substring(0,1).ToUpper()
-                                </div>
-                                <div>
-                                    <div style="font-weight:500;">@c.Name</div>
-                                    <div style="font-size:11px;color:var(--text-muted);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">@c.Address</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td style="color:var(--text-secondary);">@(c.ContactPerson ?? "—")</td>
-                        <td>
-                            <a href="tel:@c.Phone" style="color:var(--text-primary);text-decoration:none;">@c.Phone</a>
-                        </td>
-                        <td style="font-size:12px;color:var(--text-secondary);">@(c.Email ?? "—")</td>
-                        <td>
-                            <span class="vbadge @(c.TotalInvoices > 0 ? "blue" : "gray")">
-                                @c.TotalInvoices invoice@(c.TotalInvoices != 1 ? "s" : "")
-                            </span>
-                        </td>
-                        <td>
-                            @if(c.IsActive) {
-                                <span class="badge bg-success">Active</span>
-                            } else {
-                                <span class="badge bg-danger">Inactive</span>
-                            }
-                        </td>
-                        <td style="text-align:right;">
-                            <div style="display:flex;justify-content:flex-end;gap:5px;">
-                                <button class="btn-action view view-cust-btn" data-id="@c.Id" title="View invoices">
-                                    <i class="bi bi-eye"></i>
-                                </button>
-                                <button class="btn-action edit edit-cust-btn" data-id="@c.Id" title="Edit">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                                <button class="btn-action delete delete-cust-btn" data-id="@c.Id" data-name="@c.Name" title="Delete">
-                                    <i class="bi bi-trash3"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                }
-                @if (!Model.Any())
-                {
-                    <tr><td colspan="7" style="text-align:center;padding:48px;color:var(--text-muted);">
-                        <i class="bi bi-building" style="font-size:36px;display:block;margin-bottom:10px;"></i>
-                        No customers yet. Click <strong>Add Customer</strong> to get started.
-                    </td></tr>
-                }
-            </tbody>
-        </table>
-    </div>
+  <div style="overflow-x:auto;">
+    <table class="vtable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Contact</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>City</th>
+          <th style="text-align:right;">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="customerBody">
+        <tr>
+          <td colspan="6" style="text-align:center;padding:48px;color:var(--text-muted);">
+            <div class="spinner-border spinner-border-sm text-primary"></div> Loading customers...
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <div class="vpager">
-        <span class="vpager-info" id="custCount">@Model.Count() customers</span>
-    </div>
-</div>
-
-@* ── Create / Edit Modal ───────────────────────────────────── *@
-<div class="vmodal-backdrop" id="custModal">
-    <div class="vmodal">
-        <div class="vmodal-header">
-            <i class="bi bi-building" style="font-size:16px;color:var(--primary);"></i>
-            <span class="vmodal-title" id="custModalTitle">Add Customer</span>
-            <button class="vmodal-close" onclick="closeModal('custModal')">&times;</button>
-        </div>
-        <div class="vmodal-body">
-            <form id="custForm" novalidate>
-                @Html.AntiForgeryToken()
-                <input type="hidden" id="cId" value="0" />
-
-                <div class="form-group-v">
-                    <label class="form-label-v">Company / Customer Name *</label>
-                    <input type="text" id="cName" class="form-control-v" placeholder="e.g. ABC Trading Co." />
-                    <div class="invalid-msg">Customer name is required.</div>
-                </div>
-
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-                    <div class="form-group-v">
-                        <label class="form-label-v">Contact Person</label>
-                        <input type="text" id="cContact" class="form-control-v" placeholder="Full name" />
-                    </div>
-                    <div class="form-group-v">
-                        <label class="form-label-v">Phone *</label>
-                        <input type="tel" id="cPhone" class="form-control-v" placeholder="+880 1xxx-xxxxxx" />
-                        <div class="invalid-msg">Phone number is required.</div>
-                    </div>
-                </div>
-
-                <div class="form-group-v">
-                    <label class="form-label-v">Email</label>
-                    <input type="email" id="cEmail" class="form-control-v" placeholder="contact@company.com" />
-                    <div class="invalid-msg">Enter a valid email address.</div>
-                </div>
-
-                <div class="form-group-v">
-                    <label class="form-label-v">Address *</label>
-                    <textarea id="cAddress" class="form-control-v" rows="2" placeholder="Full business address…"></textarea>
-                    <div class="invalid-msg">Address is required.</div>
-                </div>
-
-                <div class="form-group-v">
-                    <label class="form-label-v">Status</label>
-                    <select id="cActive" class="form-control-v">
-                        <option value="true">Active</option>
-                        <option value="false">Inactive</option>
-                    </select>
-                </div>
-            </form>
-        </div>
-        <div class="vmodal-footer">
-            <button class="btn-outline-v" onclick="closeModal('custModal')">Cancel</button>
-            <button class="btn-primary-v" id="saveCustBtn">
-                <i class="bi bi-check-lg"></i> Save Customer
-            </button>
-        </div>
-    </div>
-</div>
-
-@* ── View Detail Modal ─────────────────────────────────────── *@
-<div class="vmodal-backdrop" id="custDetailModal">
-    <div class="vmodal">
-        <div class="vmodal-header">
-            <i class="bi bi-building" style="font-size:16px;color:var(--primary);"></i>
-            <span class="vmodal-title">Customer Details</span>
-            <button class="vmodal-close" onclick="closeModal('custDetailModal')">&times;</button>
-        </div>
-        <div class="vmodal-body" id="custDetailBody"></div>
-        <div class="vmodal-footer">
-            <button class="btn-outline-v" onclick="closeModal('custDetailModal')">Close</button>
-            <a class="btn-primary-v" id="viewInvoicesLink" href="#">
-                <i class="bi bi-receipt"></i> View Invoices
-            </a>
-        </div>
-    </div>
-</div>
-
-@* ── Delete Confirm ────────────────────────────────────────── *@
-<div class="vmodal-backdrop" id="deleteCustModal">
-    <div class="vmodal confirm-dialog">
-        <div class="vmodal-body" style="text-align:center;padding:32px 24px 20px;">
-            <div class="confirm-icon" style="background:#fee2e2;margin:0 auto 14px;">
-                <i class="bi bi-building-x" style="font-size:24px;color:#b91c1c;"></i>
-            </div>
-            <div style="font-size:16px;font-weight:600;margin-bottom:8px;">Delete Customer?</div>
-            <div style="font-size:13px;color:var(--text-secondary);">
-                Deleting <strong id="deleteCustName"></strong> will also remove all associated data.
-            </div>
-        </div>
-        <div class="vmodal-footer" style="justify-content:center;gap:10px;">
-            <button class="btn-outline-v" onclick="closeModal('deleteCustModal')">Cancel</button>
-            <button class="btn-primary-v" id="confirmDeleteCust" style="background:#b91c1c;border:none;">
-                <i class="bi bi-trash3"></i> Delete
-            </button>
-        </div>
-    </div>
+  <!-- THIS IS WHERE THE JS WILL INJECT THE BUTTONS -->
+  <div id="paginationContainer"></div>
 </div>
 
 @section Scripts {
-<script>
-$(function () {
+  <script>
+    // 1. The Current State payload
+    var state = {
+        page: 1,
+        pageSize: 20,
+        search: ''
+    };
 
-    // ── Search & Filter
-    function filterCustomers() {
-        var q = $('#custSearch').val().toLowerCase();
-        var status = $('#statusFilter').val().toLowerCase();
-        var count = 0;
-        $('#custBody tr[data-id]').each(function () {
-            var name = $(this).data('name').toLowerCase();
-            var s = $(this).data('status').toLowerCase();
-            var show = (!q || name.includes(q)) && (!status || s === status);
-            $(this).toggle(show);
-            if (show) count++;
+    $(function () {
+        loadCustomers();
+
+        // Search typing logic with Debounce
+        var typingTimer;
+        $('#custSearch').on('keyup', function () {
+            clearTimeout(typingTimer);
+            var val = $(this).val();
+            typingTimer = setTimeout(function () {
+                state.search = val;
+                state.page = 1;      // Reset to page 1 on new search
+                loadCustomers();
+            }, 400); // 400ms delay
         });
-        $('#custCount').text(count + ' customers');
-    }
-    $('#custSearch').on('input', filterCustomers);
-    $('#statusFilter').on('change', filterCustomers);
-
-    // ── Open Create
-    $('#openCreateCust').on('click', function () {
-        $('#custForm')[0].reset();
-        $('#cId').val('0');
-        $('#custModalTitle').text('Add Customer');
-        $('#custForm .form-control-v').removeClass('is-invalid');
-        openModal('custModal');
     });
 
-    function validateRequired(id) {
-        var $el = $('#' + id);
-        var valid = $el.val().trim() !== '';
-        $el.toggleClass('is-invalid', !valid);
-        return valid;
-    }
-    function validateEmail(id) {
-        var $el = $('#' + id);
-        var val = $el.val().trim();
-        if (!val) { $el.removeClass('is-invalid'); return true; }
-        
-        // This regex pattern runs safely in browser JS
-        var pattern = new RegExp("^[a-zA-Z0-9._%+-]+" + String.fromCharCode(64) + "[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
-        var valid = pattern.test(val);
-        
-        $el.toggleClass('is-invalid', !valid);
-        return valid;
-    }
+    // 2. Fetch the data from the backend API
+    function loadCustomers() {
+        var qs = `?page=${state.page}&pageSize=${state.pageSize}&search=${encodeURIComponent(state.search)}`;
 
-    // ── Save Customer
-    $('#saveCustBtn').on('click', function () {
-        var v1 = validateRequired('cName');
-        var v2 = validateRequired('cPhone');
-        var v3 = validateRequired('cAddress');
-        var v4 = validateEmail('cEmail');
-        if (!v1 || !v2 || !v3 || !v4) return;
+        $.get('/api/customers' + qs)
+            .done(function (res) {
+                var html = '';
+                if (!res.data || !res.data.length) {
+                    html = `<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">
+                              <i class="bi bi-inbox" style="font-size:32px;display:block;margin-bottom:8px;"></i>
+                              No customers found.
+                            </td></tr>`;
+                } else {
+                    html = res.data.map(buildCustomerRow).join('');
+                }
 
-        var id = parseInt($('#cId').val());
-        var payload = {
-            name: $('#cName').val().trim(),
-            contactPerson: $('#cContact').val().trim() || null,
-            phone: $('#cPhone').val().trim(),
-            email: $('#cEmail').val().trim() || null,
-            address: $('#cAddress').val().trim(),
-            isActive: $('#cActive').val() === 'true'
-        };
+                $('#customerBody').html(html);
 
-        var url = id ? '/api/customers/' + id : '/api/customers';
-        var method = id ? 'PUT' : 'POST';
+                // Update stats
+                $('#statTotal').text(res.meta?.totalCount?.toLocaleString() ?? 0);
 
-        $.ajax({ url, method, contentType: 'application/json', data: JSON.stringify(payload) })
-            .done(function () {
-                closeModal('custModal');
-                showToast(id ? 'Customer updated.' : 'Customer created.', 'success');
-                setTimeout(() => location.reload(), 800);
+                // 3. MAGIC: Pass the API Meta object right into the pagination renderer!
+                renderPagination(res.meta);
             })
-            .fail(function (xhr) { showToast(xhr.responseJSON?.message || 'Save failed.', 'danger'); });
-    });
+            .fail(function () {
+                $('#customerBody').html(`<tr><td colspan="6" style="text-align:center;color:red;">Failed to load data.</td></tr>`);
+            });
+    }
 
-    // ── Edit
-    $(document).on('click', '.edit-cust-btn', function () {
-        var id = $(this).data('id');
-        $.get('/api/customers/' + id, function (res) {
-            var c = res.data || res;
-            $('#cId').val(c.id);
-            $('#cName').val(c.name);
-            $('#cContact').val(c.contactPerson || '');
-            $('#cPhone').val(c.phone);
-            $('#cEmail').val(c.email || '');
-            $('#cAddress').val(c.address);
-            $('#cActive').val(c.isActive.toString());
-            $('#custModalTitle').text('Edit Customer');
-            $('#custForm .form-control-v').removeClass('is-invalid');
-            openModal('custModal');
-        }).fail(() => showToast('Could not load customer.', 'danger'));
-    });
+    // 4. Draw the HTML for a single row
+    function buildCustomerRow(c) {
+        return `<tr>
+            <td style="font-weight:500;">${c.name}</td>
+            <td style="color:var(--text-secondary);">${c.contactPerson || '—'}</td>
+            <td style="color:var(--text-secondary);">${c.email || '—'}</td>
+            <td style="font-weight:500;">${c.phone}</td>
+            <td><span class="vbadge blue">${c.city || '—'}</span></td>
+            <td style="text-align:right;">
+                <button class="btn-action edit" onclick="editCustomer(${c.id})" title="Edit">
+                    <i class="bi bi-pencil"></i>
+                </button>
+                ${c.id > 0 ? `
+                <button class="btn-action delete" onclick="deleteCustomer(${c.id})" title="Delete">
+                    <i class="bi bi-trash3"></i>
+                </button>` : ''}
+            </td>
+        </tr>`;
+    }
 
-    // ── View
-    $(document).on('click', '.view-cust-btn', function () {
-        var $row = $(this).closest('tr');
-        var id = $row.data('id');
-        var name = $row.find('td:eq(0) .fw-500, td:eq(0) div[style*="font-weight:500"]').first().text().trim()
-                || $row.data('name');
-        var phone = $row.find('td:eq(2)').text().trim();
-        var email = $row.find('td:eq(3)').text().trim();
-        var addr = $row.find('td:eq(0) div[style*="font-size:11px"]').text().trim();
-        var invoices = $row.find('td:eq(4)').text().trim();
-        var status = $row.data('status');
+    // 5. The REUSABLE Pagination Renderer
+    function renderPagination(meta) {
+        if (!meta || meta.totalPages <= 1) {
+            $('#paginationContainer').html(
+                `<div class="vpager"><span class="vpager-info">${meta?.totalCount?.toLocaleString() ?? 0} customers</span></div>`
+            );
+            return;
+        }
 
-        $('#custDetailBody').html(`
-            <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--card-border);">
-                <div style="width:52px;height:52px;border-radius:12px;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:600;">${name.charAt(0).toUpperCase()}</div>
-                <div><div style="font-size:16px;font-weight:600;">${name}</div><div style="font-size:12px;color:var(--text-muted);">${addr}</div></div>
-            </div>
-            <table style="width:100%;font-size:13px;">
-                <tr><td style="color:var(--text-muted);padding:8px 0;width:110px;">Phone</td><td>${phone}</td></tr>
-                <tr><td style="color:var(--text-muted);padding:8px 0;">Email</td><td>${email}</td></tr>
-                <tr><td style="color:var(--text-muted);padding:8px 0;">Total Invoices</td><td>${invoices}</td></tr>
-                <tr><td style="color:var(--text-muted);padding:8px 0;">Status</td><td><span class="vbadge ${status === 'active' ? 'green' : 'gray'}">${status === 'active' ? 'Active' : 'Inactive'}</span></td></tr>
-            </table>`);
-        $('#viewInvoicesLink').attr('href', '/Invoices?customerId=' + id);
-        openModal('custDetailModal');
-    });
+        var start = Math.max(1, meta.page - 2);
+        var end   = Math.min(meta.totalPages, start + 4);
+        if (end - start < 4) start = Math.max(1, end - 4);
 
-    // ── Delete
-    var deleteId = null;
-    $(document).on('click', '.delete-cust-btn', function () {
-        deleteId = $(this).data('id');
-        $('#deleteCustName').text($(this).data('name'));
-        openModal('deleteCustModal');
-    });
-    $('#confirmDeleteCust').on('click', function () {
-        $.ajax({ url: '/api/customers/' + deleteId, method: 'DELETE' })
-            .done(function () {
-                closeModal('deleteCustModal');
-                showToast('Customer deleted.', 'danger');
-                setTimeout(() => location.reload(), 800);
-            })
-            .fail(function (xhr) { showToast(xhr.responseJSON?.message || 'Delete failed.', 'danger'); });
-    });
+        var pageButtons = '';
+        for (var p = start; p <= end; p++) {
+            pageButtons += `<button class="vpager-btn${p === meta.page ? ' active' : ''}"
+                                    onclick="changePage(${p})">${p}</button>`;
+        }
 
-    $(document).on('input change', '.form-control-v', function () { $(this).removeClass('is-invalid'); });
-});
+        var sizeOptions = [10, 20, 50, 100].map(function (sz) {
+            return `<option value="${sz}"${sz === meta.pageSize ? ' selected' : ''}>${sz} / page</option>`;
+        }).join('');
 
-function openModal(id) { document.getElementById(id).classList.add('show'); }
-function closeModal(id) { document.getElementById(id).classList.remove('show'); }
-document.querySelectorAll('.vmodal-backdrop').forEach(el => {
-    el.addEventListener('click', e => { if (e.target === el) el.classList.remove('show'); });
-});
-</script>
+        $('#paginationContainer').html(`
+            <div class="vpager" style="justify-content:space-between;flex-wrap:wrap;gap:8px;">
+                <span class="vpager-info">
+                    Page <strong>${meta.page}</strong> of <strong>${meta.totalPages}</strong>
+                    &nbsp;·&nbsp; ${meta.totalCount.toLocaleString()} records
+                </span>
+                <div style="display:flex;align-items:center;gap:4px;">
+                    <button class="vpager-btn" onclick="changePage(1)"
+                            ${meta.hasPrev ? '' : 'disabled'} title="First">«</button>
+                    <button class="vpager-btn" onclick="changePage(${meta.page - 1})"
+                            ${meta.hasPrev ? '' : 'disabled'} title="Prev">‹</button>
+                    ${pageButtons}
+                    <button class="vpager-btn" onclick="changePage(${meta.page + 1})"
+                            ${meta.hasNext ? '' : 'disabled'} title="Next">›</button>
+                    <button class="vpager-btn" onclick="changePage(${meta.totalPages})"
+                            ${meta.hasNext ? '' : 'disabled'} title="Last">»</button>
+                    <select onchange="changePageSize(this.value)" class="form-control-v"
+                            style="margin-left:12px;width:95px;padding:5px 8px;font-size:12px;">
+                        ${sizeOptions}
+                    </select>
+                </div>
+            </div>`);
+    }
+
+    // Pagination Triggers
+    function changePage(p) { state.page = p; loadCustomers(); }
+    function changePageSize(s){ state.pageSize = parseInt(s); state.page = 1; loadCustomers(); }
+  </script>
 }

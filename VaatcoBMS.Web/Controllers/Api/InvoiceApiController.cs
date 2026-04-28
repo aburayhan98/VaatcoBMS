@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using VaatcoBMS.Application.DTOs.Invoice;
 using VaatcoBMS.Application.Interfaces;
+using VaatcoBMS.Domain.Common;
 using VaatcoBMS.Domain.Enums;
 
 namespace VaatcoBMS.Web.Controllers.Api;
@@ -18,11 +19,28 @@ public class InvoiceApiController(IInvoiceService invoiceService) : ControllerBa
 			User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value,
 			out var id) ? id : 0;
 
+	/// <summary>
+	/// Server-side paged + filtered + sorted invoice list.
+	/// GET /api/invoices?page=1&pageSize=20&search=xyz&status=Draft&sortBy=date&sortDir=desc
+	/// </summary>
 	[HttpGet]
-	public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int size = 20)
+	public async Task<IActionResult> GetAll([FromQuery] InvoiceQueryParams q)
 	{
-		var invoices = await _invoiceService.GetAllAsync(page, size);
-		return Ok(new { success = true, data = invoices });
+		var result = await _invoiceService.GetPagedAsync(q);
+		return Ok(new
+		{
+			success = true,
+			data = result.Items,
+			meta = new
+			{
+				result.TotalCount,
+				result.Page,
+				result.PageSize,
+				result.TotalPages,
+				result.HasPrev,
+				result.HasNext,
+			}
+		});
 	}
 
 	[HttpGet("stats")]

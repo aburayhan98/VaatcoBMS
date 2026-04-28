@@ -1,52 +1,64 @@
-﻿@using VaatcoBMS.Application.DTOs.Product
-@model IEnumerable<ProductDto>
-
-@{
+﻿@{
   ViewData["Title"] = "Products";
   Layout = "~/Views/Shared/_Layout.cshtml";
-  // Only Admin or SuperAdmin are allowed to CRUD products
-  var canEditProducts = User.IsInRole("Admin") || User.IsInRole("SuperAdmin");
-  }
+}
 
-@* ── Stat Row ─────────────────────────────────────────────── *@
-<div class="stat-grid">
+@* ── Stat Row ──────────────────────────────────────────────────────────── *@
+<div class="stat-grid" id="statGrid">
   <div class="stat-card">
     <div class="stat-icon blue"><i class="bi bi-box-seam-fill"></i></div>
-    <div><div class="stat-label">Total Products</div><div class="stat-value">@Model.Count()</div></div>
+    <div><div class="stat-label">Total Products</div><div class="stat-value" id="statTotal">—</div></div>
   </div>
   <div class="stat-card">
     <div class="stat-icon green"><i class="bi bi-check-circle-fill"></i></div>
-    <div><div class="stat-label">In Stock</div><div class="stat-value">@Model.Count(p => p.StockStatus == "OK")</div></div>
+    <div><div class="stat-label">In Stock</div><div class="stat-value" id="statInStock">—</div></div>
   </div>
   <div class="stat-card">
     <div class="stat-icon amber"><i class="bi bi-exclamation-triangle-fill"></i></div>
-    <div><div class="stat-label">Low Stock</div><div class="stat-value">@Model.Count(p => p.StockStatus == "Low")</div></div>
+    <div><div class="stat-label">Low Stock</div><div class="stat-value" id="statLow">—</div></div>
   </div>
   <div class="stat-card">
     <div class="stat-icon red"><i class="bi bi-x-circle-fill"></i></div>
-    <div><div class="stat-label">Out of Stock</div><div class="stat-value">@Model.Count(p => p.StockStatus == "Out of Stock")</div></div>
+    <div><div class="stat-label">Out of Stock</div><div class="stat-value" id="statOut">—</div></div>
   </div>
 </div>
 
-@* ── Product Table ─────────────────────────────────────────── *@
+@* ── Table Card ────────────────────────────────────────────────────────── *@
 <div class="vcard">
-  <div class="vcard-header">
+  <div class="vcard-header" style="flex-wrap:wrap;gap:8px;">
     <i class="bi bi-box-seam" style="font-size:16px;color:#64748b;"></i>
     <span class="vcard-title">Product Catalogue</span>
 
     <div class="search-bar" style="margin-left:auto;">
       <i class="bi bi-search"></i>
-      <input type="text" id="productSearch" placeholder="Search products…" />
+      <input type="text" id="productSearch" placeholder="Search name or code…" />
     </div>
 
-    <select id="stockFilter" class="form-control-v" style="width:130px;padding:7px 10px;margin-left:8px;">
+    <select id="stockFilter" class="form-control-v" style="width:140px;padding:7px 10px;">
       <option value="">All Stock</option>
       <option value="OK">In Stock</option>
       <option value="Low">Low Stock</option>
       <option value="Out of Stock">Out of Stock</option>
     </select>
 
-    <button class="btn-primary-v" id="openCreateProduct" style="margin-left:8px; white-space:nowrap;">
+    <select id="activeFilter" class="form-control-v" style="width:110px;padding:7px 10px;">
+      <option value="">All Status</option>
+      <option value="true">Active</option>
+      <option value="false">Inactive</option>
+    </select>
+
+    <select id="sortBy" class="form-control-v" style="width:115px;padding:7px 10px;">
+      <option value="name">Sort: Name</option>
+      <option value="code">Sort: Code</option>
+      <option value="price">Sort: Price</option>
+      <option value="stock">Sort: Stock</option>
+    </select>
+
+    <button id="sortDirBtn" class="btn-outline-v" style="padding:7px 10px;" title="Toggle direction">
+      <i class="bi bi-sort-alpha-down" id="sortDirIcon"></i>
+    </button>
+
+    <button class="btn-primary-v" id="openCreateProduct" style="white-space:nowrap;">
       <i class="bi bi-plus-lg"></i> Add Product
     </button>
   </div>
@@ -66,68 +78,21 @@
         </tr>
       </thead>
       <tbody id="productBody">
-        @foreach (var p in Model)
-        {
-          <tr data-id="@p.ProductCode" data-name="@p.ProductName" data-stock="@p.StockStatus">
-            <td><code style="font-size:12px;background:#f1f5f9;padding:2px 7px;border-radius:4px;">@p.ProductCode</code></td>
-            <td style="font-weight:500;">@p.ProductName</td>
-            <td style="color:var(--text-secondary);">@p.PackSize</td>
-            <td style="font-weight:500;">৳ @p.Price.ToString("N2")</td>
-            <td>
-              <span style="font-weight:600; color:@(p.StockQuantity < 10 ? "var(--danger)" : p.StockQuantity < 50 ? "var(--warning)" : "var(--success)");">
-                @p.StockQuantity
-              </span>
-            </td>
-            <td>
-              @{
-                var sc = p.StockStatus switch { "OK" => "green", "Low" => "amber", "Out of Stock" => "red", _ => "gray" };
-              }
-              <span class="vbadge @sc">@p.StockStatus</span>
-            </td>
-            <td>
-              @if (p.IsActive)
-              {
-                <span class="vbadge green">Active</span>
-              }
-              else
-              {
-                <span class="vbadge gray">Inactive</span>
-              }
-            </td>
-            <td style="text-align:right;">
-              <div style="display:flex;justify-content:flex-end;gap:5px;">
-                @if (canEditProducts)
-                {
-                  <button class="btn-action edit edit-product-btn" data-id="@p.Id" title="Edit">
-                    <i class="bi bi-pencil"></i>
-                  </button>
-                  <button class="btn-action delete delete-product-btn" data-id="@p.Id" data-name="@p.ProductName" title="Delete">
-                    <i class="bi bi-trash3"></i>
-                  </button>
-                }
-              </div>
-            </td>
-          </tr>
-        }
-        @if (!Model.Any())
-        {
-          <tr>
-            <td colspan="8" style="text-align:center;padding:48px;color:var(--text-muted);">
-              <i class="bi bi-box-seam" style="font-size:36px;display:block;margin-bottom:10px;"></i>
-              No products yet. Click <strong>Add Product</strong> to get started.
-            </td>
-          </tr>
-        }
+        <tr>
+          <td colspan="8" style="text-align:center;padding:48px;color:var(--text-muted);">
+            <div class="spinner-border spinner-border-sm text-primary"></div>
+            <span style="margin-left:8px;font-size:13px;">Loading…</span>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
 
-  <div class="vpager">
-    <span class="vpager-info" id="productCount">@Model.Count() products</span>
-  </div>
+  @* ── Pagination container — rendered by JS ─────────────────────────── *@
+  <div id="paginationContainer"></div>
 </div>
 
-@* ── Create / Edit Modal ───────────────────────────────────── *@
+@* ── Create / Edit Modal ───────────────────────────────────────────────── *@
 <div class="vmodal-backdrop" id="productModal">
   <div class="vmodal">
     <div class="vmodal-header">
@@ -143,12 +108,12 @@
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
           <div class="form-group-v">
             <label class="form-label-v">Product Code *</label>
-            <input type="text" id="pCode" class="form-control-v" placeholder="e.g. PRD-001" />
+            <input type="text" id="pCode" class="form-control-v" placeholder="e.g. V104" />
             <div class="invalid-msg">Product code is required.</div>
           </div>
           <div class="form-group-v">
             <label class="form-label-v">Pack Size *</label>
-            <input type="text" id="pPackSize" class="form-control-v" placeholder="e.g. 500ml x 12" />
+            <input type="text" id="pPackSize" class="form-control-v" placeholder="e.g. 100ml x 12" />
             <div class="invalid-msg">Pack size is required.</div>
           </div>
         </div>
@@ -189,7 +154,7 @@
   </div>
 </div>
 
-@* ── Delete Confirm ────────────────────────────────────────── *@
+@* ── Delete Confirm ────────────────────────────────────────────────────── *@
 <div class="vmodal-backdrop" id="deleteProductModal">
   <div class="vmodal confirm-dialog">
     <div class="vmodal-body" style="text-align:center;padding:32px 24px 20px;">
@@ -212,111 +177,276 @@
 
 @section Scripts {
   <script>
+    // ── State ─────────────────────────────────────────────────────────────────────
+    var state = {
+        page: 1, pageSize: 20,
+        search: '', stockStatus: '', isActive: '',
+        sortBy: 'name', sortDir: 'asc'
+    };
+    var searchTimer = null;
+    var deleteId = null;
+
+    // ── Init ──────────────────────────────────────────────────────────────────────
     $(function () {
+        loadProducts();
+        loadStats();
 
-        // ── Search & Filter
-        function filterProducts() {
-            var q = $('#productSearch').val().toLowerCase();
-            var stock = $('#stockFilter').val().toLowerCase();
-            var count = 0;
-            $('#productBody tr[data-id]').each(function () {
-                var name = ($(this).find('td:eq(1)').text() + $(this).find('td:eq(0)').text()).toLowerCase();
-                var s = $(this).data('stock').toString().toLowerCase();
-                var show = (!q || name.includes(q)) && (!stock || s === stock);
-                $(this).toggle(show);
-                if (show) count++;
-            });
-            $('#productCount').text(count + ' products');
-        }
-        $('#productSearch').on('input', filterProducts);
-        $('#stockFilter').on('change', filterProducts);
-
-        // ── Open Create Modal
-        $('#openCreateProduct').on('click', function () {
-            $('#productForm')[0].reset();
-            $('#pId').val('0');
-            $('#productModalTitle').text('Add Product');
-            $('#productForm .form-control-v').removeClass('is-invalid');
-            openModal('productModal');
+        // Search — 350ms debounce to avoid hammering the API
+        $('#productSearch').on('input', function () {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(function () {
+                state.search = $('#productSearch').val().trim();
+                state.page = 1;
+                loadProducts();
+            }, 350);
         });
 
-        // ── Validation Helper
-        function validateRequired(id) {
-            var $el = $('#' + id);
-            var valid = $el.val().trim() !== '';
-            $el.toggleClass('is-invalid', !valid);
-            return valid;
-        }
-
-        // ── Save Product
-        $('#saveProductBtn').on('click', function () {
-            var v1 = validateRequired('pName');
-            var v2 = validateRequired('pCode');
-            var v3 = validateRequired('pPackSize');
-            var v4 = validateRequired('pPrice');
-            if (!v1 || !v2 || !v3 || !v4) return;
-
-            var id = parseInt($('#pId').val());
-            var payload = {
-                productCode: $('#pCode').val().trim(),
-                productName: $('#pName').val().trim(),
-                packSize: $('#pPackSize').val().trim(),
-                price: parseFloat($('#pPrice').val()),
-                stockQuantity: parseInt($('#pStock').val()) || 0,
-                isActive: $('#pActive').val() === 'true'
-            };
-
-            var url = id ? '/api/products/' + id : '/api/products';
-            var method = id ? 'PUT' : 'POST';
-
-            $.ajax({ url: url, method: method, contentType: 'application/json', data: JSON.stringify(payload) })
-                .done(function () {
-                    closeModal('productModal');
-                    showToast(id ? 'Product updated.' : 'Product created.', 'success');
-                    setTimeout(function () { location.reload(); }, 800);
-                })
-                .fail(function (xhr) { showToast(xhr.responseJSON?.message || 'Save failed.', 'danger'); });
+        $('#stockFilter').on('change', function () {
+            state.stockStatus = $(this).val();
+            state.page = 1;
+            loadProducts();
         });
 
-        // ── Edit Button
-        $(document).on('click', '.edit-product-btn', function () {
-            var id = $(this).data('id');
-            $.get('/api/products/' + id, function (res) {
-                var p = res.data || res;
-                $('#pId').val(p.id);
-                $('#pCode').val(p.code || p.productCode);
-                $('#pName').val(p.name || p.productName);
-                $('#pPackSize').val(p.packSize);
-                $('#pPrice').val(p.price);
-                $('#pStock').val(p.stockQuantity);
-                $('#pActive').val(p.isActive.toString());
-                $('#productModalTitle').text('Edit Product');
-                $('#productForm .form-control-v').removeClass('is-invalid');
-                openModal('productModal');
-            }).fail(function () { showToast('Could not load product.', 'danger'); });
+        $('#activeFilter').on('change', function () {
+            state.isActive = $(this).val();
+            state.page = 1;
+            loadProducts();
         });
 
-        // ── Delete
-        var deleteId = null;
+        $('#sortBy').on('change', function () {
+            state.sortBy = $(this).val();
+            state.page = 1;
+            loadProducts();
+        });
+
+        $('#sortDirBtn').on('click', function () {
+            state.sortDir = state.sortDir === 'asc' ? 'desc' : 'asc';
+            $('#sortDirIcon').attr('class',
+                state.sortDir === 'asc' ? 'bi bi-sort-alpha-down' : 'bi bi-sort-alpha-up-alt');
+            state.page = 1;
+            loadProducts();
+        });
+
+        $('#openCreateProduct').on('click', openCreateModal);
+        $('#saveProductBtn').on('click', saveProduct);
+
+        $(document).on('click', '.edit-product-btn', editProduct);
         $(document).on('click', '.delete-product-btn', function () {
             deleteId = $(this).data('id');
             $('#deleteProductName').text($(this).data('name'));
             openModal('deleteProductModal');
         });
+
         $('#confirmDeleteProduct').on('click', function () {
             $.ajax({ url: '/api/products/' + deleteId, method: 'DELETE' })
                 .done(function () {
                     closeModal('deleteProductModal');
                     showToast('Product deleted.', 'danger');
-                    setTimeout(function () { location.reload(); }, 800);
+                    loadProducts();
+                    loadStats();
                 })
                 .fail(function (xhr) { showToast(xhr.responseJSON?.message || 'Delete failed.', 'danger'); });
         });
 
-        // Remove validation state on input
         $(document).on('input change', '.form-control-v', function () { $(this).removeClass('is-invalid'); });
     });
 
+    // ── Data ──────────────────────────────────────────────────────────────────────
+    function loadProducts() {
+        $('#productBody').html(`
+            <tr><td colspan="8" style="text-align:center;padding:32px;color:var(--text-muted);">
+                <div class="spinner-border spinner-border-sm text-primary"></div>
+                <span style="margin-left:8px;font-size:13px;">Loading…</span>
+            </td></tr>`);
+
+        $.get('/api/products?' + $.param({
+            page:        state.page,
+            pageSize:    state.pageSize,
+            search:      state.search,
+            stockStatus: state.stockStatus,
+            isActive:    state.isActive,
+            sortBy:      state.sortBy,
+            sortDir:     state.sortDir,
+        }), function (r) {
+            var products = r.data || [];
+            var meta = r.meta;
+
+            if (!products.length) {
+                $('#productBody').html(`
+                    <tr><td colspan="8" style="text-align:center;padding:48px;color:var(--text-muted);">
+                        <i class="bi bi-box-seam" style="font-size:36px;display:block;margin-bottom:10px;"></i>
+                        No products match your filters.
+                    </td></tr>`);
+            } else {
+                $('#productBody').html(products.map(buildRow).join(''));
+            }
+
+            renderPagination(meta);
+
+        }).fail(function () {
+            $('#productBody').html(`
+                <tr><td colspan="8" style="text-align:center;padding:24px;color:var(--danger);">
+                    <i class="bi bi-exclamation-triangle-fill"></i> Failed to load products.
+                </td></tr>`);
+        });
+    }
+
+    function loadStats() {
+        // Re-use the unfiltered paged query at page 1 size 1 just to get totals
+        // Better: dedicated /api/products/stats endpoint — add later
+        Promise.all([
+            $.get('/api/products?pageSize=1&isActive=true'),
+            $.get('/api/products?pageSize=1&stockStatus=OK'),
+            $.get('/api/products?pageSize=1&stockStatus=Low'),
+            $.get('/api/products?pageSize=1&stockStatus=Out of Stock'),
+        ]).then(function (results) {
+            $('#statTotal').text(results[0].meta?.totalCount ?? '—');
+            $('#statInStock').text(results[1].meta?.totalCount ?? '—');
+            $('#statLow').text(results[2].meta?.totalCount ?? '—');
+            $('#statOut').text(results[3].meta?.totalCount ?? '—');
+        });
+    }
+
+    // ── Row builder ───────────────────────────────────────────────────────────────
+    function buildRow(p) {
+        var scMap = { 'OK': 'green', 'Low': 'amber', 'Out of Stock': 'red' };
+        var sc = scMap[p.stockStatus] || 'gray';
+        var stockColor = p.stockQuantity <= 0 ? 'var(--danger)'
+                       : p.stockQuantity <= 10 ? 'var(--warning)' : 'var(--success)';
+        return `<tr>
+            <td><code style="font-size:12px;background:#f1f5f9;padding:2px 7px;border-radius:4px;">${p.productCode}</code></td>
+            <td style="font-weight:500;">${p.productName}</td>
+            <td style="color:var(--text-secondary);font-size:12px;">${p.packSize}</td>
+            <td style="font-weight:500;">৳ ${parseFloat(p.price).toFixed(2)}</td>
+            <td><span style="font-weight:600;color:${stockColor};">${p.stockQuantity}</span></td>
+            <td><span class="vbadge ${sc}">${p.stockStatus}</span></td>
+            <td>${p.isActive ? '<span class="vbadge green">Active</span>' : '<span class="vbadge gray">Inactive</span>'}</td>
+            <td style="text-align:right;">
+                <div style="display:flex;justify-content:flex-end;gap:5px;">
+                    <button class="btn-action edit edit-product-btn" data-id="${p.id}" title="Edit">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn-action delete delete-product-btn" data-id="${p.id}" data-name="${p.productName}" title="Delete">
+                        <i class="bi bi-trash3"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>`;
+    }
+
+    // ── Pagination renderer ───────────────────────────────────────────────────────
+    function renderPagination(meta) {
+        if (!meta || meta.totalPages <= 1) {
+            $('#paginationContainer').html(
+                `<div class="vpager"><span class="vpager-info">${meta?.totalCount?.toLocaleString() ?? 0} products</span></div>`);
+            return;
+        }
+
+        var start = Math.max(1, meta.page - 2);
+        var end   = Math.min(meta.totalPages, start + 4);
+        if (end - start < 4) start = Math.max(1, end - 4);
+
+        var pageButtons = '';
+        for (var p = start; p <= end; p++) {
+            pageButtons += `<button class="vpager-btn${p === meta.page ? ' active' : ''}"
+                                    onclick="changePage(${p})">${p}</button>`;
+        }
+
+        var sizeOptions = [10, 20, 50, 100].map(function (sz) {
+            return `<option value="${sz}"${sz === meta.pageSize ? ' selected' : ''}>${sz} / page</option>`;
+        }).join('');
+
+        $('#paginationContainer').html(`
+            <div class="vpager" style="justify-content:space-between;flex-wrap:wrap;gap:8px;">
+                <span class="vpager-info">
+                    Page <strong>${meta.page}</strong> of <strong>${meta.totalPages}</strong>
+                    &nbsp;·&nbsp; ${meta.totalCount.toLocaleString()} records
+                </span>
+                <div style="display:flex;align-items:center;gap:4px;">
+                    <button class="vpager-btn" onclick="changePage(1)"
+                            ${meta.hasPrev ? '' : 'disabled'} title="First">«</button>
+                    <button class="vpager-btn" onclick="changePage(${meta.page - 1})"
+                            ${meta.hasPrev ? '' : 'disabled'} title="Prev">‹</button>
+                    ${pageButtons}
+                    <button class="vpager-btn" onclick="changePage(${meta.page + 1})"
+                            ${meta.hasNext ? '' : 'disabled'} title="Next">›</button>
+                    <button class="vpager-btn" onclick="changePage(${meta.totalPages})"
+                            ${meta.hasNext ? '' : 'disabled'} title="Last">»</button>
+                    <select onchange="changePageSize(this.value)" class="form-control-v"
+                            style="margin-left:12px;width:95px;padding:5px 8px;font-size:12px;">
+                        ${sizeOptions}
+                    </select>
+                </div>
+            </div>`);
+    }
+
+    function changePage(p)    { state.page = p; loadProducts(); }
+    function changePageSize(s){ state.pageSize = parseInt(s); state.page = 1; loadProducts(); }
+
+    // ── CRUD ──────────────────────────────────────────────────────────────────────
+    function openCreateModal() {
+        $('#productForm')[0].reset();
+        $('#pId').val('0');
+        $('#pStock').val('0');
+        $('#productModalTitle').text('Add Product');
+        $('#productForm .form-control-v').removeClass('is-invalid');
+        openModal('productModal');
+    }
+
+    function validateRequired(id) {
+        var $el = $('#' + id);
+        var valid = $el.val().trim() !== '';
+        $el.toggleClass('is-invalid', !valid);
+        return valid;
+    }
+
+    function saveProduct() {
+        if (![validateRequired('pName'), validateRequired('pCode'),
+              validateRequired('pPackSize'), validateRequired('pPrice')].every(Boolean)) return;
+
+        var id = parseInt($('#pId').val());
+        var payload = {
+            productCode:   $('#pCode').val().trim(),
+            productName:   $('#pName').val().trim(),
+            packSize:      $('#pPackSize').val().trim(),
+            price:         parseFloat($('#pPrice').val()),
+            stockQuantity: parseInt($('#pStock').val()) || 0,
+            isActive:      $('#pActive').val() === 'true',
+        };
+
+        $.ajax({
+            url:         id ? '/api/products/' + id : '/api/products',
+            method:      id ? 'PUT' : 'POST',
+            contentType: 'application/json',
+            data:        JSON.stringify(payload),
+        }).done(function () {
+            closeModal('productModal');
+            showToast(id ? 'Product updated.' : 'Product created.', 'success');
+            loadProducts();
+            loadStats();
+        }).fail(function (xhr) {
+            showToast(xhr.responseJSON?.message || 'Save failed.', 'danger');
+        });
+    }
+
+    function editProduct() {
+        var id = $(this).data('id');
+        $.get('/api/products/' + id, function (res) {
+            var p = res.data || res;
+            $('#pId').val(p.id);
+            $('#pCode').val(p.productCode || p.code);
+            $('#pName').val(p.productName || p.name);
+            $('#pPackSize').val(p.packSize);
+            $('#pPrice').val(p.price);
+            $('#pStock').val(p.stockQuantity);
+            $('#pActive').val(p.isActive.toString());
+            $('#productModalTitle').text('Edit Product');
+            $('#productForm .form-control-v').removeClass('is-invalid');
+            openModal('productModal');
+        }).fail(function () { showToast('Could not load product.', 'danger'); });
+    }
+
+    // ── Modal helpers ─────────────────────────────────────────────────────────────
     function openModal(id) { document.getElementById(id).classList.add('show'); }
     function closeModal(id) { document.getElementById(id).classList.remove('show'); }
     document.querySelectorAll('.vmodal-backdrop').forEach(function (el) {

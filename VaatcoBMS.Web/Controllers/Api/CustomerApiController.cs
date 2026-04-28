@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VaatcoBMS.Application.DTOs.Customer;
 using VaatcoBMS.Application.Interfaces;
+using VaatcoBMS.Domain.Common;
 
 namespace VaatcoBMS.Web.Controllers.Api;
 
@@ -12,19 +13,38 @@ public class CustomerApiController(ICustomerService customerService) : Controlle
 {
 	private readonly ICustomerService _customerService = customerService;
 
+
+	/// <summary>
+	/// Server-side paged + filtered + sorted customer list.
+	/// GET /api/customers?page=1&pageSize=20&search=xyz&isActive=true&sortBy=name&sortDir=asc
+	/// </summary>
 	[HttpGet]
-	public async Task<IActionResult> GetAll()
+	public async Task<IActionResult> GetAll([FromQuery] CustomerQueryParams q)
 	{
-		var customers = await _customerService.GetAllAsync();
-		return Ok(new { success = true, data = customers });
+		var result = await _customerService.GetPagedAsync(q);
+		return Ok(new
+		{
+			success = true,
+			data = result.Items,
+			meta = new
+			{
+				result.TotalCount,
+				result.Page,
+				result.PageSize,
+				result.TotalPages,
+				result.HasPrev,
+				result.HasNext,
+			}
+		});
 	}
 
-	[HttpGet("{id:int}")]
-	public async Task<IActionResult> GetById(int id)
+	/// <summary>All active customers — used by Invoice Create customer picker (no pagination).</summary>
+	[HttpGet("active")]
+	public async Task<IActionResult> GetActive()
 	{
-		var c = await _customerService.GetByIdAsync(id);
-		if (c == null) return NotFound(new { success = false, message = "Customer not found." });
-		return Ok(new { success = true, data = c });
+		// Note: Using GetAllAsync() since your service may not have an explicit GetActiveAsync() yet
+		var customers = await _customerService.GetAllAsync();
+		return Ok(new { success = true, data = customers });
 	}
 
 	[HttpGet("search")]

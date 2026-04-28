@@ -1,7 +1,4 @@
-﻿@using VaatcoBMS.Application.DTOs.Invoice
-@model IEnumerable<InvoiceDto>
-
-@{
+﻿@{
   ViewData["Title"] = "Invoices";
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -9,21 +6,21 @@
 <div class="stat-grid" id="invoiceStats">
   <div class="stat-card">
     <div class="stat-icon blue"><i class="bi bi-receipt"></i></div>
-    <div><div class="stat-label">Total Invoices</div><div class="stat-value">@Model.Count()</div></div>
+    <div><div class="stat-label">Total Invoices</div><div class="stat-value" id="statTotal">—</div></div>
   </div>
   <div class="stat-card">
     <div class="stat-icon gray"><i class="bi bi-pencil-square"></i></div>
-    <div><div class="stat-label">Draft</div><div class="stat-value">@Model.Count(i => i.Status == "Draft")</div></div>
+    <div><div class="stat-label">Draft</div><div class="stat-value" id="statDraft">—</div></div>
   </div>
   <div class="stat-card">
     <div class="stat-icon green"><i class="bi bi-check2-circle"></i></div>
-    <div><div class="stat-label">Paid</div><div class="stat-value">@Model.Count(i => i.Status == "Paid")</div></div>
+    <div><div class="stat-label">Paid</div><div class="stat-value" id="statPaid">—</div></div>
   </div>
   <div class="stat-card">
     <div class="stat-icon amber"><i class="bi bi-hourglass-split"></i></div>
     <div>
-      <div class="stat-label">Outstanding</div>
-      <div class="stat-value" style="font-size:16px;">৳ @Model.Where(i => i.Status != "Cancelled").Sum(i => i.OutstandingBalance).ToString("N0")</div>
+      <div class="stat-label">Total Revenue</div>
+      <div class="stat-value" id="statRevenue" style="font-size:16px;">—</div>
     </div>
   </div>
 </div>
@@ -31,14 +28,14 @@
 <div class="vcard">
   <div class="vcard-header">
     <i class="bi bi-receipt" style="font-size:16px;color:#64748b;"></i>
-    <span class="vcard-title">Invoice Register</span>
+    <span class="vcard-title">Invoices</span>
 
     <div class="search-bar" style="margin-left:auto;">
       <i class="bi bi-search"></i>
-      <input type="text" id="invSearch" placeholder="Search invoices…" />
+      <input type="text" id="invoiceSearch" placeholder="Search number..." />
     </div>
 
-    <select id="statusFilter" class="form-control-v" style="width:130px;padding:7px 10px;margin-left:8px;">
+    <select id="statusFilter" class="form-control-v" style="width:130px;padding:7px 10px;">
       <option value="">All Status</option>
       <option value="Draft">Draft</option>
       <option value="Approved">Approved</option>
@@ -46,210 +43,156 @@
       <option value="Cancelled">Cancelled</option>
     </select>
 
-    <a href="/Invoices/Create" class="btn-primary-v" style="margin-left:8px;white-space:nowrap;">
-      <i class="bi bi-plus-lg"></i> New Invoice
+    <a href="/Invoices/Create" class="btn-primary-v" style="margin-left:12px;">
+      <i class="bi bi-plus-lg"></i> Create Invoice
     </a>
   </div>
 
   <div style="overflow-x:auto;">
-    <table class="vtable" id="invTable">
+    <table class="vtable">
       <thead>
         <tr>
           <th>Invoice #</th>
           <th>Customer</th>
           <th>Date</th>
-          <th>Due Date</th>
-          <th>Total</th>
-          <th>Paid</th>
-          <th>Balance</th>
+          <th style="text-align:right;">Amount</th>
           <th>Status</th>
           <th style="text-align:right;">Actions</th>
         </tr>
       </thead>
-      <tbody id="invBody">
-        @foreach (var inv in Model)
-        {
-          var sc = inv.Status switch
-          {
-            "Draft" => "gray",
-            "Approved" => "blue",
-            "Paid" => "green",
-            "Cancelled" => "red",
-            _ => "gray"
-          };
-          var overdue = inv.DueDate.HasValue && inv.DueDate < DateTime.Today
-          && inv.Status != "Paid" && inv.Status != "Cancelled";
-          <tr data-id="@inv.Id" data-inv="@inv.InvoiceNumber" data-customer="@inv.CustomerName" data-status="@inv.Status">
-            <td>
-              <a href="/Invoices/@inv.Id" style="color:var(--primary);font-weight:600;text-decoration:none;">
-                @inv.InvoiceNumber
-              </a>
-              @if (inv.ReferenceNumber != null)
-              {
-                <div style="font-size:11px;color:var(--text-muted);">Ref: @inv.ReferenceNumber</div>
-              }
-            </td>
-            <td style="font-weight:500;">@inv.CustomerName</td>
-            <td style="font-size:12px;color:var(--text-secondary);">
-              @inv.InvoiceDate.ToString("dd MMM yyyy")
-            </td>
-            <td style="font-size:12px;">
-              @if (inv.DueDate.HasValue)
-              {
-                <span style="color:@(overdue ? "var(--danger)" : "var(--text-secondary)");">
-                  @if (overdue)
-                  {
-                    <i class="bi bi-exclamation-circle-fill" style="font-size:11px;"></i>
-                    @(" ")
-                  }
-                  @inv.DueDate.Value.ToString("dd MMM yyyy")
-                </span>
-              }
-              else
-              {
-
-                <span style="color:var(--text-muted);">—</span>
-              }
-            </td>
-            <td style="font-weight:600;">৳ @inv.TotalAmount.ToString("N2")</td>
-            <td style="color:var(--success-text,#15803d);">৳ @inv.AmountPaid.ToString("N2")</td>
-            <td>
-              @if (inv.OutstandingBalance > 0)
-              {
-                <span style="color:var(--danger);font-weight:600;">৳ @inv.OutstandingBalance.ToString("N2")</span>
-              }
-              else
-              {
-                <span style="color:var(--text-muted);">—</span>
-              }
-            </td>
-            <td><span class="vbadge @sc">@inv.Status</span></td>
-            <td style="text-align:right;">
-              <div style="display:flex;justify-content:flex-end;gap:5px;">
-                <a href="/Invoices/@inv.Id" class="btn-action view" title="View"><i class="bi bi-eye"></i></a>
-                @if (inv.Status == "Draft")
-                {
-                  <button class="btn-action approve approve-inv-btn" data-id="@inv.Id" title="Approve">
-                    <i class="bi bi-check-lg"></i>
-                  </button>
-                  <button class="btn-action delete delete-inv-btn" data-id="@inv.Id" data-inv="@inv.InvoiceNumber" title="Delete">
-                    <i class="bi bi-trash3"></i>
-                  </button>
-                }
-                @if (inv.Status == "Approved")
-                {
-                  <button class="btn-action" style="background:#dcfce7;color:#15803d;" data-id="@inv.Id"
-                          onclick="updateStatus(@inv.Id,'Paid')" title="Mark Paid">
-                    <i class="bi bi-cash-coin"></i>
-                  </button>
-                  <button class="btn-action delete cancel-inv-btn" data-id="@inv.Id" title="Cancel">
-                    <i class="bi bi-x-lg"></i>
-                  </button>
-                }
-              </div>
-            </td>
-          </tr>
-        }
-        @if (!Model.Any())
-        {
-          <tr>
-            <td colspan="9" style="text-align:center;padding:48px;color:var(--text-muted);">
-              <i class="bi bi-receipt" style="font-size:36px;display:block;margin-bottom:10px;"></i>
-              No invoices yet. <a href="/Invoices/Create" class="text-primary">Create your first invoice</a>.
-            </td>
-          </tr>
-        }
+      <tbody id="invoiceBody">
+        <tr>
+          <td colspan="6" style="text-align:center;padding:48px;color:var(--text-muted);">
+            <div class="spinner-border spinner-border-sm text-primary"></div> Loading invoices...
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
-  <div class="vpager">
-    <span class="vpager-info" id="invCount">@Model.Count() invoices</span>
-  </div>
-</div>
 
-@* Delete Confirm *@
-<div class="vmodal-backdrop" id="deleteInvModal">
-  <div class="vmodal confirm-dialog">
-    <div class="vmodal-body" style="text-align:center;padding:32px 24px 20px;">
-      <div class="confirm-icon" style="background:#fee2e2;margin:0 auto 14px;">
-        <i class="bi bi-receipt-x" style="font-size:24px;color:#b91c1c;"></i>
-      </div>
-      <div style="font-size:16px;font-weight:600;margin-bottom:8px;">Delete Invoice?</div>
-      <div style="font-size:13px;color:var(--text-secondary);">
-        Deleting <strong id="delInvNum"></strong> cannot be undone.
-      </div>
-    </div>
-    <div class="vmodal-footer" style="justify-content:center;gap:10px;">
-      <button class="btn-outline-v" onclick="closeModal('deleteInvModal')">Cancel</button>
-      <button class="btn-primary-v" id="confirmDelInv" style="background:#b91c1c;border:none;">
-        <i class="bi bi-trash3"></i> Delete
-      </button>
-    </div>
-  </div>
+  <div id="paginationContainer"></div>
 </div>
 
 @section Scripts {
   <script>
+    var state = {
+        page: 1,
+        pageSize: 20,
+        search: '',
+        status: ''
+    };
+
     $(function () {
-        // Search & filter
-        function filterInv() {
-            var q = $('#invSearch').val().toLowerCase();
-            var st = $('#statusFilter').val().toLowerCase();
-            var count = 0;
-            $('#invBody tr[data-id]').each(function () {
-                var inv = $(this).data('inv').toString().toLowerCase();
-                var cust = $(this).data('customer').toString().toLowerCase();
-                var status = $(this).data('status').toString().toLowerCase();
-                var show = (!q || inv.includes(q) || cust.includes(q)) && (!st || status === st);
-                $(this).toggle(show);
-                if (show) count++;
-            });
-            $('#invCount').text(count + ' invoices');
-        }
-        $('#invSearch').on('input', filterInv);
-        $('#statusFilter').on('change', filterInv);
+        loadStats();
+        loadInvoices();
 
-        // Approve
-        $(document).on('click', '.approve-inv-btn', function () {
-            updateStatus($(this).data('id'), 'Approved');
+        var typingTimer;
+        $('#invoiceSearch').on('keyup', function () {
+            clearTimeout(typingTimer);
+            var val = $(this).val();
+            typingTimer = setTimeout(function () {
+                state.search = val;
+                state.page = 1;
+                loadInvoices();
+            }, 400);
         });
 
-        // Cancel
-        $(document).on('click', '.cancel-inv-btn', function () {
-            updateStatus($(this).data('id'), 'Cancelled');
-        });
-
-        // Delete
-        var delId = null;
-        $(document).on('click', '.delete-inv-btn', function () {
-            delId = $(this).data('id');
-            $('#delInvNum').text($(this).data('inv'));
-            openModal('deleteInvModal');
-        });
-        $('#confirmDelInv').on('click', function () {
-            $.ajax({ url: '/api/invoices/' + delId, method: 'DELETE' })
-                .done(function () {
-                    closeModal('deleteInvModal');
-                    showToast('Invoice deleted.', 'danger');
-                    setTimeout(() => location.reload(), 800);
-                })
-                .fail(function (xhr) { showToast(xhr.responseJSON?.message || 'Delete failed.', 'danger'); });
+        $('#statusFilter').on('change', function () {
+            state.status = $(this).val();
+            state.page = 1;
+            loadInvoices();
         });
     });
 
-    function updateStatus(id, status) {
-        $.ajax({ url: '/api/invoices/' + id + '/status', method: 'PUT',
-                 contentType: 'application/json', data: JSON.stringify(status) })
-            .done(function () {
-                showToast('Invoice ' + status + '.', 'success');
-                setTimeout(() => location.reload(), 700);
-            })
-            .fail(function (xhr) { showToast(xhr.responseJSON?.message || 'Failed.', 'danger'); });
+    function loadStats() {
+        $.get('/api/invoices/stats').done(function (r) {
+            if (r && r.data) {
+                $('#statTotal').text(r.data.totalCount.toLocaleString());
+                $('#statDraft').text(r.data.draftCount.toLocaleString());
+                $('#statPaid').text(r.data.paidCount.toLocaleString());
+                $('#statRevenue').text('৳ ' + r.data.totalRevenue.toLocaleString(undefined, {minimumFractionDigits: 2}));
+            }
+        });
     }
 
-    function openModal(id) { document.getElementById(id).classList.add('show'); }
-    function closeModal(id) { document.getElementById(id).classList.remove('show'); }
-    document.querySelectorAll('.vmodal-backdrop').forEach(el =>
-        el.addEventListener('click', e => { if (e.target === el) el.classList.remove('show'); }));
+    function loadInvoices() {
+        var qs = `?page=${state.page}&pageSize=${state.pageSize}&search=${encodeURIComponent(state.search)}&status=${encodeURIComponent(state.status)}`;
+
+        $.get('/api/invoices' + qs)
+            .done(function (res) {
+                var html = '';
+                if (!res.data || !res.data.length) {
+                    html = `<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">
+                              <i class="bi bi-inbox" style="font-size:32px;display:block;margin-bottom:8px;"></i>
+                              No invoices found.
+                            </td></tr>`;
+                } else {
+                    html = res.data.map(buildInvoiceRow).join('');
+                }
+
+                $('#invoiceBody').html(html);
+                renderPagination(res.meta);
+            })
+            .fail(function () {
+                $('#invoiceBody').html(`<tr><td colspan="6" style="text-align:center;color:red;">Failed to load.</td></tr>`);
+            });
+    }
+
+    function buildInvoiceRow(i) {
+        var statusColor = { 'Draft':'gray', 'Approved':'blue', 'Paid':'green', 'Cancelled':'red' }[i.status] || 'gray';
+        var dateStr = new Date(i.invoiceDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+
+        return `<tr>
+            <td style="font-weight:600;"><a href="/Invoices/${i.id}" style="text-decoration:none;color:var(--primary);">${i.invoiceNumber}</a></td>
+            <td><div style="font-weight:500;">${i.customerName}</div></td>
+            <td style="color:var(--text-secondary);font-size:12px;">${dateStr}</td>
+            <td style="text-align:right;font-weight:600;">৳ ${i.totalAmount.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+            <td><span class="vbadge ${statusColor}">${i.status}</span></td>
+            <td style="text-align:right;">
+                <a href="/Invoices/${i.id}" class="btn-action edit" title="View Details">
+                    <i class="bi bi-eye"></i>
+                </a>
+            </td>
+        </tr>`;
+    }
+
+    function renderPagination(meta) {
+        if (!meta || meta.totalPages <= 1) {
+            $('#paginationContainer').html(`<div class="vpager"><span class="vpager-info">${meta?.totalCount?.toLocaleString() ?? 0} invoices</span></div>`);
+            return;
+        }
+
+        var start = Math.max(1, meta.page - 2);
+        var end   = Math.min(meta.totalPages, start + 4);
+        if (end - start < 4) start = Math.max(1, end - 4);
+
+        var pageButtons = '';
+        for (var p = start; p <= end; p++) {
+            pageButtons += `<button class="vpager-btn${p === meta.page ? ' active' : ''}" onclick="changePage(${p})">${p}</button>`;
+        }
+
+        var sizeOptions = [10, 20, 50, 100].map(sz => `<option value="${sz}"${sz === meta.pageSize ? ' selected' : ''}>${sz} / page</option>`).join('');
+
+        $('#paginationContainer').html(`
+            <div class="vpager" style="justify-content:space-between;flex-wrap:wrap;gap:8px;">
+                <span class="vpager-info">
+                    Page <strong>${meta.page}</strong> of <strong>${meta.totalPages}</strong>
+                    &nbsp;·&nbsp; ${meta.totalCount.toLocaleString()} records
+                </span>
+                <div style="display:flex;align-items:center;gap:4px;">
+                    <button class="vpager-btn" onclick="changePage(1)" ${meta.hasPrev ? '' : 'disabled'} title="First">«</button>
+                    <button class="vpager-btn" onclick="changePage(${meta.page - 1})" ${meta.hasPrev ? '' : 'disabled'} title="Prev">‹</button>
+                    ${pageButtons}
+                    <button class="vpager-btn" onclick="changePage(${meta.page + 1})" ${meta.hasNext ? '' : 'disabled'} title="Next">›</button>
+                    <button class="vpager-btn" onclick="changePage(${meta.totalPages})" ${meta.hasNext ? '' : 'disabled'} title="Last">»</button>
+                    <select onchange="changePageSize(this.value)" class="form-control-v" style="margin-left:12px;width:95px;padding:5px 8px;font-size:12px;">
+                        ${sizeOptions}
+                    </select>
+                </div>
+            </div>`);
+    }
+
+    function changePage(p) { state.page = p; loadInvoices(); }
+    function changePageSize(s){ state.pageSize = parseInt(s); state.page = 1; loadInvoices(); }
   </script>
 }
