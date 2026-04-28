@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using VaatcoBMS.Application.DTOs.Invoice;
 using VaatcoBMS.Application.DTOs.Payment;
 using VaatcoBMS.Application.Interfaces;
+using VaatcoBMS.Domain.Common;
 using VaatcoBMS.Domain.Entities;
 using VaatcoBMS.Domain.Enums;
 using VaatcoBMS.Domain.Interfaces;
@@ -218,6 +219,18 @@ public class InvoiceService(
 		dto.AmountPaid = dto.Payments.Sum(p => p.Amount);
 		dto.OutstandingBalance = dto.TotalAmount - dto.AmountPaid;
 		return dto;
+	}
+
+	public async Task<PagedResult<InvoiceDto>> GetPagedAsync(InvoiceQueryParams q)
+	{
+		var result = await _uow.Invoices.GetPagedAsync(q);
+		return new PagedResult<InvoiceDto>
+		{
+			Items = _mapper.Map<IEnumerable<InvoiceDto>>(result.Items),
+			TotalCount = result.TotalCount,
+			Page = result.Page,
+			PageSize = result.PageSize,
+		};
 	}
 
 	//// Add explicit implementation for IInvoiceService.CreateAsync(InvoiceDto dto, int userId)

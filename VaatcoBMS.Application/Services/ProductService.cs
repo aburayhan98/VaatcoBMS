@@ -3,6 +3,7 @@ using MapsterMapper;
 using Microsoft.Extensions.Logging;
 using VaatcoBMS.Application.DTOs.Product;
 using VaatcoBMS.Application.Interfaces;
+using VaatcoBMS.Domain.Common;
 using VaatcoBMS.Domain.Entities;
 using VaatcoBMS.Domain.Interfaces;
 
@@ -210,6 +211,20 @@ public class ProductService(
 		}
 	}
 
+
+	// ── server-side paging (new) ───────────────────────────────────────────────
+
+	public async Task<PagedResult<ProductDto>> GetPagedAsync(ProductQueryParams q)
+	{
+		var result = await _uow.Products.GetPagedAsync(q);
+		return new PagedResult<ProductDto>
+		{
+			Items = _mapper.Map<IEnumerable<ProductDto>>(result.Items),
+			TotalCount = result.TotalCount,
+			Page = result.Page,
+			PageSize = result.PageSize,
+		};
+	}
 	public async Task<IEnumerable<ProductDto>> GetAllAsync()
 	{
 		try

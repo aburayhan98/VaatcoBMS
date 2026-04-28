@@ -3,6 +3,7 @@ using MapsterMapper;
 using Microsoft.Extensions.Logging;
 using VaatcoBMS.Application.DTOs.Customer;
 using VaatcoBMS.Application.Interfaces;
+using VaatcoBMS.Domain.Common;
 using VaatcoBMS.Domain.Entities;
 using VaatcoBMS.Domain.Interfaces;
 
@@ -119,18 +120,16 @@ public class CustomerService(
 		}
 	}
 
-	public async Task<IEnumerable<CustomerDto>> GetPagedAsync(int page, int pageSize) 
-	{ 
-		try
+	public async Task<PagedResult<CustomerDto>> GetPagedAsync(CustomerQueryParams q)
+	{
+		var result = await _uow.Customers.GetPagedAsync(q);
+		return new PagedResult<CustomerDto>
 		{
-			var customers = await _uow.Customers.GetPagedAsync(page, pageSize); 
-			return _mapper.Map<IEnumerable<CustomerDto>>(customers); 
-		}
-		catch (Exception ex)
-		{
-			_logger.LogError(ex, "An error occurred while fetching paged customers (Page: {Page})", page);
-			throw new ApplicationException("An error occurred while fetching paged customers.", ex);
-		}
+			Items = _mapper.Map<IEnumerable<CustomerDto>>(result.Items),
+			TotalCount = result.TotalCount,
+			Page = result.Page,
+			PageSize = result.PageSize,
+		};
 	}
 
 	public async Task<int> GetTotalCountAsync() 

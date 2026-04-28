@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using VaatcoBMS.Domain.Entities;
 using VaatcoBMS.Domain.Enums;
+using VaatcoBMS.Domain.Common;
 
 namespace VaatcoBMS.Domain.Interfaces;
 
@@ -13,4 +14,5 @@ public interface IInvoiceRepository : IRepository<Invoice>
 	Task<string> GetNextInvoiceNumberAsync(); 
 	Task<IEnumerable<Invoice>> GetByStatusAsync(InvoiceStatus status);
 	Task<(decimal TotalRevenue, decimal TotalPaid, int TotalCount, int DraftCount, int ApprovedCount, int PaidCount, int CancelledCount)> GetStatsAsync();
+	Task<PagedResult<Invoice>> GetPagedAsync(InvoiceQueryParams q);
 }

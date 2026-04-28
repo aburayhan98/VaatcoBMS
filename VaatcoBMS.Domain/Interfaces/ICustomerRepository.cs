@@ -1,4 +1,5 @@
-﻿using VaatcoBMS.Domain.Entities;
+﻿using VaatcoBMS.Domain.Common;
+using VaatcoBMS.Domain.Entities;
 
 namespace VaatcoBMS.Domain.Interfaces;
 
@@ -10,6 +11,10 @@ public interface ICustomerRepository : IRepository<Customer>
 	Task<bool> IsEmailUniqueAsync(string email, CancellationToken cancellationToken = default);
 	Task<IEnumerable<Customer>> SearchAsync(string searchTerm, CancellationToken cancellationToken = default);
 	//GetByCodeAsync
-	 
+	/// <summary>
+	/// Server-side filtered, sorted, paged query.
+	/// Single round-trip: COUNT + SELECT in one EF execution.
+	/// </summary>
+	Task<PagedResult<Customer>> GetPagedAsync(CustomerQueryParams q);
 }
 
