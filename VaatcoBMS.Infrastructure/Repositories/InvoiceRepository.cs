@@ -86,6 +86,7 @@ public class InvoiceRepository(AppDbContext ctx) : Repository<Invoice>(ctx), IIn
 			var pattern = $"%{term}%";
 			query = query.Where(i =>
 				EF.Functions.Like(i.InvoiceNumber, pattern) ||
+				(i.Customer != null && EF.Functions.Like(i.Customer.Name, pattern)) ||
 				(i.ReferenceNumber != null && EF.Functions.Like(i.ReferenceNumber, pattern))
 			);
 		}
