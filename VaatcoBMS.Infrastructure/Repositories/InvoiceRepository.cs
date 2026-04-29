@@ -82,10 +82,11 @@ public class InvoiceRepository(AppDbContext ctx) : Repository<Invoice>(ctx), IIn
 		// Filters
 		if (!string.IsNullOrWhiteSpace(q.Search))
 		{
-			var term = q.Search.Trim().ToLower();
+			var term = q.Search.Trim();
+			var pattern = $"%{term}%";
 			query = query.Where(i =>
-				i.InvoiceNumber.Contains(term, StringComparison.CurrentCultureIgnoreCase) ||
-				(i.ReferenceNumber != null && i.ReferenceNumber.Contains(term, StringComparison.CurrentCultureIgnoreCase))
+				EF.Functions.Like(i.InvoiceNumber, pattern) ||
+				(i.ReferenceNumber != null && EF.Functions.Like(i.ReferenceNumber, pattern))
 			);
 		}
 
