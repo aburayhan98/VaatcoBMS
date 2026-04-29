@@ -16,7 +16,6 @@ public class UsersController(IUserService userService) : Controller
 	public async Task<IActionResult> Index()
     {
         var allUsers = await _userService.GetAllAsync();
-        // show the List.cshtml view with the users model
         return View("List", allUsers);
     }
 
