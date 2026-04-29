@@ -1,4 +1,225 @@
-﻿@{
+﻿@model IEnumerable<VaatcoBMS.Application.DTOs.Customer.CustomerDto>
+
+@{
+  ViewData["Title"] = "Customers";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Anti-Forgery Token for JS-generated Delete forms -->
+@Html.AntiForgeryToken()
+
+<!-- Stats Section -->
+<div class="stat-grid" style="margin-bottom: 20px;">
+  <div class="stat-card">
+    <div class="stat-icon blue"><i class="bi bi-building"></i></div>
+    <div>
+      <div class="stat-label">Total Customers</div>
+      <div class="stat-value" id="statTotal">
+        <span class="spinner-border spinner-border-sm text-primary" role="status"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Directory Card -->
+<div class="vcard">
+  <div class="vcard-header" style="display: flex; align-items: center; flex-wrap: wrap; gap: 15px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <i class="bi bi-building" style="font-size:18px; color:#64748b;"></i>
+      <span class="vcard-title" style="margin: 0; font-size: 1.1rem; font-weight: 600;">Customer Directory</span>
+    </div>
+
+    <div style="margin-left: auto; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <!-- Search Bar -->
+      <div class="search-bar" style="position: relative; display: flex; align-items: center;">
+        <i class="bi bi-search" style="position: absolute; left: 10px; color: #94a3b8;"></i>
+        <input type="text" id="custSearch" placeholder="Search customers…" style="padding-left: 32px; border: 1px solid #cbd5e1; border-radius: 6px; padding-top: 6px; padding-bottom: 6px; outline: none; width: 250px;" />
+      </div>
+
+      <!-- Create Button -->
+      <a asp-action="Create" class="btn-primary-v" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 6px; text-decoration: none;">
+        <i class="bi bi-plus-lg"></i> New Customer
+      </a>
+    </div>
+  </div>
+
+  <!-- Table Section -->
+  <div style="overflow-x:auto;">
+    <table class="vtable" style="width: 100%; border-collapse: collapse;">
+      <thead>
+        <tr style="border-bottom: 2px solid #e2e8f0; text-align: left;">
+          <th style="padding: 12px 16px;">Name</th>
+          <th style="padding: 12px 16px;">Contact</th>
+          <th style="padding: 12px 16px;">Email</th>
+          <th style="padding: 12px 16px;">Phone</th>
+          <th style="padding: 12px 16px;">City</th>
+          <th style="text-align:right; padding: 12px 16px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="customerBody">
+        <!-- Initial Loading State -->
+        <tr>
+          <td colspan="6" style="text-align:center; padding:48px; color:var(--text-muted);">
+            <div class="spinner-border text-primary" role="status" style="margin-bottom: 10px;"></div>
+            <div>Loading directory...</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination Container -->
+  <div id="paginationContainer" style="padding: 16px; border-top: 1px solid #f1f5f9; background: #fafafa;"></div>
+</div>
+
+@section Scripts {
+  <script>
+    // 1. The Current State payload
+    var state = {
+        page: 1,
+        pageSize: 20,
+        search: ''
+    };
+
+    // Standardize the base path for your controller actions
+    var basePath = '/Customers';
+
+    $(function () {
+        loadCustomers();
+
+        // Search typing logic with Debounce
+        var typingTimer;
+        $('#custSearch').on('keyup', function () {
+            clearTimeout(typingTimer);
+            var val = $(this).val();
+            typingTimer = setTimeout(function () {
+                state.search = val;
+                state.page = 1;      // Reset to page 1 on new search
+                loadCustomers();
+            }, 400); // 400ms delay
+        });
+    });
+
+    // 2. Fetch the data from the backend API
+    function loadCustomers() {
+        var qs = `?page=${state.page}&pageSize=${state.pageSize}&search=${encodeURIComponent(state.search)}`;
+
+        $.get('/api/customers' + qs)
+            .done(function (res) {
+                var html = '';
+                if (!res.data || !res.data.length) {
+                    html = `<tr><td colspan="6" style="text-align:center;padding:60px;color:#94a3b8;">
+                              <i class="bi bi-inbox" style="font-size:42px;display:block;margin-bottom:12px;color:#cbd5e1;"></i>
+                              No customers found matching your criteria.
+                            </td></tr>`;
+                } else {
+                    html = res.data.map(buildCustomerRow).join('');
+                }
+
+                $('#customerBody').html(html);
+
+                // Update stats
+                $('#statTotal').text(res.meta?.totalCount?.toLocaleString() ?? 0);
+
+                // 3. MAGIC: Pass the API Meta object right into the pagination renderer!
+                renderPagination(res.meta);
+            })
+            .fail(function () {
+                $('#customerBody').html(`<tr><td colspan="6" style="text-align:center;color:#ef4444;padding:30px;">
+                    <i class="bi bi-exclamation-triangle" style="font-size:24px;display:block;margin-bottom:8px;"></i>
+                    Failed to load data. Please refresh the page.
+                </td></tr>`);
+                $('#statTotal').text('—');
+            });
+    }
+
+    // 4. Draw the HTML for a single row (Merged with standard MVC routing)
+    function buildCustomerRow(c) {
+        // Grab the anti-forgery token from the hidden input placed at the top of the view
+        var token = $('input[name="__RequestVerificationToken"]').val();
+
+        return `<tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.2s;">
+            <td style="padding: 12px 16px; font-weight:600; color:#334155;">${c.name}</td>
+            <td style="padding: 12px 16px; color:#64748b;">${c.contactPerson || '—'}</td>
+            <td style="padding: 12px 16px; color:#64748b;">${c.email || '—'}</td>
+            <td style="padding: 12px 16px; font-weight:500;">${c.phone}</td>
+            <td style="padding: 12px 16px;"><span class="vbadge blue" style="background:#e0f2fe; color:#0369a1; padding:4px 8px; border-radius:12px; font-size:12px;">${c.city || '—'}</span></td>
+            <td style="text-align:right; padding: 12px 16px;">
+                <div style="display:flex; justify-content:flex-end; gap:6px;">
+                    <a href="${basePath}/Details/${c.id}" class="btn-action" title="View" style="color:#64748b; padding:6px; text-decoration:none;">
+                        <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="${basePath}/Edit/${c.id}" class="btn-action edit" title="Edit" style="color:#3b82f6; padding:6px; text-decoration:none;">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                    ${c.id > 0 ? `
+                    <form action="${basePath}/Delete/${c.id}" method="post" style="margin:0; display:inline;" onsubmit="return confirm('Are you sure you want to delete this customer?');">
+                        <input type="hidden" name="__RequestVerificationToken" value="${token}" />
+                        <button type="submit" class="btn-action delete" title="Delete" style="color:#ef4444; border:none; background:transparent; padding:6px; cursor:pointer;">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </form>` : ''}
+                </div>
+            </td>
+        </tr>`;
+    }
+
+    // 5. The REUSABLE Pagination Renderer
+    function renderPagination(meta) {
+        if (!meta || meta.totalPages <= 1) {
+            $('#paginationContainer').html(
+                `<div class="vpager" style="text-align:right; color:#64748b; font-size:14px;">Showing ${meta?.totalCount?.toLocaleString() ?? 0} customers</div>`
+            );
+            return;
+        }
+
+        var start = Math.max(1, meta.page - 2);
+        var end   = Math.min(meta.totalPages, start + 4);
+        if (end - start < 4) start = Math.max(1, end - 4);
+
+        var pageButtons = '';
+        for (var p = start; p <= end; p++) {
+            pageButtons += `<button class="vpager-btn${p === meta.page ? ' active' : ''}"
+                                    onclick="changePage(${p})"
+                                    style="border:1px solid #cbd5e1; background:${p === meta.page ? '#3b82f6' : '#fff'}; color:${p === meta.page ? '#fff' : '#475569'}; padding:6px 12px; border-radius:4px; cursor:pointer;">${p}</button>`;
+        }
+
+        var sizeOptions = [10, 20, 50, 100].map(function (sz) {
+            return `<option value="${sz}"${sz === meta.pageSize ? ' selected' : ''}>${sz} / page</option>`;
+        }).join('');
+
+        $('#paginationContainer').html(`
+            <div class="vpager" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                <span class="vpager-info" style="color:#64748b; font-size:14px;">
+                    Page <strong>${meta.page}</strong> of <strong>${meta.totalPages}</strong>
+                    &nbsp;·&nbsp; ${meta.totalCount.toLocaleString()} records
+                </span>
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <button class="vpager-btn" onclick="changePage(1)" ${meta.hasPrev ? '' : 'disabled'} title="First" style="border:1px solid #cbd5e1; background:#fff; padding:6px 10px; border-radius:4px; cursor:${meta.hasPrev ? 'pointer' : 'not-allowed'}; opacity:${meta.hasPrev ? '1' : '0.5'};">«</button>
+                    <button class="vpager-btn" onclick="changePage(${meta.page - 1})" ${meta.hasPrev ? '' : 'disabled'} title="Prev" style="border:1px solid #cbd5e1; background:#fff; padding:6px 10px; border-radius:4px; cursor:${meta.hasPrev ? 'pointer' : 'not-allowed'}; opacity:${meta.hasPrev ? '1' : '0.5'};">‹</button>
+
+                    ${pageButtons}
+
+                    <button class="vpager-btn" onclick="changePage(${meta.page + 1})" ${meta.hasNext ? '' : 'disabled'} title="Next" style="border:1px solid #cbd5e1; background:#fff; padding:6px 10px; border-radius:4px; cursor:${meta.hasNext ? 'pointer' : 'not-allowed'}; opacity:${meta.hasNext ? '1' : '0.5'};">›</button>
+                    <button class="vpager-btn" onclick="changePage(${meta.totalPages})" ${meta.hasNext ? '' : 'disabled'} title="Last" style="border:1px solid #cbd5e1; background:#fff; padding:6px 10px; border-radius:4px; cursor:${meta.hasNext ? 'pointer' : 'not-allowed'}; opacity:${meta.hasNext ? '1' : '0.5'};">»</button>
+
+                    <select onchange="changePageSize(this.value)" class="form-control-v" style="margin-left:12px; border:1px solid #cbd5e1; border-radius:4px; padding:6px 8px; font-size:13px; color:#475569; outline:none; cursor:pointer;">
+                        ${sizeOptions}
+                    </select>
+                </div>
+            </div>`);
+    }
+
+    // Pagination Triggers
+    function changePage(p) { state.page = p; loadCustomers(); }
+    function changePageSize(s){ state.pageSize = parseInt(s); state.page = 1; loadCustomers(); }
+  </script>
+}
+
+
+
+
+@* @{
   ViewData["Title"] = "Customers";
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -172,4 +393,4 @@
     function changePage(p) { state.page = p; loadCustomers(); }
     function changePageSize(s){ state.pageSize = parseInt(s); state.page = 1; loadCustomers(); }
   </script>
-}
+} *@
