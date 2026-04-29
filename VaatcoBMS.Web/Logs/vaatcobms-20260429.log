@@ -1035,3 +1035,52 @@ System.InvalidOperationException: The view 'ManageAdmins' was not found. The fol
 2026-04-29 16:40:58.139 +06:00 [INF] GET /api/products?pageSize=1&stockStatus=OK => 200 in 13ms
 2026-04-29 16:40:58.184 +06:00 [INF] GET /api/products?page=1&pageSize=20&search=&stockStatus=&isActive=&sortBy=name&sortDir=asc => 200 in 62ms
 2026-04-29 16:40:58.191 +06:00 [INF] GET /api/products?pageSize=1&stockStatus=Low => 200 in 64ms
+2026-04-29 23:03:19.690 +06:00 [INF] GET /css/pagination.css?v=rfOGRPnozQEnbgPlKfPx-iBcWx-P9pcxckTPx4KpiJY => 304 in 7ms
+2026-04-29 23:03:19.690 +06:00 [INF] GET / => 200 in 365ms
+2026-04-29 23:03:47.260 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-29 23:03:47.392 +06:00 [INF] GET /api/users/pending => 200 in 7379ms
+2026-04-29 23:03:48.044 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-29 23:03:48.050 +06:00 [INF] GET /api/users/pending => 200 in 28083ms
+2026-04-29 23:03:48.521 +06:00 [INF] Found 1 products with low stock (threshold: 10)
+2026-04-29 23:03:48.545 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 28556ms
+2026-04-29 23:03:48.545 +06:00 [INF] GET /api/invoices/stats => 200 in 28559ms
+2026-04-29 23:03:49.000 +06:00 [INF] GET /api/customers => 200 in 29014ms
+2026-04-29 23:03:49.868 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 29881ms
+2026-04-29 23:04:08.727 +06:00 [INF] GET /Invoices => 200 in 632ms
+2026-04-29 23:04:08.820 +06:00 [INF] GET /api/invoices/stats => 200 in 7ms
+2026-04-29 23:04:08.824 +06:00 [INF] GET /api/invoices?page=1&pageSize=20&search=&status= => 200 in 11ms
+2026-04-29 23:04:08.898 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-29 23:04:08.902 +06:00 [INF] GET /api/users/pending => 200 in 110ms
+2026-04-29 23:04:22.798 +06:00 [INF] GET /api/invoices?page=1&pageSize=20&search=Abc%20&status= => 200 in 3496ms
+2026-04-29 23:04:23.611 +06:00 [INF] GET /api/invoices?page=1&pageSize=20&search=Ab&status= => 200 in 9315ms
+2026-04-29 23:04:24.453 +06:00 [INF] GET /api/invoices?page=1&pageSize=20&search=Ab&status= => 200 in 839ms
+2026-04-29 23:04:24.743 +06:00 [INF] GET /api/invoices?page=1&pageSize=20&search=Ab&status= => 200 in 286ms
+2026-04-29 23:04:25.835 +06:00 [INF] GET /api/invoices?page=1&pageSize=20&search=&status= => 200 in 106ms
+2026-04-29 23:04:26.499 +06:00 [INF] GET /api/invoices?page=1&pageSize=20&search=a&status= => 200 in 135ms
+2026-04-29 23:04:27.544 +06:00 [INF] GET /api/invoices?page=1&pageSize=20&search=ac&status= => 200 in 83ms
+2026-04-29 23:04:28.899 +06:00 [INF] GET /api/invoices?page=1&pageSize=20&search=a&status= => 200 in 94ms
+2026-04-29 23:04:29.378 +06:00 [INF] GET /api/invoices?page=1&pageSize=20&search=av&status= => 200 in 7ms
+2026-04-29 23:04:30.391 +06:00 [INF] GET /api/invoices?page=1&pageSize=20&search=a&status= => 200 in 8ms
+2026-04-29 23:04:31.612 +06:00 [INF] GET /api/invoices?page=1&pageSize=20&search=ab&status= => 200 in 6ms
+2026-04-29 23:04:33.288 +06:00 [INF] GET /api/invoices?page=1&pageSize=20&search=&status= => 200 in 105ms
+2026-04-29 23:32:56.192 +06:00 [INF] GET / => 200 in 5978ms
+2026-04-29 23:33:08.590 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-29 23:33:08.590 +06:00 [INF] Found 1 products with low stock (threshold: 10)
+2026-04-29 23:33:08.736 +06:00 [INF] GET /api/users/pending => 200 in 12211ms
+2026-04-29 23:33:08.736 +06:00 [INF] GET /api/invoices/stats => 200 in 12183ms
+2026-04-29 23:33:08.745 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 12187ms
+2026-04-29 23:33:08.753 +06:00 [INF] GET /api/customers => 200 in 12198ms
+2026-04-29 23:33:08.757 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-29 23:33:08.770 +06:00 [INF] GET /api/users/pending => 200 in 29ms
+2026-04-29 23:33:08.785 +06:00 [INF] GET /Products => 200 in 3555ms
+2026-04-29 23:33:08.850 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 12294ms
+2026-04-29 23:33:08.948 +06:00 [INF] Retrieved 0 pending approval users
+2026-04-29 23:33:09.050 +06:00 [INF] GET /api/users/pending => 200 in 187ms
+2026-04-29 23:33:09.058 +06:00 [INF] GET /api/products?page=1&pageSize=20&search=&stockStatus=&isActive=&sortBy=name&sortDir=asc => 200 in 155ms
+2026-04-29 23:33:09.064 +06:00 [INF] GET /api/products?pageSize=1&stockStatus=OK => 200 in 160ms
+2026-04-29 23:33:09.088 +06:00 [INF] GET /api/products?pageSize=1&stockStatus=Low => 200 in 182ms
+2026-04-29 23:33:09.091 +06:00 [INF] GET /api/products?pageSize=1&stockStatus=Out%20of%20Stock => 200 in 183ms
+2026-04-29 23:33:09.120 +06:00 [INF] GET /api/products?pageSize=1&isActive=true => 200 in 217ms
+2026-04-29 23:33:14.106 +06:00 [INF] GET /api/products?page=1&pageSize=20&search=V&stockStatus=&isActive=&sortBy=name&sortDir=asc => 200 in 387ms
+2026-04-29 23:33:14.118 +06:00 [INF] GET /api/products?page=1&pageSize=20&search=Va&stockStatus=&isActive=&sortBy=name&sortDir=asc => 200 in 35ms
+2026-04-29 23:33:16.626 +06:00 [INF] GET /api/products?page=1&pageSize=20&search=&stockStatus=&isActive=&sortBy=name&sortDir=asc => 200 in 12ms

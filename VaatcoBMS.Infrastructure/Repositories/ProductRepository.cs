@@ -25,16 +25,17 @@ public class ProductRepository(AppDbContext ctx) : Repository<Product>(ctx), IPr
 	public async Task<PagedResult<Product>> GetPagedAsync(ProductQueryParams q)
 	{
 		// 1. Base query – no tracking, no data yet
-		IQueryable<Product> query = _set.AsNoTracking();
+	IQueryable<Product> query = _set.AsNoTracking();
 
 		// 2. Filters
 		if (!string.IsNullOrWhiteSpace(q.Search))
 		{
 			// EF Core translates this to a parameterised LIKE '%term%'
-			var term = q.Search.Trim().ToLower();
+			var term = q.Search.Trim();
+			var pattern = $"%{term}%";
 			query = query.Where(p =>
-					p.Name.Contains(term, StringComparison.CurrentCultureIgnoreCase) ||
-					p.Code.Contains(term, StringComparison.CurrentCultureIgnoreCase));
+					EF.Functions.Like(p.Name, pattern) ||
+					EF.Functions.Like(p.Code, pattern));
 		}
 
 		if (q.IsActive.HasValue)
