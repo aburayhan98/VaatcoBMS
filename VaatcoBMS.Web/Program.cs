@@ -142,11 +142,14 @@ builder.Services.AddSession(o => o.IdleTimeout = TimeSpan.FromHours(8));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
-if (!app.Environment.IsDevelopment())
-{
-	app.UseExceptionHandler("/Home/Error");
-	app.UseHsts();
-}
+//if (!app.Environment.IsDevelopment())
+//{
+//	app.UseExceptionHandler("/Home/Error");
+//	app.UseHsts();
+//}
+
+app.UseExceptionHandler("/Home/Error");
+app.UseHsts();
 
 // Middleware pipeline (order matters!)
 app.UseMiddleware<ExceptionHandlingMiddleware>();

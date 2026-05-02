@@ -1,0 +1,138 @@
+2026-05-02 23:02:29.340 +06:00 [INF] GET / => 200 in 6382ms
+2026-05-02 23:02:29.420 +06:00 [INF] GET /css/pagination.css?v=rfOGRPnozQEnbgPlKfPx-iBcWx-P9pcxckTPx4KpiJY => 200 in 30ms
+2026-05-02 23:02:29.440 +06:00 [INF] GET /css/site.css?v=JHook7q1pfCQ622gj7P0hDjpdH_FiVqakQxFBj76wYA => 200 in 50ms
+2026-05-02 23:02:29.447 +06:00 [INF] GET /css/layout.css?v=QMPHCxA_6v7NLe0Yn5HIKELfUHSCYtDRPyAMJdId3Z0 => 200 in 55ms
+2026-05-02 23:02:35.402 +06:00 [INF] GET /auth/logout => 302 in 969ms
+2026-05-02 23:02:37.111 +06:00 [INF] GET /auth/login => 200 in 1678ms
+2026-05-02 23:02:37.152 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 3ms
+2026-05-02 23:02:37.222 +06:00 [INF] GET /css/site.css => 200 in 72ms
+2026-05-02 23:02:37.235 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-05-02 23:02:39.011 +06:00 [INF] GET /images/vaatco_logo.jpeg => 200 in 1856ms
+2026-05-02 23:02:39.019 +06:00 [INF] GET /css/auth.css => 200 in 1868ms
+2026-05-02 23:02:42.113 +06:00 [INF] GET /lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js => 200 in 4100ms
+2026-05-02 23:02:42.472 +06:00 [INF] GET /lib/jquery-validation/dist/jquery.validate.min.js => 200 in 5069ms
+2026-05-02 23:02:42.722 +06:00 [INF] GET /js/site.js => 200 in 5478ms
+2026-05-02 23:02:42.874 +06:00 [INF] GET /lib/jquery/dist/jquery.min.js => 200 in 5682ms
+2026-05-02 23:02:48.545 +06:00 [INF] Found 1 products with low stock (threshold: 10)
+2026-05-02 23:02:48.545 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:02:48.881 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 19091ms
+2026-05-02 23:02:48.881 +06:00 [INF] GET /api/users/pending => 200 in 19112ms
+2026-05-02 23:02:48.890 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:02:48.894 +06:00 [INF] GET /api/users/pending => 200 in 11764ms
+2026-05-02 23:02:48.933 +06:00 [INF] GET /api/invoices/stats => 200 in 19143ms
+2026-05-02 23:02:49.366 +06:00 [INF] GET /api/customers => 200 in 19577ms
+2026-05-02 23:02:50.579 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 20789ms
+2026-05-02 23:03:03.401 +06:00 [INF] Login: aburayhan00457@gmail.com
+2026-05-02 23:03:03.429 +06:00 [INF] POST /auth/login => 302 in 546ms
+2026-05-02 23:03:03.456 +06:00 [INF] GET / => 200 in 4ms
+2026-05-02 23:03:03.569 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:03:03.589 +06:00 [INF] GET /api/users/pending => 200 in 46ms
+2026-05-02 23:03:03.615 +06:00 [INF] Found 1 products with low stock (threshold: 10)
+2026-05-02 23:03:03.620 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 50ms
+2026-05-02 23:03:04.217 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:03:04.221 +06:00 [INF] GET /api/users/pending => 200 in 629ms
+2026-05-02 23:03:04.227 +06:00 [INF] GET /api/invoices/stats => 200 in 665ms
+2026-05-02 23:03:06.566 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 2996ms
+2026-05-02 23:03:06.586 +06:00 [INF] GET /api/customers => 200 in 3024ms
+2026-05-02 23:03:45.873 +06:00 [INF] GET / => 200 in 5ms
+2026-05-02 23:03:46.016 +06:00 [INF] GET /favicon.ico => 200 in 24ms
+2026-05-02 23:03:46.069 +06:00 [INF] Found 1 products with low stock (threshold: 10)
+2026-05-02 23:03:46.070 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:03:46.077 +06:00 [INF] GET /api/users/pending => 200 in 159ms
+2026-05-02 23:03:46.077 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 136ms
+2026-05-02 23:03:46.078 +06:00 [INF] GET /api/invoices/stats => 200 in 141ms
+2026-05-02 23:03:46.086 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:03:46.095 +06:00 [INF] GET /api/users/pending => 200 in 13ms
+2026-05-02 23:03:46.109 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 168ms
+2026-05-02 23:03:46.124 +06:00 [INF] GET /api/customers => 200 in 184ms
+2026-05-02 23:03:50.614 +06:00 [INF] GET /auth/logout => 302 in 2ms
+2026-05-02 23:03:50.721 +06:00 [INF] GET /auth/login => 200 in 95ms
+2026-05-02 23:03:50.734 +06:00 [INF] GET /lib/bootstrap/js/bootstrap.bundle.min.js => 404 in 0ms
+2026-05-02 23:03:50.734 +06:00 [INF] GET /lib/bootstrap/css/bootstrap.min.css => 404 in 0ms
+2026-05-02 23:03:54.810 +06:00 [INF] Login: aburayhan00457@gmail.com
+2026-05-02 23:03:54.814 +06:00 [INF] POST /auth/login => 302 in 265ms
+2026-05-02 23:03:54.830 +06:00 [INF] GET / => 200 in 2ms
+2026-05-02 23:03:54.892 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:03:54.905 +06:00 [INF] GET /api/users/pending => 200 in 36ms
+2026-05-02 23:03:54.912 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:03:54.914 +06:00 [INF] Found 1 products with low stock (threshold: 10)
+2026-05-02 23:03:54.921 +06:00 [INF] GET /api/invoices/stats => 200 in 26ms
+2026-05-02 23:03:54.921 +06:00 [INF] GET /api/customers => 200 in 26ms
+2026-05-02 23:03:54.924 +06:00 [INF] GET /api/users/pending => 200 in 17ms
+2026-05-02 23:03:54.933 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 33ms
+2026-05-02 23:03:55.436 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 531ms
+2026-05-02 23:03:58.192 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:03:58.211 +06:00 [INF] GET /admin/pending => 200 in 85ms
+2026-05-02 23:03:58.274 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:03:58.281 +06:00 [INF] GET /api/users/pending => 200 in 38ms
+2026-05-02 23:03:59.193 +06:00 [INF] GET /Users/List => 200 in 79ms
+2026-05-02 23:03:59.232 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:03:59.235 +06:00 [INF] GET /api/users/pending => 200 in 11ms
+2026-05-02 23:04:01.229 +06:00 [INF] GET /admin/create-user => 200 in 60ms
+2026-05-02 23:04:01.301 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:04:01.307 +06:00 [INF] GET /api/users/pending => 200 in 18ms
+2026-05-02 23:04:02.670 +06:00 [ERR] The view 'ManageAdmins' was not found. Searched locations: ["/Views/Admin/ManageAdmins.cshtml","/Views/Shared/ManageAdmins.cshtml"]
+2026-05-02 23:04:02.681 +06:00 [WRN] Bad request: /admin/manage-admins
+System.InvalidOperationException: The view 'ManageAdmins' was not found. The following locations were searched:
+/Views/Admin/ManageAdmins.cshtml
+/Views/Shared/ManageAdmins.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at VaatcoBMS.Web.Middleware.RequestLoggingMiddleware.InvokeAsync(HttpContext ctx)
+   at VaatcoBMS.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext ctx)
+2026-05-02 23:04:02.718 +06:00 [INF] GET /Auth/Login?error=The%20view%20%27ManageAdmins%27%20was%20not%20found.%20The%20following%20locations%20were%20searched%3A%0D%0A%2FViews%2FAdmin%2FManageAdmins.cshtml%0D%0A%2FViews%2FShared%2FManageAdmins.cshtml => 302 in 1ms
+2026-05-02 23:04:02.731 +06:00 [INF] GET / => 200 in 0ms
+2026-05-02 23:04:02.770 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:04:02.773 +06:00 [INF] GET /api/users/pending => 200 in 10ms
+2026-05-02 23:04:02.805 +06:00 [INF] Found 1 products with low stock (threshold: 10)
+2026-05-02 23:04:02.805 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:04:02.812 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 15ms
+2026-05-02 23:04:02.813 +06:00 [INF] GET /api/invoices/stats => 200 in 18ms
+2026-05-02 23:04:02.815 +06:00 [INF] GET /api/users/pending => 200 in 16ms
+2026-05-02 23:04:02.823 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 26ms
+2026-05-02 23:04:02.846 +06:00 [INF] GET /api/customers => 200 in 51ms
+2026-05-02 23:04:03.792 +06:00 [INF] GET /Customers => 200 in 87ms
+2026-05-02 23:04:03.847 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:04:03.852 +06:00 [INF] GET /api/users/pending => 200 in 15ms
+2026-05-02 23:04:03.881 +06:00 [INF] GET /api/customers?page=1&pageSize=20&search= => 200 in 26ms
+2026-05-02 23:04:04.713 +06:00 [INF] GET /Products => 200 in 112ms
+2026-05-02 23:04:04.770 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:04:04.774 +06:00 [INF] GET /api/users/pending => 200 in 16ms
+2026-05-02 23:04:04.997 +06:00 [INF] GET /api/products?page=1&pageSize=20&search=&stockStatus=&isActive=&sortBy=name&sortDir=asc => 200 in 216ms
+2026-05-02 23:04:05.068 +06:00 [INF] GET /api/products?pageSize=1&stockStatus=OK => 200 in 284ms
+2026-05-02 23:04:05.080 +06:00 [INF] GET /api/products?pageSize=1&stockStatus=Low => 200 in 296ms
+2026-05-02 23:04:05.104 +06:00 [INF] GET /api/products?pageSize=1&stockStatus=Out%20of%20Stock => 200 in 319ms
+2026-05-02 23:04:05.120 +06:00 [INF] GET /api/products?pageSize=1&isActive=true => 200 in 339ms
+2026-05-02 23:04:05.817 +06:00 [INF] GET /Invoices => 200 in 415ms
+2026-05-02 23:04:05.884 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:04:05.896 +06:00 [INF] GET /api/invoices/stats => 200 in 20ms
+2026-05-02 23:04:05.898 +06:00 [INF] GET /api/users/pending => 200 in 33ms
+2026-05-02 23:04:05.920 +06:00 [INF] GET /api/invoices?page=1&pageSize=20&search=&status= => 200 in 44ms
+2026-05-02 23:04:08.469 +06:00 [INF] GET /Home/Index => 200 in 1ms
+2026-05-02 23:04:08.540 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:04:08.563 +06:00 [INF] GET /api/users/pending => 200 in 40ms
+2026-05-02 23:04:08.563 +06:00 [INF] GET /api/customers => 200 in 21ms
+2026-05-02 23:04:08.565 +06:00 [INF] GET /api/invoices/stats => 200 in 24ms
+2026-05-02 23:04:08.585 +06:00 [INF] Retrieved 0 pending approval users
+2026-05-02 23:04:08.587 +06:00 [INF] Found 1 products with low stock (threshold: 10)
+2026-05-02 23:04:08.588 +06:00 [INF] GET /api/users/pending => 200 in 21ms
+2026-05-02 23:04:08.591 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 46ms
+2026-05-02 23:04:08.594 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 49ms
