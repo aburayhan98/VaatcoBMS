@@ -1,0 +1,40 @@
+2026-05-03 02:49:01.184 +06:00 [INF] GET / => 200 in 12003ms
+2026-05-03 02:49:30.491 +06:00 [INF] GET /auth/logout => 302 in 31ms
+2026-05-03 02:49:30.646 +06:00 [INF] GET /auth/login => 200 in 97ms
+2026-05-03 03:22:47.639 +06:00 [INF] GET / => 302 in 74ms
+2026-05-03 03:22:49.134 +06:00 [INF] GET /auth/login => 200 in 1338ms
+2026-05-03 03:23:10.704 +06:00 [INF] GET /.well-known/appspecific/com.chrome.devtools.json => 404 in 6ms
+2026-05-03 16:04:08.493 +06:00 [INF] GET / => 302 in 17157ms
+2026-05-03 16:04:13.598 +06:00 [INF] GET /auth/login => 200 in 4754ms
+2026-05-03 16:04:59.812 +06:00 [INF] Login: aburayhan00457@gmail.com
+2026-05-03 16:04:59.911 +06:00 [INF] POST /auth/login => 302 in 35670ms
+2026-05-03 16:05:01.012 +06:00 [INF] GET / => 200 in 1086ms
+2026-05-03 16:05:01.037 +06:00 [INF] GET /css/pagination.css?v=rfOGRPnozQEnbgPlKfPx-iBcWx-P9pcxckTPx4KpiJY => 304 in 9ms
+2026-05-03 16:05:01.163 +06:00 [INF] Retrieved 2 pending approval users
+2026-05-03 16:05:01.329 +06:00 [INF] GET /api/users/pending => 200 in 269ms
+2026-05-03 16:05:01.576 +06:00 [INF] Found 1 products with low stock (threshold: 10)
+2026-05-03 16:05:01.595 +06:00 [INF] GET /api/products/low-stock?threshold=10 => 200 in 467ms
+2026-05-03 16:05:01.647 +06:00 [INF] GET /api/invoices/stats => 200 in 521ms
+2026-05-03 16:05:09.646 +06:00 [INF] GET / => 200 in 2ms
+2026-05-03 16:05:09.767 +06:00 [INF] Retrieved 2 pending approval users
+2026-05-03 16:05:09.770 +06:00 [INF] GET /api/users/pending => 200 in 78ms
+2026-05-03 16:05:09.820 +06:00 [INF] GET /api/invoices/stats => 200 in 115ms
+2026-05-03 16:05:09.827 +06:00 [INF] Retrieved 2 pending approval users
+2026-05-03 16:05:09.830 +06:00 [INF] GET /api/users/pending => 200 in 58ms
+2026-05-03 16:05:20.823 +06:00 [INF] Retrieved 2 pending approval users
+2026-05-03 16:05:20.837 +06:00 [INF] GET /admin/pending => 200 in 78ms
+2026-05-03 16:05:20.922 +06:00 [INF] Retrieved 2 pending approval users
+2026-05-03 16:05:20.926 +06:00 [INF] GET /api/users/pending => 200 in 57ms
+2026-05-03 16:05:23.098 +06:00 [INF] Retrieved 2 pending approval users
+2026-05-03 16:05:23.106 +06:00 [INF] GET /api/users/pending => 200 in 21774ms
+2026-05-03 16:05:23.184 +06:00 [INF] GET /api/customers => 200 in 22058ms
+2026-05-03 16:05:23.218 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 22090ms
+2026-05-03 16:05:24.194 +06:00 [INF] GET /Home/Index => 200 in 1ms
+2026-05-03 16:05:24.284 +06:00 [INF] Retrieved 2 pending approval users
+2026-05-03 16:05:24.288 +06:00 [INF] GET /api/users/pending => 200 in 59ms
+2026-05-03 16:05:24.344 +06:00 [INF] Retrieved 2 pending approval users
+2026-05-03 16:05:24.346 +06:00 [INF] GET /api/users/pending => 200 in 56ms
+2026-05-03 16:05:24.362 +06:00 [INF] GET /api/invoices/stats => 200 in 110ms
+2026-05-03 16:05:24.367 +06:00 [INF] GET /api/invoices?page=1&size=6 => 200 in 113ms
+2026-05-03 16:05:26.919 +06:00 [INF] GET /auth/logout => 302 in 4ms
+2026-05-03 16:05:26.937 +06:00 [INF] GET /auth/login => 200 in 3ms
