@@ -164,15 +164,26 @@
                 icon.removeClass("bi-eye-slash").addClass("bi-eye");
             }
         });
+        //Submit Spinner
+            $("#loginForm").on("submit", function () {
+        if ($(this).valid()) {
+            $("#loginBtn .btn-text").text("Signing in...");
+            $("#loginBtn .btn-spinner").removeClass("d-none");
 
-        // Submit Spinner
-        $("#loginForm").on("submit", function () {
-            if ($(this).valid()) {
-                $("#loginBtn .btn-text").text("Signing in...");
-                $("#loginBtn .btn-spinner").removeClass("d-none");
+            setTimeout(function () {
                 $("#loginBtn").prop("disabled", true);
-            }
-        });
+            }, 100);
+        }
+    });
+
+        // // Submit Spinner
+        // $("#loginForm").on("submit", function () {
+        //     if ($(this).valid()) {
+        //         $("#loginBtn .btn-text").text("Signing in...");
+        //         $("#loginBtn .btn-spinner").removeClass("d-none");
+        //         $("#loginBtn").prop("disabled", true);
+        //     }
+        // });
     });
   </script>
 }
