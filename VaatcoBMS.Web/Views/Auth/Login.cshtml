@@ -5,10 +5,44 @@
   var returnUrl = ViewData["ReturnUrl"] as string;
 }
 
+<style>
+  .demo-mode-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+</style>
+
 <div class="auth-card">
   <div class="text-center">
     <img src="~/images/vaatco_logo.jpeg" alt="Vaatco Logo" class="vaatco-logo img-fluid" />
+
+    <div class="demo-mode-badge mt-3 mb-2">
+      <i class="bi bi-display"></i>
+      Demo Mode
+    </div>
+
     <p class="auth-sub mb-4">Manage your enterprise data securely.</p>
+  </div>
+
+  @* <div class="alert alert-info text-center mb-3">
+    <strong>Demo Access</strong><br />
+    Email: <b>aburayhan00457@gmail.com</b><br />
+    Password: <b>VaatcoAdmin123!</b><br />
+    <small>This is for demonstration purposes only.</small>
+  </div> *@
+
+  <div class="text-center mb-3">
+    <button type="button" class="btn btn-outline-secondary btn-sm" id="useDemo">
+      Use Demo Account
+    </button>
   </div>
 
   <form asp-action="Login" method="post" id="loginForm" novalidate>
@@ -18,15 +52,23 @@
     <div asp-validation-summary="ModelOnly" class="validation-message mb-3"></div>
 
     <div class="row">
-      <!-- Row 1: Email and Password Side-by-Side -->
       <div class="col-md-6 mb-3 pb-1">
-        <input asp-for="Email" class="material-input" placeholder="Email Address" autocomplete="email" />
+        <input asp-for="Email"
+               class="material-input"
+               placeholder="Email Address"
+               autocomplete="email" />
         <span asp-validation-for="Email" class="validation-message"></span>
       </div>
 
       <div class="col-md-6 mb-3 pb-1 password-box">
         <div class="position-relative">
-          <input asp-for="Password" type="password" class="material-input pe-5" placeholder="Password" id="passwordInput" autocomplete="current-password" />
+          <input asp-for="Password"
+                 type="password"
+                 class="material-input pe-5"
+                 placeholder="Password"
+                 id="passwordInput"
+                 autocomplete="current-password" />
+
           <button type="button" class="password-toggle" id="togglePassword" tabindex="-1">
             <i class="bi bi-eye" id="eyeIcon"></i>
           </button>
@@ -35,7 +77,6 @@
       </div>
     </div>
 
-    <!-- Row 2: Remember me & Forgot Password -->
     <div class="row mb-4 pb-2 align-items-center">
       <div class="col-6">
         <div class="d-flex align-items-center">
@@ -43,6 +84,7 @@
           <label for="rememberMe" class="custom-check-label user-select-none">Remember me</label>
         </div>
       </div>
+
       <div class="col-6 text-end">
         <a asp-controller="Auth" asp-action="ForgotPassword" class="forgot-link">Forgot Password?</a>
       </div>
@@ -56,6 +98,7 @@
         </button>
 
         <div class="social-login-text mt-4 mb-3">or sign in with</div>
+
         <div class="social-circles mb-4">
           <a href="#" class="social-circle bg-fb"><i class="bi bi-facebook"></i></a>
           <a href="#" class="social-circle bg-tw"><i class="bi bi-twitter"></i></a>
@@ -63,7 +106,9 @@
         </div>
 
         <div class="mt-4">
-          <a asp-controller="Auth" asp-action="Register" class="forgot-link">Don't have an account? Register</a>
+          <a asp-controller="Auth" asp-action="Register" class="forgot-link">
+            Don't have an account? Register
+          </a>
         </div>
       </div>
     </div>
@@ -72,50 +117,73 @@
 
 @section Scripts {
   <partial name="_ValidationScriptsPartial" />
-  <script>
-        $(document).ready(function () {
 
-            // Apply warning icons to validation messages
-            $.validator.setDefaults({
-                errorElement: "span",
-                errorClass: "validation-message",
-                highlight: function (element, errorClass, validClass) {
-                    $(element).addClass("input-validation-error");
-                },
-                unhighlight: function (element, errorClass, validClass) {
-                    $(element).removeClass("input-validation-error");
-                },
-                errorPlacement: function(error, element) {
-                    if (error.text() && !error.html().includes('bi-exclamation-circle')) {
-                        error.prepend('<i class="bi bi-exclamation-circle"></i> ');
-                    }
+  <script>
+    $(document).ready(function () {
+
+        // Demo Account Autofill
+        $("#useDemo").on("click", function () {
+            $("input[name='Email']").val("aburayhan00457@gmail.com");
+            $("#passwordInput").val("VaatcoAdmin123!");
+            $("#passwordInput").focus();
+        });
+
+        // Apply warning icons to validation messages
+        $.validator.setDefaults({
+            errorElement: "span",
+            errorClass: "validation-message",
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass("input-validation-error");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass("input-validation-error");
+            },
+            errorPlacement: function (error, element) {
+                if (error.text() && !error.html().includes('bi-exclamation-circle')) {
+                    error.prepend('<i class="bi bi-exclamation-circle"></i> ');
+                }
+
+                if (element.attr("id") === "passwordInput") {
+                    error.insertAfter(element.closest(".position-relative"));
+                } else {
                     error.insertAfter(element);
                 }
-            });
-
-            // Password Toggle
-            $("#togglePassword").on("click", function () {
-                const inp = $("#passwordInput");
-                const icon = $("#eyeIcon");
-                if (inp.attr("type") === "password") {
-                    inp.attr("type", "text");
-                    icon.removeClass("bi-eye").addClass("bi-eye-slash");
-                } else {
-                    inp.attr("type", "password");
-                    icon.removeClass("bi-eye-slash").addClass("bi-eye");
-                }
-            });
-
-        //Submit Spinner
-        $("#loginForm").on("submit", function () {
-    if ($(this).valid()) {
-        $("#loginBtn .btn-text").text("Signing in...");
-        $("#loginBtn .btn-spinner").removeClass("d-none");
-
-        setTimeout(function () {
-            $("#loginBtn").prop("disabled", true);
-        }, 100);
-         }
+            }
         });
+
+        // Password Toggle
+        $("#togglePassword").on("click", function () {
+            const inp = $("#passwordInput");
+            const icon = $("#eyeIcon");
+
+            if (inp.attr("type") === "password") {
+                inp.attr("type", "text");
+                icon.removeClass("bi-eye").addClass("bi-eye-slash");
+            } else {
+                inp.attr("type", "password");
+                icon.removeClass("bi-eye-slash").addClass("bi-eye");
+            }
+        });
+        //Submit Spinner
+            $("#loginForm").on("submit", function () {
+        if ($(this).valid()) {
+            $("#loginBtn .btn-text").text("Signing in...");
+            $("#loginBtn .btn-spinner").removeClass("d-none");
+
+            setTimeout(function () {
+                $("#loginBtn").prop("disabled", true);
+            }, 100);
+        }
+    });
+
+        // // Submit Spinner
+        // $("#loginForm").on("submit", function () {
+        //     if ($(this).valid()) {
+        //         $("#loginBtn .btn-text").text("Signing in...");
+        //         $("#loginBtn .btn-spinner").removeClass("d-none");
+        //         $("#loginBtn").prop("disabled", true);
+        //     }
+        // });
+    });
   </script>
 }
