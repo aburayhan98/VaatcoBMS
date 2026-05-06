@@ -1,78 +1,78 @@
 @model VaatcoBMS.Application.Model.Auth.LoginModel
 @{
-    ViewData["Title"] = "Sign In";
-    Layout = "~/Views/Shared/_AuthLayout.cshtml";
-    var returnUrl = ViewData["ReturnUrl"] as string;
+  ViewData["Title"] = "Sign In";
+  Layout = "~/Views/Shared/_AuthLayout.cshtml";
+  var returnUrl = ViewData["ReturnUrl"] as string;
 }
 
 <div class="auth-card">
-    <div class="text-center">
-        <img src="~/images/vaatco_logo.jpeg" alt="Vaatco Logo" class="vaatco-logo img-fluid" />
-        <p class="auth-sub mb-4">Manage your enterprise data securely.</p>
+  <div class="text-center">
+    <img src="~/images/vaatco_logo.jpeg" alt="Vaatco Logo" class="vaatco-logo img-fluid" />
+    <p class="auth-sub mb-4">Manage your enterprise data securely.</p>
+  </div>
+
+  <form asp-action="Login" method="post" id="loginForm" novalidate>
+    <input type="hidden" value="@returnUrl" name="returnUrl" />
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="ModelOnly" class="validation-message mb-3"></div>
+
+    <div class="row">
+      <!-- Row 1: Email and Password Side-by-Side -->
+      <div class="col-md-6 mb-3 pb-1">
+        <input asp-for="Email" class="material-input" placeholder="Email Address" autocomplete="email" />
+        <span asp-validation-for="Email" class="validation-message"></span>
+      </div>
+
+      <div class="col-md-6 mb-3 pb-1 password-box">
+        <div class="position-relative">
+          <input asp-for="Password" type="password" class="material-input pe-5" placeholder="Password" id="passwordInput" autocomplete="current-password" />
+          <button type="button" class="password-toggle" id="togglePassword" tabindex="-1">
+            <i class="bi bi-eye" id="eyeIcon"></i>
+          </button>
+        </div>
+        <span asp-validation-for="Password" class="validation-message"></span>
+      </div>
     </div>
 
-    <form asp-action="Login" method="post" id="loginForm" novalidate>
-        <input type="hidden" value="@returnUrl" name="returnUrl" />
-        @Html.AntiForgeryToken()
-        
-        <div asp-validation-summary="ModelOnly" class="validation-message mb-3"></div>
+    <!-- Row 2: Remember me & Forgot Password -->
+    <div class="row mb-4 pb-2 align-items-center">
+      <div class="col-6">
+        <div class="d-flex align-items-center">
+          <input type="checkbox" id="rememberMe" class="custom-check" />
+          <label for="rememberMe" class="custom-check-label user-select-none">Remember me</label>
+        </div>
+      </div>
+      <div class="col-6 text-end">
+        <a asp-controller="Auth" asp-action="ForgotPassword" class="forgot-link">Forgot Password?</a>
+      </div>
+    </div>
 
-        <div class="row">
-            <!-- Row 1: Email and Password Side-by-Side -->
-            <div class="col-md-6 mb-3 pb-1">
-                <input asp-for="Email" class="material-input" placeholder="Email Address" autocomplete="email" />
-                <span asp-validation-for="Email" class="validation-message"></span>
-            </div>
+    <div class="row justify-content-center mt-2">
+      <div class="col-md-8 text-center">
+        <button type="submit" class="btn w-100 btn-auth" id="loginBtn">
+          <span class="btn-text">Log In</span>
+          <span class="btn-spinner spinner-border spinner-border-sm d-none ms-2" role="status"></span>
+        </button>
 
-            <div class="col-md-6 mb-3 pb-1 password-box">
-                <div class="position-relative">
-                    <input asp-for="Password" type="password" class="material-input pe-5" placeholder="Password" id="passwordInput" autocomplete="current-password" />
-                    <button type="button" class="password-toggle" id="togglePassword" tabindex="-1">
-                        <i class="bi bi-eye" id="eyeIcon"></i>
-                    </button>
-                </div>
-                <span asp-validation-for="Password" class="validation-message"></span>
-            </div>
+        <div class="social-login-text mt-4 mb-3">or sign in with</div>
+        <div class="social-circles mb-4">
+          <a href="#" class="social-circle bg-fb"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="social-circle bg-tw"><i class="bi bi-twitter"></i></a>
+          <a href="#" class="social-circle bg-go"><i class="bi bi-google"></i></a>
         </div>
 
-        <!-- Row 2: Remember me & Forgot Password -->
-        <div class="row mb-4 pb-2 align-items-center">
-            <div class="col-6">
-                <div class="d-flex align-items-center">
-                    <input type="checkbox" id="rememberMe" class="custom-check" />
-                    <label for="rememberMe" class="custom-check-label user-select-none">Remember me</label>
-                </div>
-            </div>
-            <div class="col-6 text-end">
-                <a asp-controller="Auth" asp-action="ForgotPassword" class="forgot-link">Forgot Password?</a>
-            </div>
+        <div class="mt-4">
+          <a asp-controller="Auth" asp-action="Register" class="forgot-link">Don't have an account? Register</a>
         </div>
-
-        <div class="row justify-content-center mt-2">
-            <div class="col-md-8 text-center">
-                <button type="submit" class="btn w-100 btn-auth" id="loginBtn">
-                    <span class="btn-text">Log In</span>
-                    <span class="btn-spinner spinner-border spinner-border-sm d-none ms-2" role="status"></span>
-                </button>
-
-                <div class="social-login-text mt-4 mb-3">or sign in with</div>
-                <div class="social-circles mb-4">
-                    <a href="#" class="social-circle bg-fb"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="social-circle bg-tw"><i class="bi bi-twitter"></i></a>
-                    <a href="#" class="social-circle bg-go"><i class="bi bi-google"></i></a>
-                </div>
-
-                <div class="mt-4">
-                    <a asp-controller="Auth" asp-action="Register" class="forgot-link">Don't have an account? Register</a>
-                </div>
-            </div>
-        </div>
-    </form>
+      </div>
+    </div>
+  </form>
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script>
+  <partial name="_ValidationScriptsPartial" />
+  <script>
         $(document).ready(function () {
 
             // Apply warning icons to validation messages
@@ -106,14 +106,16 @@
                 }
             });
 
-            // Submit Spinner
-            $("#loginForm").on("submit", function () {
-                if ($(this).valid()) {
-                    $("#loginBtn .btn-text").text("Signing in...");
-                    $("#loginBtn .btn-spinner").removeClass("d-none");
-                    $("#loginBtn").prop("disabled", true);
-                }
-            });
+        //Submit Spinner
+        $("#loginForm").on("submit", function () {
+    if ($(this).valid()) {
+        $("#loginBtn .btn-text").text("Signing in...");
+        $("#loginBtn .btn-spinner").removeClass("d-none");
+
+        setTimeout(function () {
+            $("#loginBtn").prop("disabled", true);
+        }, 100);
+         }
         });
-    </script>
+  </script>
 }
